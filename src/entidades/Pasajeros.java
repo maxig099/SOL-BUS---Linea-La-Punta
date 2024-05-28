@@ -28,6 +28,16 @@ public class Pasajeros {
         this.estado = estado;
     }
 
+    public Pasajeros(int idPasajero, String Nombre, String Apellido, int dni, String correo, long telefono) {
+        this.idPasajero = idPasajero;
+        this.Nombre = Nombre;
+        this.Apellido = Apellido;
+        this.dni = dni;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
+
+    
     public Pasajeros(String Nombre, String Apellido, int dni, String correo, long telefono, boolean estado) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
@@ -98,7 +108,7 @@ public class Pasajeros {
 
     @Override
     public String toString() {
-        return "Pasajeros{" + "idPasajero=" + idPasajero + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", dni=" + dni + ", correo=" + correo + ", telefono=" + telefono + ", estado=" + estado + '}';
+        return "Pasajero: " + "ID Pasajero= " + idPasajero + ", Nombre= " + Nombre + ", Apellido= " + Apellido + ", DNI= " + dni + ", Correo= " + correo + ", Telefono= " + telefono + ", Estado= " + estado;
     }
 
    

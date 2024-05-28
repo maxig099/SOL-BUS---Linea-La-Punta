@@ -18,13 +18,18 @@ public class SOLBUSLineaLaPunta {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Pasajeros psj = new Pasajeros("Raul", "Diaz", 20346787, "diaz@raul.com", 266436636);
+       Pasajeros psj = new Pasajeros(1, "Lorenzo", "Muñoz", 40326787, "muñoz@lor.com", 266546636);
        PasajerosData x = new PasajerosData();
-     //x.crearPasajero(psj);
+    // x.crearPasajero(psj);
     
     //x.buscarPasajero(2);
-        
-          
+     // x.modificarPasajero(psj);
+      
+     for (Pasajeros pasaj : x.listarPasajeros()) {
+         System.out.println(psj);
+     }
+     
+    // x.eliminarPasajeros(2);
     }
 }
     
