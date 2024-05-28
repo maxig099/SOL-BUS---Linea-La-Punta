@@ -15,26 +15,27 @@ public class Colectivos {
     private String marca;
     private String modelo;
     private int capacidad;
+    private boolean estado;
 
-    public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad) {
+    public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad, boolean estado) {
         this.idColectivo = idColectivo;
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.capacidad = capacidad;
+        this.estado = estado;
     }
 
-    public Colectivos(String matricula, String marca, String modelo, int capacidad) {
+    public Colectivos(String matricula, String marca, String modelo, int capacidad, boolean estado) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.capacidad = capacidad;
+        this.estado = estado;
     }
 
     public Colectivos() {
     }
-    
-    
 
     public int getIdColectivo() {
         return idColectivo;
@@ -76,10 +77,18 @@ public class Colectivos {
         this.capacidad = capacidad;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Colectivos{" + "idColectivo=" + idColectivo + ", matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo + ", capacidad=" + capacidad + '}';
+        return "Colectivos{" + "idColectivo=" + idColectivo + ", matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo + ", capacidad=" + capacidad + ", estado=" + estado + '}';
     }
-    
-    
+
+  
 }

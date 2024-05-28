@@ -12,33 +12,36 @@ import java.sql.Time;
  * @author Maxi Gomez
  */
 public class Rutas {
-    private int idRutas;
+    private int idRuta;
     private String origen;
     private String destino;
     private Time duracionEst;
+    private boolean estado;
 
-    public Rutas(int idRutas, String origen, String destino, Time duracionEst) {
-        this.idRutas = idRutas;
+    public Rutas(int idRuta, String origen, String destino, Time duracionEst, boolean estado) {
+        this.idRuta = idRuta;
         this.origen = origen;
         this.destino = destino;
         this.duracionEst = duracionEst;
+        this.estado = estado;
     }
 
-    public Rutas(String origen, String destino, Time duracionEst) {
+    public Rutas(String origen, String destino, Time duracionEst, boolean estado) {
         this.origen = origen;
         this.destino = destino;
         this.duracionEst = duracionEst;
+        this.estado = estado;
     }
 
     public Rutas() {
     }
 
-    public int getIdRutas() {
-        return idRutas;
+    public int getIdRuta() {
+        return idRuta;
     }
 
-    public void setIdRutas(int idRutas) {
-        this.idRutas = idRutas;
+    public void setIdRuta(int idRuta) {
+        this.idRuta = idRuta;
     }
 
     public String getOrigen() {
@@ -65,12 +68,20 @@ public class Rutas {
         this.duracionEst = duracionEst;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Rutas{" + "idRutas=" + idRutas + ", origen=" + origen + ", destino=" + destino + ", duracionEst=" + duracionEst + '}';
+        return "Rutas{" + "idRuta=" + idRuta + ", origen=" + origen + ", destino=" + destino + ", duracionEst=" + duracionEst + ", estado=" + estado + '}';
     }
-    
-    
+
+   
     
 }
 

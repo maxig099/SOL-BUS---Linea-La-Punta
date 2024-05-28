@@ -16,18 +16,21 @@ public class Horarios {
     private Rutas Ruta;
     private Time horaLLegada;
     private Time horaSalida;
+    private boolean estado;
 
-    public Horarios(int idHorarios, Rutas idRuta, Time horaLLegada, Time horaSalida) {
+    public Horarios(int idHorarios, Rutas Ruta, Time horaLLegada, Time horaSalida, boolean estado) {
         this.idHorarios = idHorarios;
-        this.Ruta = idRuta;
+        this.Ruta = Ruta;
         this.horaLLegada = horaLLegada;
         this.horaSalida = horaSalida;
+        this.estado = estado;
     }
 
-    public Horarios(Rutas idRuta, Time horaLLegada, Time horaSalida) {
-        this.Ruta = idRuta;
+    public Horarios(Rutas Ruta, Time horaLLegada, Time horaSalida, boolean estado) {
+        this.Ruta = Ruta;
         this.horaLLegada = horaLLegada;
         this.horaSalida = horaSalida;
+        this.estado = estado;
     }
 
     public Horarios() {
@@ -41,12 +44,12 @@ public class Horarios {
         this.idHorarios = idHorarios;
     }
 
-    public Rutas getIdRuta() {
+    public Rutas getRuta() {
         return Ruta;
     }
 
-    public void setIdRuta(Rutas idRuta) {
-        this.Ruta = idRuta;
+    public void setRuta(Rutas Ruta) {
+        this.Ruta = Ruta;
     }
 
     public Time getHoraLLegada() {
@@ -65,10 +68,20 @@ public class Horarios {
         this.horaSalida = horaSalida;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
-        return "Horarios{" + "idHorarios=" + idHorarios + ", Ruta=" + Ruta + ", horaLLegada=" + horaLLegada + ", horaSalida=" + horaSalida + '}';
+        return "Horarios{" + "idHorarios=" + idHorarios + ", Ruta=" + Ruta + ", horaLLegada=" + horaLLegada + ", horaSalida=" + horaSalida + ", estado=" + estado + '}';
     }
+
+    
     
     
 }

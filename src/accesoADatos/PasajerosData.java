@@ -84,7 +84,8 @@ public class PasajerosData {
             ps.setString(2, psj.getApellido());
             ps.setInt(3, psj.getDni());
             ps.setString(4, psj.getCorreo());
-            ps.set
+            ps.setLong(5, psj.getTelefono());
+            ps.setInt(6, psj.getIdPasajero());
         } catch (SQLException ex) {
             Logger.getLogger(PasajerosData.class.getName()).log(Level.SEVERE, null, ex);
         }
