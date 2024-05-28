@@ -5,6 +5,8 @@
  */
 package sol.bus.linea.la.punta.main;
 
+import accesoADatos.Conexion;
+
 /**
  *
  * @author Maxi Gomez
@@ -15,7 +17,7 @@ public class SOLBUSLineaLaPunta {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       
     }
     
 }
