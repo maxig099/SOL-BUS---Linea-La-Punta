@@ -5,7 +5,8 @@
  */
 package sol.bus.linea.la.punta.main;
 
-import accesoADatos.Conexion;
+import accesoADatos.*;
+import entidades.*;
 
 /**
  *
@@ -17,7 +18,14 @@ public class SOLBUSLineaLaPunta {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
-    }
+       Pasajeros psj = new Pasajeros("Raul", "Diaz", 20346787, "diaz@raul.com", 266436636);
+       PasajerosData x = new PasajerosData();
+     //x.crearPasajero(psj);
     
+    //x.buscarPasajero(2);
+        
+          
+    }
 }
+    
+

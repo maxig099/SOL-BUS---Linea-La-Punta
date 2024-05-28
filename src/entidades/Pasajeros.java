@@ -15,9 +15,9 @@ public class Pasajeros {
     private String Apellido;
     private int dni;
     private String correo;
-    private int telefono;
+    private long telefono;
 
-    public Pasajeros(int idPasajero, String Nombre, String Apellido, int dni, String correo, int telefono) {
+    public Pasajeros(int idPasajero, String Nombre, String Apellido, int dni, String correo, long telefono) {
         this.idPasajero = idPasajero;
         this.Nombre = Nombre;
         this.Apellido = Apellido;
@@ -26,7 +26,7 @@ public class Pasajeros {
         this.telefono = telefono;
     }
 
-    public Pasajeros(String Nombre, String Apellido, int dni, String correo, int telefono) {
+    public Pasajeros(String Nombre, String Apellido, int dni, String correo, long telefono) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.dni = dni;
@@ -77,19 +77,18 @@ public class Pasajeros {
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
     @Override
     public String toString() {
-        return "Pasajeros{" + "idPasajero=" + idPasajero + ", Nombre=" + Nombre + ", Apellido=" + Apellido + ", dni=" + dni + ", correo=" + correo + ", telefono=" + telefono + '}';
+        return "Pasajero " + "ID Pasajero= " + idPasajero + ", Nombre= " + Nombre + ", Apellido= " + Apellido + ", DNI= " + dni + ", Correo= " + correo + ", Telefono= " + telefono;
     }
-    
-    
+
     
 }
