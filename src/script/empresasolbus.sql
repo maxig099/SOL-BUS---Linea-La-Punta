@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2024 a las 21:18:04
+-- Tiempo de generación: 28-05-2024 a las 22:30:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -35,7 +35,8 @@ CREATE TABLE IF NOT EXISTS `colectivos` (
   `marca` varchar(20) NOT NULL,
   `modelo` varchar(20) NOT NULL,
   `capacidad` int(11) NOT NULL,
-  PRIMARY KEY (`id_colectivo`)
+  PRIMARY KEY (`id_colectivo`),
+  UNIQUE KEY `matricula` (`matricula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -65,8 +66,8 @@ CREATE TABLE IF NOT EXISTS `pasajeros` (
   `nombre` varchar(20) NOT NULL,
   `apellido` varchar(20) NOT NULL,
   `dni` varchar(20) NOT NULL,
-  `correo` varchar(20) NOT NULL,
-  `telefono` varchar(20) NOT NULL,
+  `correo` varchar(30) DEFAULT NULL,
+  `telefono` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id_Pasajero`),
   UNIQUE KEY `dni` (`dni`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -87,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `pasajes` (
   `asiento` int(11) NOT NULL,
   `precio` decimal(11,0) NOT NULL,
   PRIMARY KEY (`id_pasajes`),
+  UNIQUE KEY `id_colectivo_2` (`id_colectivo`,`fecha_viaje`,`hora_viaje`,`asiento`) USING BTREE,
   KEY `id_colectivo` (`id_colectivo`),
   KEY `id_pasajero` (`id_pasajero`),
   KEY `id_ruta` (`id_ruta`)
@@ -100,10 +102,11 @@ CREATE TABLE IF NOT EXISTS `pasajes` (
 
 CREATE TABLE IF NOT EXISTS `ruta` (
   `id_ruta` int(11) NOT NULL AUTO_INCREMENT,
-  `origen` varchar(20) NOT NULL,
-  `destino` varchar(20) NOT NULL,
+  `origen` varchar(50) NOT NULL,
+  `destino` varchar(50) NOT NULL,
   `duracion_estimada` time NOT NULL,
-  PRIMARY KEY (`id_ruta`)
+  PRIMARY KEY (`id_ruta`),
+  UNIQUE KEY `origen` (`origen`,`destino`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
