@@ -14,8 +14,8 @@ import java.sql.Time;
  */
 public class Pasaje {
     private int idPasaje;
-    private Pasajeros Pasajero;
-    private Rutas Ruta;
+    private Pasajeros pasajero;
+    private Rutas ruta;
     private Colectivos colectivo;
     private Date fechaViaje;
     private Time horaViaje;
@@ -25,8 +25,8 @@ public class Pasaje {
 
     public Pasaje(int idPasaje, Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
-        this.Pasajero = Pasajero;
-        this.Ruta = Ruta;
+        this.pasajero = Pasajero;
+        this.ruta = Ruta;
         this.colectivo = colectivo;
         this.fechaViaje = fechaViaje;
         this.horaViaje = horaViaje;
@@ -36,8 +36,8 @@ public class Pasaje {
     }
 
     public Pasaje(Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
-        this.Pasajero = Pasajero;
-        this.Ruta = Ruta;
+        this.pasajero = Pasajero;
+        this.ruta = Ruta;
         this.colectivo = colectivo;
         this.fechaViaje = fechaViaje;
         this.horaViaje = horaViaje;
@@ -60,19 +60,19 @@ public class Pasaje {
     }
 
     public Pasajeros getPasajero() {
-        return Pasajero;
+        return pasajero;
     }
 
-    public void setPasajero(Pasajeros Pasajero) {
-        this.Pasajero = Pasajero;
+    public void setPasajero(Pasajeros pasajero) {
+        this.pasajero = pasajero;
     }
 
     public Rutas getRuta() {
-        return Ruta;
+        return ruta;
     }
 
     public void setRuta(Rutas Ruta) {
-        this.Ruta = Ruta;
+        this.ruta = Ruta;
     }
 
     public Colectivos getColectivo() {
@@ -125,7 +125,7 @@ public class Pasaje {
 
     @Override
     public String toString() {
-        return "Ventas: " + "ID Pasaje= " + idPasaje + ", Pasajero= " + Pasajero + ", Ruta= " + Ruta + ",Colectivo= " + colectivo + ", Fecha Viaje= "  + fechaViaje + ", Hora Viaje= " + horaViaje + ", Asiento= " + asiento + ", Precio=" + precio + ", Estado= "  + estado ;
+        return "Ventas: " + "ID Pasaje= " + idPasaje + ", Pasajero= " + pasajero.getApellido() + ", Ruta= " + ruta.getDestino() + ",Colectivo= " + colectivo.getMatricula() + ", Fecha Viaje= "  + fechaViaje + ", Hora Viaje= " + horaViaje + ", Asiento= " + asiento + ", Precio=" + precio + ", Estado= "  + estado ;
     }
 
     

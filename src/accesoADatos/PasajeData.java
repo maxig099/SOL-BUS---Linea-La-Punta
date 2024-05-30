@@ -64,6 +64,8 @@ public class PasajeData {
             if (rs.next()) {
                 venta = new Pasaje();
                 venta.setIdPasaje(rs.getInt("id_pasajes"));
+                Pasajeros psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
+                venta.setPasajero(psjr);
                 Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
                 venta.setColectivo(cole);
                 Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
@@ -86,7 +88,7 @@ public class PasajeData {
     }
 
     public void modificarVenta(Pasaje venta) {
-        String sql = "UPDATE ventas SET ID_Pasajero = ?, ID_Colectivo = ?, ID_Ruta = ?, Fecha_Viaje = ?, Hora_Viaje = ?, Asiento = ?, Precio = ? WHERE ID_Pasaje = ?";
+        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, venta.getPasajero().getIdPasajero());
@@ -112,7 +114,7 @@ public class PasajeData {
     }
 
     public void eliminarVenta(int id) {
-        String sql = "DELETE FROM ventas WHERE ID_Pasaje = ?";
+        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -131,7 +133,7 @@ public class PasajeData {
     }
 
     public List<Pasaje> listarVentas() {
-        String sql = "SELECT * FROM ventas";
+        String sql = "SELECT * FROM pasajes";
         ArrayList<Pasaje> vent = new ArrayList<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -139,7 +141,9 @@ public class PasajeData {
 
             while (rs.next()) {
                 Pasaje venta = new Pasaje();
-                venta.setIdPasaje(rs.getInt("ID_Pasaje"));
+                venta.setIdPasaje(rs.getInt("id_pasajes"));
+                Pasajeros psj = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
+                venta.setPasajero(psj);
                 Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
                 venta.setColectivo(cole);
                 Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));

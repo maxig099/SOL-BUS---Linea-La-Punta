@@ -49,15 +49,15 @@ public class PasajerosData {
         }
     }
     
-   public void buscarPasajero(int id) {
+   public Pasajeros buscarPasajero(int id) {
        String sql = "SELECT * FROM pasajeros WHERE id_pasajero = ?";
-       
+       Pasajeros pasaj = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                Pasajeros pasaj = new Pasajeros();
+                pasaj = new Pasajeros();
                 pasaj.setIdPasajero(rs.getInt("id_pasajero"));
                 pasaj.setNombre(rs.getString("nombre"));
                 pasaj.setApellido(rs.getString("apellido"));
@@ -76,6 +76,7 @@ public class PasajerosData {
             Logger.getLogger(PasajerosData.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
         }
+        return pasaj;
    } 
    
    public void modificarPasajero(Pasajeros psj) {

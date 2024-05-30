@@ -66,10 +66,15 @@ public class SOLBUSLineaLaPunta {
     
     
         //PRUEBAS VENTAS 
-    Pasaje psj = new Pasaje(psjr, ruta, cole, Date.valueOf("2024-05-05"), Time.valueOf("17:00:00"), 3, 400.00, true);
+    Pasaje psj = new Pasaje(1, psjr, ruta, cole, Date.valueOf("2024-06-05"), Time.valueOf("17:00:00"), 3, 400.00, true);
     PasajeData x = new PasajeData();
     //x.crearVenta(psj);
-    x.buscarVenta(1);
+    x.buscarVenta(2);
+    //x.modificarVenta(psj);
+    //x.eliminarVenta(2);
+    /*for(Pasaje pas : x.listarVentas()) {
+        System.out.println(pas);
+    }*/
     
     
     
