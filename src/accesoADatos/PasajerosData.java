@@ -50,7 +50,7 @@ public class PasajerosData {
     }
     
    public void buscarPasajero(int id) {
-       String sql = "SELECT * FROM pasajeros WHERE id_Pasajero = ?";
+       String sql = "SELECT * FROM pasajeros WHERE id_pasajero = ?";
        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -58,7 +58,7 @@ public class PasajerosData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Pasajeros pasaj = new Pasajeros();
-                pasaj.setIdPasajero(id);
+                pasaj.setIdPasajero(rs.getInt("id_pasajero"));
                 pasaj.setNombre(rs.getString("nombre"));
                 pasaj.setApellido(rs.getString("apellido"));
                 pasaj.setDni(rs.getInt("dni"));

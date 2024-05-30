@@ -15,7 +15,7 @@ public class Colectivos {
     private String marca;
     private String modelo;
     private int capacidad;
-    private boolean estado;
+    private boolean estado =  true;
 
     public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad, boolean estado) {
         this.idColectivo = idColectivo;

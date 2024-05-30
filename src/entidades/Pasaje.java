@@ -12,7 +12,7 @@ import java.sql.Time;
  *
  * @author Maxi Gomez
  */
-public class Ventas {
+public class Pasaje {
     private int idPasaje;
     private Pasajeros Pasajero;
     private Rutas Ruta;
@@ -23,7 +23,7 @@ public class Ventas {
     private double precio;
     private boolean estado;
 
-    public Ventas(int idPasaje, Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(int idPasaje, Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
         this.Pasajero = Pasajero;
         this.Ruta = Ruta;
@@ -35,7 +35,7 @@ public class Ventas {
         this.estado = estado;
     }
 
-    public Ventas(Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
         this.Pasajero = Pasajero;
         this.Ruta = Ruta;
         this.colectivo = colectivo;
@@ -46,7 +46,7 @@ public class Ventas {
         this.estado = estado;
     }
 
-    public Ventas() {
+    public Pasaje() {
     }
     
     
