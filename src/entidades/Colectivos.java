@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
-/**
- *
- * @author Maxi Gomez
- */
 public class Colectivos {
+
     private int idColectivo;
     private String matricula;
     private String marca;
     private String modelo;
     private int capacidad;
-    private boolean estado =  true;
+    private boolean estado = true;
 
     public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad, boolean estado) {
         this.idColectivo = idColectivo;
@@ -90,5 +82,4 @@ public class Colectivos {
         return "Colectivos{" + "idColectivo=" + idColectivo + ", matricula=" + matricula + ", marca=" + marca + ", modelo=" + modelo + ", capacidad=" + capacidad + ", estado=" + estado + '}';
     }
 
-  
 }

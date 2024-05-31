@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
-/**
- *
- * @author Maxi Gomez
- */
 public class Pasajeros {
+
     private int idPasajero;
     private String Nombre;
     private String Apellido;
@@ -37,7 +29,6 @@ public class Pasajeros {
         this.telefono = telefono;
     }
 
-    
     public Pasajeros(String Nombre, String Apellido, int dni, String correo, long telefono, boolean estado) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
@@ -111,5 +102,4 @@ public class Pasajeros {
         return "Pasajero: " + "ID Pasajero= " + idPasajero + ", Nombre= " + Nombre + ", Apellido= " + Apellido + ", DNI= " + dni + ", Correo= " + correo + ", Telefono= " + telefono + ", Estado= " + estado;
     }
 
-   
 }

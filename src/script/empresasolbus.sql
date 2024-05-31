@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-05-2024 a las 23:21:50
+-- Tiempo de generación: 31-05-2024 a las 23:52:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -88,11 +88,10 @@ CREATE TABLE IF NOT EXISTS `pasajes` (
   `id_ruta` int(11) NOT NULL,
   `fecha_viaje` date NOT NULL,
   `hora_viaje` time NOT NULL,
-  `asiento` int(11) NOT NULL,
+  `nroButaca` int(11) NOT NULL,
   `precio` decimal(11,0) NOT NULL,
-  `estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_pasajes`),
-  UNIQUE KEY `id_colectivo_2` (`id_colectivo`,`fecha_viaje`,`hora_viaje`,`asiento`,`estado`) USING BTREE,
+  UNIQUE KEY `ctrol_butaca` (`id_colectivo`,`fecha_viaje`,`hora_viaje`,`nroButaca`) USING BTREE,
   KEY `id_colectivo` (`id_colectivo`),
   KEY `id_pasajero` (`id_pasajero`),
   KEY `id_ruta` (`id_ruta`)

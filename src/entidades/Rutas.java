@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entidades;
 
 import java.sql.Time;
 
-/**
- *
- * @author Maxi Gomez
- */
 public class Rutas {
+
     private int idRuta;
     private String origen;
     private String destino;
@@ -81,7 +73,4 @@ public class Rutas {
         return "Rutas{" + "idRuta=" + idRuta + ", origen=" + origen + ", destino=" + destino + ", duracionEst=" + duracionEst + ", estado=" + estado + '}';
     }
 
-   
-    
 }
-
