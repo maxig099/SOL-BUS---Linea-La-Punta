@@ -1,16 +1,16 @@
 package entidades;
 
-import java.sql.Time;
+import java.time.LocalTime;
 
 public class Rutas {
 
     private int idRuta;
     private String origen;
     private String destino;
-    private Time duracionEst;
+    private LocalTime duracionEst;
     private boolean estado;
 
-    public Rutas(int idRuta, String origen, String destino, Time duracionEst, boolean estado) {
+    public Rutas(int idRuta, String origen, String destino, LocalTime duracionEst, boolean estado) {
         this.idRuta = idRuta;
         this.origen = origen;
         this.destino = destino;
@@ -18,7 +18,7 @@ public class Rutas {
         this.estado = estado;
     }
 
-    public Rutas(String origen, String destino, Time duracionEst, boolean estado) {
+    public Rutas(String origen, String destino, LocalTime duracionEst, boolean estado) {
         this.origen = origen;
         this.destino = destino;
         this.duracionEst = duracionEst;
@@ -52,11 +52,11 @@ public class Rutas {
         this.destino = destino;
     }
 
-    public Time getDuracionEst() {
+    public LocalTime getDuracionEst() {
         return duracionEst;
     }
 
-    public void setDuracionEst(Time duracionEst) {
+    public void setDuracionEst(LocalTime duracionEst) {
         this.duracionEst = duracionEst;
     }
 

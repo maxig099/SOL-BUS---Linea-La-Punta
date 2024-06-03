@@ -1,7 +1,7 @@
 package entidades;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Pasaje {
 
@@ -9,13 +9,13 @@ public class Pasaje {
     private Pasajeros pasajero;
     private Rutas ruta;
     private Colectivos colectivo;
-    private Date fechaViaje;
-    private Time horaViaje;
+    private LocalDate fechaViaje;
+    private LocalTime horaViaje;
     private int asiento;
     private double precio;
     private boolean estado;
 
-    public Pasaje(int idPasaje, Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(int idPasaje, Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
         this.pasajero = Pasajero;
         this.ruta = Ruta;
@@ -27,7 +27,7 @@ public class Pasaje {
         this.estado = estado;
     }
 
-    public Pasaje(Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, Date fechaViaje, Time horaViaje, int asiento, double precio, boolean estado) {
+    public Pasaje(Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.pasajero = Pasajero;
         this.ruta = Ruta;
         this.colectivo = colectivo;
@@ -73,19 +73,19 @@ public class Pasaje {
         this.colectivo = colectivo;
     }
 
-    public Date getFechaViaje() {
+    public LocalDate getFechaViaje() {
         return fechaViaje;
     }
 
-    public void setFechaViaje(Date fechaViaje) {
+    public void setFechaViaje(LocalDate fechaViaje) {
         this.fechaViaje = fechaViaje;
     }
 
-    public Time getHoraViaje() {
+    public LocalTime getHoraViaje() {
         return horaViaje;
     }
 
-    public void setHoraViaje(Time horaViaje) {
+    public void setHoraViaje(LocalTime horaViaje) {
         this.horaViaje = horaViaje;
     }
 

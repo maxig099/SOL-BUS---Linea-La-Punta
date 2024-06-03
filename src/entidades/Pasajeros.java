@@ -5,12 +5,12 @@ public class Pasajeros {
     private int idPasajero;
     private String Nombre;
     private String Apellido;
-    private int dni;
+    private String dni;
     private String correo;
-    private long telefono;
+    private String telefono;
     private boolean estado;
 
-    public Pasajeros(int idPasajero, String Nombre, String Apellido, int dni, String correo, long telefono, boolean estado) {
+    public Pasajeros(int idPasajero, String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
         this.idPasajero = idPasajero;
         this.Nombre = Nombre;
         this.Apellido = Apellido;
@@ -20,16 +20,7 @@ public class Pasajeros {
         this.estado = estado;
     }
 
-    public Pasajeros(int idPasajero, String Nombre, String Apellido, int dni, String correo, long telefono) {
-        this.idPasajero = idPasajero;
-        this.Nombre = Nombre;
-        this.Apellido = Apellido;
-        this.dni = dni;
-        this.correo = correo;
-        this.telefono = telefono;
-    }
-
-    public Pasajeros(String Nombre, String Apellido, int dni, String correo, long telefono, boolean estado) {
+    public Pasajeros(String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.dni = dni;
@@ -65,11 +56,11 @@ public class Pasajeros {
         this.Apellido = Apellido;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
@@ -81,11 +72,11 @@ public class Pasajeros {
         this.correo = correo;
     }
 
-    public long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

@@ -9,6 +9,10 @@ import accesoADatos.*;
 import entidades.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
 
 /**
  *
@@ -21,7 +25,7 @@ public class SOLBUSLineaLaPunta {
      */
     public static void main(String[] args) {
         //PRUEBAS PASAJERO
-    Pasajeros psjr = new Pasajeros(1, "Lorenzo", "Muñoz", 40326787, "muñoz@lor.com", 266546636);
+//    Pasajeros psjr = new Pasajeros(1, "Lorenzo", "Muñoz", "40326787", "muñoz@lor.com", "266546636",true);
      //PasajerosData x = new PasajerosData();
     // x.crearPasajero(psj);
     //x.buscarPasajero(1);
@@ -32,7 +36,7 @@ public class SOLBUSLineaLaPunta {
      }*/
     
         //PRUEBAS RUTA
-    Rutas ruta = new Rutas(1, "Naschel", "Merlo", Time.valueOf("01:30:00"), true);
+//    Rutas ruta = new Rutas(1, "Naschel", "Merlo", LocalTime.of(1, 30), true);
     //RutasData x = new RutasData();
     //x.crearRuta(ruta);
     //x.buscarRuta(1);
@@ -55,7 +59,7 @@ public class SOLBUSLineaLaPunta {
     
     
         //PRUEBAS COLECTIVO
-    Colectivos cole = new Colectivos(2, "ABA-121", "Mercedenz Benz", "O 830", 45, true);
+//    Colectivos cole = new Colectivos(2, "ABA-121", "Mercedenz Benz", "O 830", 45, true);
     //ColectivosData x = new ColectivosData();
     //x.crearColectivo(cole);
     //x.modificarColectivo(cole);
@@ -66,21 +70,15 @@ public class SOLBUSLineaLaPunta {
     
     
         //PRUEBAS VENTAS 
-    Pasaje psj = new Pasaje(1, psjr, ruta, cole, Date.valueOf("2024-06-05"), Time.valueOf("17:00:00"), 3, 400.00, true);
-    PasajeData x = new PasajeData();
+//    Pasaje psj = new Pasaje(1, psjr, ruta, cole, Date.valueOf("2024-06-05"), Time.valueOf("17:00:00"), 3, 400.00, true);
+//    PasajeData x = new PasajeData();
     //x.crearVenta(psj);
-    x.buscarVenta(2);
+//    x.buscarVenta(2);
     //x.modificarVenta(psj);
     //x.eliminarVenta(2);
     /*for(Pasaje pas : x.listarVentas()) {
         System.out.println(pas);
     }*/
-    
-    
-    
-    
-    
-    
     
     
     

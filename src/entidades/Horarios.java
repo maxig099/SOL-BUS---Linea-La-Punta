@@ -1,28 +1,31 @@
 package entidades;
 
-import java.sql.Time;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 public class Horarios {
 
     private int idHorarios;
-    private Rutas Ruta;
-    private Time horaLLegada;
-    private Time horaSalida;
+    private Rutas ruta;
+    private LocalTime horaLLegada;
+    private LocalTime horaSalida;
     private boolean estado;
 
-    public Horarios(int idHorarios, Rutas Ruta, Time horaLLegada, Time horaSalida, boolean estado) {
+    public Horarios(int idHorarios, Rutas Ruta, LocalTime horaSalida, boolean estado) {
         this.idHorarios = idHorarios;
-        this.Ruta = Ruta;
-        this.horaLLegada = horaLLegada;
+        this.ruta = Ruta;
         this.horaSalida = horaSalida;
         this.estado = estado;
+        calcularLlegada();
     }
 
-    public Horarios(Rutas Ruta, Time horaLLegada, Time horaSalida, boolean estado) {
-        this.Ruta = Ruta;
+    public Horarios(Rutas Ruta, LocalTime horaSalida, boolean estado) {
+        this.ruta = Ruta;
         this.horaLLegada = horaLLegada;
         this.horaSalida = horaSalida;
         this.estado = estado;
+        calcularLlegada();
     }
 
     public Horarios() {
@@ -37,26 +40,26 @@ public class Horarios {
     }
 
     public Rutas getRuta() {
-        return Ruta;
+        return ruta;
     }
 
     public void setRuta(Rutas Ruta) {
-        this.Ruta = Ruta;
+        this.ruta = Ruta;
     }
 
-    public Time getHoraLLegada() {
+    public LocalTime getHoraLLegada() {
         return horaLLegada;
     }
 
-    public void setHoraLLegada(Time horaLLegada) {
+    public void setHoraLLegada(LocalTime horaLLegada) {
         this.horaLLegada = horaLLegada;
     }
 
-    public Time getHoraSalida() {
+    public LocalTime getHoraSalida() {
         return horaSalida;
     }
 
-    public void setHoraSalida(Time horaSalida) {
+    public void setHoraSalida(LocalTime horaSalida) {
         this.horaSalida = horaSalida;
     }
 
@@ -66,11 +69,17 @@ public class Horarios {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }    
+        
+    private void calcularLlegada(){
+        LocalTime s = LocalTime.of(00, 00);
+        long minutos = s.until(this.ruta.getDuracionEst(), ChronoUnit.MINUTES);
+        this.horaLLegada = this.horaSalida.plusMinutes(minutos);
     }
 
     @Override
     public String toString() {
-        return "Horarios{" + "idHorarios=" + idHorarios + ", Ruta=" + Ruta.getOrigen() + " - " + Ruta.getDestino() + ", horaLLegada=" + horaLLegada + ", horaSalida=" + horaSalida + ", estado=" + estado + '}';
+        return "Horarios{" + "idHorarios=" + idHorarios + ", Ruta=" + ruta.getOrigen() + " - " + ruta.getDestino() + ", horaLLegada=" + horaLLegada + ", horaSalida=" + horaSalida + ", estado=" + estado + '}';
     }
 
 }
