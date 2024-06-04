@@ -174,10 +174,7 @@ public class Horarios extends javax.swing.JInternalFrame {
 
         jTHorarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Salida", "Llegada", "Ruta"
