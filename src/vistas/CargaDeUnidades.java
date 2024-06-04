@@ -187,11 +187,7 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
 
     private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
         // TODO add your handling code here:
-        jTCapacidad.setText("");
-        jtMatricula.setText("");
-        jTMarca.setText("");
-        jTModelo.setText("");
-        colectivo = null;
+        limpiarCampos();
     }//GEN-LAST:event_jLimpiarMouseClicked
 
     private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
@@ -209,6 +205,7 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
             colectivo = new Colectivos (matricula, marca, modelo, capacidad, estado);
             coleData.guardarColectivo(colectivo);
         }
+        limpiarCampos();
     }//GEN-LAST:event_jGuardarMouseClicked
 
 
@@ -233,7 +230,7 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTModelo;
     private javax.swing.JTextField jtMatricula;
     // End of variables declaration//GEN-END:variables
- public void ocultarBarraTitulo(){
+    public void ocultarBarraTitulo(){
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
@@ -243,4 +240,11 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         repaint();
     }
 
+    public void limpiarCampos(){
+        jTCapacidad.setText("");
+        jtMatricula.setText("");
+        jTMarca.setText("");
+        jTModelo.setText("");
+        colectivo = null;
+    }
 }

@@ -13,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import entidades.Rutas;
 
 /**
  *
@@ -191,8 +192,7 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String origen = jtOrigen.getText();
         String destino = jtDestino.getText();
-        //LocalTime s = LocalTime.of(Integer.valueOf(jSHoras.getValue().toString()), Integer.valueOf(jSMinutos.getValue().toString()));
-        LocalTime s = LocalTime.of(00, 00);
+        LocalTime s = LocalTime.of(Integer.valueOf(jSHoras.getValue().toString()), Integer.valueOf(jSMinutos.getValue().toString()));
         boolean estado = true;
         if (jtOrigen.getText().isEmpty() || jtDestino.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para continuar");
@@ -202,16 +202,12 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
             ruta = new Rutas(origen, destino, s, estado);
             rutaData.guardarRuta(ruta);
         }
-        
+        limpiarCampos();
     }//GEN-LAST:event_jGuardarMouseClicked
 
     private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
         // TODO add your handling code here:
-        jtDestino.setText("");
-        jtOrigen.setText("");
-        jSHoras.setValue(0);
-        jSMinutos.setValue(0);
-        ruta = null;
+        limpiarCampos();
         //jGuardarMouseClicked(setEnabled(false));
     }//GEN-LAST:event_jLimpiarMouseClicked
 
@@ -239,7 +235,7 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtDestino;
     private javax.swing.JTextField jtOrigen;
     // End of variables declaration//GEN-END:variables
- public void ocultarBarraTitulo(){
+    public void ocultarBarraTitulo(){
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
@@ -249,4 +245,11 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         repaint();
     }
 
+    public void limpiarCampos(){
+        jtDestino.setText("");
+        jtOrigen.setText("");
+        jSHoras.setValue(0);
+        jSMinutos.setValue(0);
+        ruta = null;
+    }
 }
