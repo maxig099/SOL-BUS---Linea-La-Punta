@@ -183,7 +183,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jCargaHorarioActionPerformed
 
     private void jCargaRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargaRutaActionPerformed
-        mostrarPestaña(new Rutas());
+        mostrarPestaña(new CargaDeRutas());
     }//GEN-LAST:event_jCargaRutaActionPerformed
 
     private void jUnidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadesActionPerformed

@@ -4,9 +4,12 @@
  */
 package vistas;
 
+import accesoADatos.ColectivosData;
+import entidades.Colectivos;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -14,7 +17,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Cristian
  */
 public class CargaDeUnidades extends javax.swing.JInternalFrame {
-
+    Colectivos colectivo = null;
+    ColectivosData coleData = new ColectivosData();
+    
     /**
      * Creates new form Pasaje
      */
@@ -66,13 +71,16 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 100));
 
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
-        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseMoved(evt);
             }
         });
         jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLimpiarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseExited(evt);
             }
@@ -88,13 +96,16 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jPanel2.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 140, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
-        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jGuardarMouseMoved(evt);
             }
         });
         jGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGuardarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jGuardarMouseExited(evt);
             }
@@ -113,7 +124,7 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(225, 225, 225));
-        jLabel3.setText("Carga de Pasajes");
+        jLabel3.setText("Carga de Unidades");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 340, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/brailleb.png"))); // NOI18N
@@ -173,6 +184,32 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
     private void jLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseExited
         jLimpiar.setBackground(new Color(138,193,223));
     }//GEN-LAST:event_jLimpiarMouseExited
+
+    private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
+        // TODO add your handling code here:
+        jTCapacidad.setText("");
+        jtMatricula.setText("");
+        jTMarca.setText("");
+        jTModelo.setText("");
+        colectivo = null;
+    }//GEN-LAST:event_jLimpiarMouseClicked
+
+    private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
+        // TODO add your handling code here:
+        String matricula = jtMatricula.getText();
+        String marca = jTMarca.getText();
+        String modelo = jTModelo.getText();
+        int capacidad = Integer.valueOf(jTCapacidad.getText());
+        boolean estado = true;
+        if (jtMatricula.getText().isEmpty() || jTModelo.getText().isEmpty() || jTMarca.getText().isEmpty() || jTCapacidad.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debes llenar todos los campos para guardar");
+            return;
+        }
+        if (colectivo == null) {
+            colectivo = new Colectivos (matricula, marca, modelo, capacidad, estado);
+            coleData.guardarColectivo(colectivo);
+        }
+    }//GEN-LAST:event_jGuardarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

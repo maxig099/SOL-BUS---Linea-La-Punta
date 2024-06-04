@@ -4,9 +4,14 @@
  */
 package vistas;
 
+import accesoADatos.RutasData;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -14,7 +19,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Cristian
  */
 public class CargaDeRutas extends javax.swing.JInternalFrame {
-
+    Rutas ruta = null;
+    RutasData rutaData = new RutasData();
     /**
      * Creates new form Pasaje
      */
@@ -34,6 +40,9 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
+        jSpinField1 = new com.toedter.components.JSpinField();
+        jSpinField2 = new com.toedter.components.JSpinField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -50,7 +59,8 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jtDestino = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jtDuracion = new javax.swing.JTextField();
+        jSHoras = new javax.swing.JSpinner();
+        jSMinutos = new javax.swing.JSpinner();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -64,13 +74,16 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 100));
 
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
-        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseMoved(evt);
             }
         });
         jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLimpiarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseExited(evt);
             }
@@ -86,13 +99,16 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         jPanel2.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 140, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
-        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jGuardarMouseMoved(evt);
             }
         });
         jGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGuardarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jGuardarMouseExited(evt);
             }
@@ -111,7 +127,7 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(225, 225, 225));
-        jLabel3.setText("Carga de Pasajes");
+        jLabel3.setText("Carga de Rutas");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 340, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/brailleb.png"))); // NOI18N
@@ -141,7 +157,12 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 51));
         jLabel12.setText("Duracion:");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
-        jPanel3.add(jtDuracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 130, -1));
+
+        jSHoras.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jPanel3.add(jSHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 60, -1));
+
+        jSMinutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 55, 5));
+        jPanel3.add(jSMinutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 60, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
 
@@ -166,6 +187,34 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
         jLimpiar.setBackground(new Color(138,193,223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
+    private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
+        // TODO add your handling code here:
+        String origen = jtOrigen.getText();
+        String destino = jtDestino.getText();
+        //LocalTime s = LocalTime.of(Integer.valueOf(jSHoras.getValue().toString()), Integer.valueOf(jSMinutos.getValue().toString()));
+        LocalTime s = LocalTime.of(00, 00);
+        boolean estado = true;
+        if (jtOrigen.getText().isEmpty() || jtDestino.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para continuar");
+            return;
+        }
+        if (ruta == null) {
+            ruta = new Rutas(origen, destino, s, estado);
+            rutaData.guardarRuta(ruta);
+        }
+        
+    }//GEN-LAST:event_jGuardarMouseClicked
+
+    private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
+        // TODO add your handling code here:
+        jtDestino.setText("");
+        jtOrigen.setText("");
+        jSHoras.setValue(0);
+        jSMinutos.setValue(0);
+        ruta = null;
+        //jGuardarMouseClicked(setEnabled(false));
+    }//GEN-LAST:event_jLimpiarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jGuardar;
@@ -182,8 +231,12 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JSpinner jSHoras;
+    private javax.swing.JSpinner jSMinutos;
+    private com.toedter.components.JSpinField jSpinField1;
+    private com.toedter.components.JSpinField jSpinField2;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField jtDestino;
-    private javax.swing.JTextField jtDuracion;
     private javax.swing.JTextField jtOrigen;
     // End of variables declaration//GEN-END:variables
  public void ocultarBarraTitulo(){
