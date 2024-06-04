@@ -136,7 +136,7 @@ public class Rutas extends javax.swing.JInternalFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(225, 225, 225));
-        jLabel3.setText("Carga de Pasajes");
+        jLabel3.setText("Rutas");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 340, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/brailleb.png"))); // NOI18N
@@ -174,7 +174,7 @@ public class Rutas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Ruta", "Origen", "Destino"
+                "Ruta", "Origen", "Destino", "Duracion Estimada"
             }
         ));
         jScrollPane1.setViewportView(jTable);
