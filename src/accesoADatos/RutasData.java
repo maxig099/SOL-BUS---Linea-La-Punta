@@ -56,8 +56,11 @@ public class RutasData {
                 ruta.setOrigen(rs.getString("origen"));
                 ruta.setDestino(rs.getString("destino"));
                 ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
+                ruta.setEstado(true);
                 
                 JOptionPane.showMessageDialog(null, "Ruta encontrada");
+                
+                
             } else {
                 JOptionPane.showMessageDialog(null, "No existe una ruta con ese ID");
             }
@@ -91,7 +94,7 @@ public class RutasData {
     }
 
     public void eliminarRuta(int id) {
-        String sql = "UPDATE ruta SET estado= 0 WHERE id_ruta = ?";
+        String sql = "UPDATE ruta SET estado= 0 WHERE id_ruta = ? AND estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -123,6 +126,7 @@ public class RutasData {
                 ruta.setOrigen(rs.getString("origen"));
                 ruta.setDestino(rs.getString("destino"));
                 ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
+                ruta.setEstado(rs.getBoolean("estado"));
                 rutas.add(ruta);
             }
             JOptionPane.showMessageDialog(null, "Rutas listadas");

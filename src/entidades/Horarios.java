@@ -79,7 +79,7 @@ public class Horarios {
 
     @Override
     public String toString() {
-        return "Horarios{" + "idHorarios=" + idHorarios + ", Ruta=" + ruta.getOrigen() + " - " + ruta.getDestino() + ", horaLLegada=" + horaLLegada + ", horaSalida=" + horaSalida + ", estado=" + estado + '}';
+        return "ID Horario= " + idHorarios + ", Ruta= " + ruta.getOrigen() + " - " + ruta.getDestino() + ", Hora de Salida= " + horaSalida + ", Hora de Llegada= " + horaLLegada + ", Estado= " + estado;
     }
 
 }

@@ -64,7 +64,7 @@ public class PasajerosData {
                 pasaj.setCorreo(rs.getString("correo"));
                 pasaj.setTelefono(rs.getString("telefono"));
                 pasaj.setEstado(rs.getBoolean("estado"));
-                
+              
                 JOptionPane.showMessageDialog(null, "Pasajero encontrado");
             }else{
                 JOptionPane.showMessageDialog(null, "No existe un pasajero con ese ID");
@@ -77,7 +77,7 @@ public class PasajerosData {
         return pasaj;
     }
     
-        public Pasajeros buscarPasajero(String dni) {
+        public Pasajeros buscarPasajeroDNI(String dni) {
         Pasajeros pasaj = null;
         String sql = "SELECT * FROM pasajeros WHERE dni = ? AND estado = true";
 
@@ -96,7 +96,7 @@ public class PasajerosData {
                 pasaj.setCorreo(rs.getString("correo"));
                 pasaj.setTelefono(rs.getString("telefono"));
                 pasaj.setEstado(rs.getBoolean("estado"));
-                
+              
                 JOptionPane.showMessageDialog(null, "Pasajero encontrado");
             }else{
                 JOptionPane.showMessageDialog(null, "No existe un pasajero con ese ID");
@@ -136,7 +136,7 @@ public class PasajerosData {
     }
    
     public void eliminarPasajeros(int id) {
-        String sql = "UPDATE pasajeros SET estado = 0 WHERE id_pasajero = ?";
+        String sql = "UPDATE pasajeros SET estado = 0 WHERE id_pasajero = ? AND estado = 1";
        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

@@ -59,7 +59,7 @@ public class ColectivosData {
                 colectivo.setModelo(rs.getString("modelo"));
                 colectivo.setCapacidad(rs.getInt("capacidad"));
                 colectivo.setEstado(rs.getBoolean("estado"));
-                
+               
                 JOptionPane.showMessageDialog(null, "Colectivo encontrado");
             } else {
                 JOptionPane.showMessageDialog(null, "No existe un colectivo con ese ID");
@@ -96,7 +96,7 @@ public class ColectivosData {
     }
 
     public void eliminarColectivo(int id) {
-        String sql = "UPDATE colectivos SET estado = 0 WHERE id_colectivo = ?";
+        String sql = "UPDATE colectivos SET estado = 0 WHERE id_colectivo = ? AND estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);

@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 
 public class HorariosData {
     
-    private Connection con;
-    private RutasData rutaData;
+    private Connection con = null;
+    private RutasData rutaData = new RutasData();
     
 
     public HorariosData() {
@@ -59,6 +59,7 @@ public class HorariosData {
                 horario.setRuta(ruta);
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
+                horario.setEstado(rs.getBoolean("estado"));
                 
                 JOptionPane.showMessageDialog(null, "Horario encontrado");
             } else {
@@ -94,7 +95,7 @@ public class HorariosData {
     }
 
     public void eliminarHorario(int id) {
-        String sql = "UPDATE horarios SET estado = 0 WHERE id_horario = ?";
+        String sql = "UPDATE horarios SET estado = 0 WHERE id_horario = ? AND estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -120,16 +121,16 @@ public class HorariosData {
 
             while (rs.next()) {
                 Horarios horario = new Horarios();
-                rutaData = new RutasData();
                 
                 horario.setIdHorarios(rs.getInt("id_horario"));
                 horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
+                horario.setEstado(rs.getBoolean("estado"));
                 
                 horarios.add(horario);
             }
-            JOptionPane.showMessageDialog(null, "Horaris listados");
+            JOptionPane.showMessageDialog(null, "Horarios listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);

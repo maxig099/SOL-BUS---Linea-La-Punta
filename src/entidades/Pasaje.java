@@ -115,7 +115,7 @@ public class Pasaje {
 
     @Override
     public String toString() {
-        return "Ventas: " + "ID Pasaje= " + idPasaje + ", Pasajero= " + pasajero.getApellido() + ", Ruta= " + ruta.getDestino() + ",Colectivo= " + colectivo.getMatricula() + ", Fecha Viaje= " + fechaViaje + ", Hora Viaje= " + horaViaje + ", Asiento= " + asiento + ", Precio=" + precio + ", Estado= " + estado;
+        return "ID Pasaje= " + idPasaje + ", Pasajero= " + pasajero.getApellido() + " " + pasajero.getNombre() + ", Ruta= " + ruta.getOrigen() + " - " + ruta.getDestino() + ",Colectivo= " + colectivo.getMatricula() + ", Fecha Viaje= " + fechaViaje + ", Hora Viaje= " + horaViaje + ", Asiento= " + asiento + ", Precio= " + precio + ", Estado= " + estado;
     }
 
 }

@@ -25,44 +25,45 @@ public class SOLBUSLineaLaPunta {
      */
     public static void main(String[] args) {
         //PRUEBAS PASAJERO
-//    Pasajeros psjr = new Pasajeros(1, "Lorenzo", "Muñoz", "40326787", "muñoz@lor.com", "266546636",true);
-     //PasajerosData x = new PasajerosData();
-    // x.crearPasajero(psj);
-    //x.buscarPasajero(1);
-    // x.modificarPasajero(psj);
-    // x.eliminarPasajeros(2);
-    /* for (Pasajeros pasaj : x.listarPasajeros()) {
-         System.out.println(psj);
+    //Pasajeros psjr = new Pasajeros(6, "Mario", "Rodriguez", "41246787", "rodri@esteb.com", "2664554636",true);
+    //PasajerosData x = new PasajerosData();
+    //x.guardarPasajero(psjr);
+    //x.buscarPasajeroDNI("40326787");
+    //x.modificarPasajero(psjr);
+    //x.eliminarPasajeros(5);
+    /*for (Pasajeros pasaj : x.listarPasajeros()) {
+         System.out.println(pasaj);
      }*/
     
         //PRUEBAS RUTA
-//    Rutas ruta = new Rutas(1, "Naschel", "Merlo", LocalTime.of(1, 30), true);
+    Rutas ruta = new Rutas(3, "San Luis", "Merlo", LocalTime.of(3, 10), true);
     //RutasData x = new RutasData();
-    //x.crearRuta(ruta);
-    //x.buscarRuta(1);
-    //x.eliminarRuta(1);
+    //x.guardarRuta(ruta);
+    //x.buscarRuta(2);
+    //x.eliminarRuta(2);
     //x.modificarRuta(ruta);
     /*for(Rutas rutas : x.listarRutas()) {
         System.out.println(rutas);
     }*/
     
         //PRUEBAS HORARIOS
-    //Horarios hor = new Horarios(1, ruta, Time.valueOf("17:00:00"), Time.valueOf("15:30:00"), true);
-    //HorariosData x = new HorariosData();
-    //x.crearHorario(hor);
-    //x.buscarHorario(1);
+    Horarios hor = new Horarios(3, ruta, LocalTime.of(18,0), true);
+    HorariosData x = new HorariosData();
+    //x.guardarHorario(hor);
+    //x.buscarHorario(3);
     //x.modificarHorario(hor);
-    //x.eliminarHorario(2);
+    //x.eliminarHorario(3);
     /*for (Horarios hora : x.listarHorarios()) {
        System.out.println(hora);   
     }*/
     
     
         //PRUEBAS COLECTIVO
-//    Colectivos cole = new Colectivos(2, "ABA-121", "Mercedenz Benz", "O 830", 45, true);
+    //Colectivos cole = new Colectivos(2, "ATA-521", "Scania", "K 130", 50, true);
     //ColectivosData x = new ColectivosData();
-    //x.crearColectivo(cole);
+    //x.guardarColectivo(cole);
     //x.modificarColectivo(cole);
+    //x.buscarColectivo(1);
     //x.eliminarColectivo(2);
     /*for(Colectivos col : x.listarColectivos()) {
         System.out.println(col);
@@ -70,12 +71,12 @@ public class SOLBUSLineaLaPunta {
     
     
         //PRUEBAS VENTAS 
-//    Pasaje psj = new Pasaje(1, psjr, ruta, cole, Date.valueOf("2024-06-05"), Time.valueOf("17:00:00"), 3, 400.00, true);
-//    PasajeData x = new PasajeData();
-    //x.crearVenta(psj);
-//    x.buscarVenta(2);
+    //Pasaje psj = new Pasaje(psjr, ruta, cole, LocalDate.of(2024, 6, 4), LocalTime.of(17, 0), 4, 4000.00, true);
+    //PasajeData x = new PasajeData();
+    //x.guardarPasaje(psj);
+    //x.buscarPasajes(2);
     //x.modificarVenta(psj);
-    //x.eliminarVenta(2);
+    //x.eliminarVenta(3);
     /*for(Pasaje pas : x.listarVentas()) {
         System.out.println(pas);
     }*/
