@@ -18,6 +18,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Cristian
  */
 public class CargaDePasaje extends javax.swing.JInternalFrame {
+    private Pasajeros pasajero = null;
     private PasajerosData pasData = new PasajerosData();
     private RutasData rutaData = new RutasData();
     
@@ -63,7 +64,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jDFecha = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
         jCMostrarPor = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -232,13 +233,13 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jCMostrarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jCMostrarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, -1));
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
+        jPanel3.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
 
@@ -285,23 +286,19 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jtDNIKeyTyped
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Pasajeros pasajero = new PasajerosData().buscarPasajero(jtDNI.getText());
-        if(alumno!=null){            
-            tfCodigo.setText(alumno.getIdAlumno()+"");
-            tfApellido.setText(alumno.getApellido());
-            tfNombre.setText(alumno.getNombre());
-            cbActivo.setSelected(alumno.isEstado());
-            dcFechaNacim.setDate(Date.valueOf(alumno.getFechaNac()));
-
-            btnEliminar.setEnabled(true);
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        pasajero = new PasajerosData().buscarPasajero(jtDNI.getText());
+        String texto = "Usuario no encontrado";
+        if(pasajero!=null){
+            texto = pasajero.getApellido()+", "+pasajero.getNombre();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        jTNombrePasajero.setText(texto);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton jBCrear;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCMostrarPor;
     private com.toedter.calendar.JDateChooser jDFecha;
     private javax.swing.JPanel jGuardar;
