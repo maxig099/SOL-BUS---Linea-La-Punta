@@ -4,8 +4,12 @@
  */
 package vistas;
 
+import accesoADatos.PasajerosData;
+import accesoADatos.RutasData;
+import entidades.Pasajeros;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.sql.Date;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -14,10 +18,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Cristian
  */
 public class CargaDePasaje extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form Pasaje
-     */
+    private PasajerosData pasData = new PasajerosData();
+    private RutasData rutaData = new RutasData();
+    
     public CargaDePasaje() {
         initComponents();
         ocultarBarraTitulo();
@@ -60,6 +63,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jDFecha = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
         jCMostrarPor = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -173,17 +177,25 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("DNI:");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 30, -1));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 30, -1));
 
         jtDNI.setForeground(java.awt.SystemColor.activeCaptionBorder);
         jtDNI.setText("Ingrese el DNI");
-        jPanel3.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 110, -1));
-        jPanel3.add(jTNombrePasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 180, -1));
+        jtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtDNIKeyTyped(evt);
+            }
+        });
+        jPanel3.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 180, -1));
+
+        jTNombrePasajero.setEditable(false);
+        jTNombrePasajero.setToolTipText("");
+        jPanel3.add(jTNombrePasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 180, -1));
 
         jBCrear.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jBCrear.setText("Crear");
         jBCrear.setEnabled(false);
-        jPanel3.add(jBCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 60, -1));
+        jPanel3.add(jBCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 60, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 51));
@@ -191,9 +203,19 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         jcDesde.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcDesde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcDesdeActionPerformed(evt);
+            }
+        });
         jPanel3.add(jcDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
 
         jcHasta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcHasta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcHastaActionPerformed(evt);
+            }
+        });
         jPanel3.add(jcHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -209,6 +231,14 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
         jCMostrarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jCMostrarPor, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, -1));
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
 
@@ -241,9 +271,37 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
          jHistorial.setBackground(new Color(138,193,223));
     }//GEN-LAST:event_jHistorialMouseExited
 
+    private void jcDesdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcDesdeActionPerformed
+        //listarOrigen
+    }//GEN-LAST:event_jcDesdeActionPerformed
+
+    private void jcHastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcHastaActionPerformed
+        //listarDestino
+    }//GEN-LAST:event_jcHastaActionPerformed
+
+    private void jtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyTyped
+        if(!(jtDNI.getText()+evt.getKeyChar()).matches("\\d{1,8}")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtDNIKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Pasajeros pasajero = new PasajerosData().buscarPasajero(jtDNI.getText());
+        if(alumno!=null){            
+            tfCodigo.setText(alumno.getIdAlumno()+"");
+            tfApellido.setText(alumno.getApellido());
+            tfNombre.setText(alumno.getNombre());
+            cbActivo.setSelected(alumno.isEstado());
+            dcFechaNacim.setDate(Date.valueOf(alumno.getFechaNac()));
+
+            btnEliminar.setEnabled(true);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBCrear;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCMostrarPor;
     private com.toedter.calendar.JDateChooser jDFecha;
     private javax.swing.JPanel jGuardar;
