@@ -6,7 +6,11 @@ package vistas;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
 
 /**
  *
@@ -46,9 +50,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMRutas = new javax.swing.JMenuItem();
+        jMPasajeros = new javax.swing.JMenuItem();
+        jMHorarios = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
@@ -66,7 +70,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGap(0, 476, Short.MAX_VALUE)
         );
 
-        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenuBar1.setFont(new java.awt.Font("Perpetua", 0, 14)); // NOI18N
 
         jMenu1.setText("Administracion");
@@ -87,19 +91,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Busqueda");
 
-        jMenuItem5.setText("Rutas");
-        jMenu2.add(jMenuItem5);
-
-        jMenuItem6.setText("Pasajeros");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMRutas.setText("Rutas");
+        jMRutas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMRutasActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem6);
+        jMenu2.add(jMRutas);
 
-        jMenuItem7.setText("Horarios");
-        jMenu2.add(jMenuItem7);
+        jMPasajeros.setText("Pasajeros");
+        jMPasajeros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMPasajerosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMPasajeros);
+
+        jMHorarios.setText("Horarios");
+        jMHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMHorariosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMHorarios);
 
         jMenuBar1.add(jMenu2);
 
@@ -129,7 +143,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jMPasajerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMPasajerosActionPerformed
          jInicio.removeAll();
         jInicio.repaint();
         CargaDePasaje ap=new CargaDePasaje();
@@ -139,7 +153,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
        
         jInicio.add(ap);
         jInicio.moveToFront(ap);
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }//GEN-LAST:event_jMPasajerosActionPerformed
+
+    private void jMRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRutasActionPerformed
+        // TODO add your handling code here:
+        mostrarPestaña(new Rutas());
+    }//GEN-LAST:event_jMRutasActionPerformed
+
+    private void jMHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMHorariosActionPerformed
+        // TODO add your handling code here:
+        mostrarPestaña(new Horarios());
+    }//GEN-LAST:event_jMHorariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +202,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jInicio;
+    private javax.swing.JMenuItem jMHorarios;
+    private javax.swing.JMenuItem jMPasajeros;
+    private javax.swing.JMenuItem jMRutas;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -186,10 +213,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarPestaña(JInternalFrame x) {
+        jInicio.removeAll();
+        jInicio.repaint();
+        x.setVisible(true);
+        jInicio.add(x);
+        
+        //La ventana interna ocupa todo el escritorio (ventana principal)
+        try {
+            x.setMaximum(true);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
