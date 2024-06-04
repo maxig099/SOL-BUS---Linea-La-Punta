@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import entidades.Colectivos;
+import entidades.Pasajeros;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.beans.PropertyVetoException;
@@ -45,10 +47,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         };
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jCargaPasajero = new javax.swing.JMenuItem();
+        jCargaHorario = new javax.swing.JMenuItem();
+        jCargaRuta = new javax.swing.JMenuItem();
+        jUnidades = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMRutas = new javax.swing.JMenuItem();
         jMPasajeros = new javax.swing.JMenuItem();
@@ -75,17 +77,37 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Administracion");
 
-        jMenuItem1.setText("Carga de Pasajero");
-        jMenu1.add(jMenuItem1);
+        jCargaPasajero.setText("Carga de Pasajero");
+        jCargaPasajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCargaPasajeroActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jCargaPasajero);
 
-        jMenuItem2.setText("Carga de Horarios");
-        jMenu1.add(jMenuItem2);
+        jCargaHorario.setText("Carga de Horarios");
+        jCargaHorario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCargaHorarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jCargaHorario);
 
-        jMenuItem3.setText("Carga de Rutas");
-        jMenu1.add(jMenuItem3);
+        jCargaRuta.setText("Carga de Rutas");
+        jCargaRuta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCargaRutaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jCargaRuta);
 
-        jMenuItem4.setText("Carga de Unidades");
-        jMenu1.add(jMenuItem4);
+        jUnidades.setText("Carga de Unidades");
+        jUnidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUnidadesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jUnidades);
 
         jMenuBar1.add(jMenu1);
 
@@ -165,6 +187,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         mostrarPestaña(new Horarios());
     }//GEN-LAST:event_jMHorariosActionPerformed
 
+    private void jCargaPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargaPasajeroActionPerformed
+        mostrarPestaña(new CargaDePasajero());
+    }//GEN-LAST:event_jCargaPasajeroActionPerformed
+
+    private void jCargaHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargaHorarioActionPerformed
+         mostrarPestaña(new CargaDeHorario());
+    }//GEN-LAST:event_jCargaHorarioActionPerformed
+
+    private void jCargaRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargaRutaActionPerformed
+        mostrarPestaña(new Rutas());
+    }//GEN-LAST:event_jCargaRutaActionPerformed
+
+    private void jUnidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUnidadesActionPerformed
+         mostrarPestaña(new CargaDeUnidades());
+    }//GEN-LAST:event_jUnidadesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,6 +239,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jCargaHorario;
+    private javax.swing.JMenuItem jCargaPasajero;
+    private javax.swing.JMenuItem jCargaRuta;
     private javax.swing.JDesktopPane jInicio;
     private javax.swing.JMenuItem jMHorarios;
     private javax.swing.JMenuItem jMPasajeros;
@@ -209,12 +250,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jUnidades;
     // End of variables declaration//GEN-END:variables
 
     private void mostrarPestaña(JInternalFrame x) {
