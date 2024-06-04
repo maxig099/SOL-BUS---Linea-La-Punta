@@ -163,7 +163,7 @@ public class PasajeData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
         }
-        return listaVentas;
+        return listaVentas          ;
     }
 }
 
