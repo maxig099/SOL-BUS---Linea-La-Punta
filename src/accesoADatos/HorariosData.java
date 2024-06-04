@@ -1,55 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package accesoADatos;
 
 import entidades.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Maxi Gomez
- */
 public class HorariosData {
     
     private Connection con;
-    private RutasData rutaData = new RutasData();
+    private RutasData rutaData;
     
 
     public HorariosData() {
         con = Conexion.getConexion();
     }
 
-    public void crearHorario(Horarios horario) {
+    public void guardarHorario(Horarios horario) {
         String sql = "INSERT INTO horarios(id_ruta, hora_salida, hora_llegada, estado) VALUES (?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setInt(1, horario.getRuta().getIdRuta());
-            ps.setTime(2, horario.getHoraSalida());
-            ps.setTime(3, horario.getHoraLLegada());
+            ps.setTime(2, Time.valueOf(horario.getHoraSalida()));
+            ps.setTime(3, Time.valueOf(horario.getHoraLLegada()));
             ps.setBoolean(4, horario.isEstado());
-            int filasAfectadas = ps.executeUpdate();
+            
+            ps.executeUpdate();
+            ResultSet idHorario = ps.getGeneratedKeys();
 
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se creó exitosamente el horario");
+            if (idHorario.next()) {
+                horario.setIdHorarios(idHorario.getInt(1));
+                JOptionPane.showMessageDialog(null, "Se guardo el horario");
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            if(ex.getErrorCode()==1062){
+                System.out.println("Horario Repetido");                
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
+            }
         }
     }
 
     public Horarios buscarHorario(int id) {
-        String sql = "SELECT * FROM horarios WHERE id_horario = ?";
+        String sql = "SELECT * FROM horarios WHERE estado = 1 AND id_horario = ?";
         Horarios horario = null;
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -57,86 +53,86 @@ public class HorariosData {
 
             if (rs.next()) {
                 horario = new Horarios();
+                
                 horario.setIdHorarios(rs.getInt("id_horario"));
                 Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
                 horario.setRuta(ruta);
-                horario.setHoraSalida(rs.getTime("hora_salida"));
-                horario.setHoraLLegada(rs.getTime("hora_llegada"));
+                horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
                 
-                System.out.println(horario);
+                JOptionPane.showMessageDialog(null, "Horario encontrado");
             } else {
                 JOptionPane.showMessageDialog(null, "No existe un horario con ese ID");
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla horario" + ex);
         }
         return horario;
     }
 
     public void modificarHorario(Horarios horario) {
-        String sql = "UPDATE horarios SET ID_Ruta = ?, Hora_Salida = ?, Hora_Llegada = ? WHERE ID_Horario = ?";
+        String sql = "UPDATE horarios SET id_ruta = ?, hora_salida = ?, hora_llegada = ? WHERE ID_Horario = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, horario.getRuta().getIdRuta());
-            ps.setTime(2, horario.getHoraSalida());
-            ps.setTime(3, horario.getHoraLLegada());
+            ps.setTime(2, Time.valueOf(horario.getHoraSalida()));
+            ps.setTime(3, Time.valueOf(horario.getHoraLLegada()));
             ps.setInt(4, horario.getIdHorarios());
+            
             int filasAfectadas = ps.executeUpdate();
 
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se modificó exitosamente el horario");
+            if (filasAfectadas == 1) {
+                JOptionPane.showMessageDialog(null, "Se modificó el horario");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el horario a modificar");
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
         }
     }
 
     public void eliminarHorario(int id) {
-        String sql = "UPDATE horarios SET estado= 0"
-               + " WHERE id_horario = ?";
+        String sql = "UPDATE horarios SET estado = 0 WHERE id_horario = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int filasAfectadas = ps.executeUpdate();
 
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se eliminó exitosamente el horario");
+            if (filasAfectadas ==1) {
+                JOptionPane.showMessageDialog(null, "Se eliminó el horario");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró el horario a eliminar");
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
         }
     }
 
     public List<Horarios> listarHorarios() {
-        String sql = "SELECT * FROM horarios";
         List<Horarios> horarios = new ArrayList<>();
+        String sql = "SELECT * FROM horarios WHERE estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Horarios horario = new Horarios();
+                rutaData = new RutasData();
+                
                 horario.setIdHorarios(rs.getInt("id_horario"));
-                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
-                horario.setRuta(ruta);
-                horario.setHoraSalida(rs.getTime("hora_salida"));
-                horario.setHoraLLegada(rs.getTime("hora_llegada"));
+                horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
+                horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
+                
                 horarios.add(horario);
             }
+            JOptionPane.showMessageDialog(null, "Horaris listados");
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
         }
         return horarios;
     }

@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package accesoADatos;
 
-/**
- *
- * @author Maxi Gomez
- */
 import entidades.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class PasajeData {
-    private Connection con;
-    private PasajerosData pasajeroData = new PasajerosData();
-    private RutasData rutaData = new RutasData();
-    private ColectivosData coleData = new ColectivosData();
+    private Connection con = null;
+    private PasajerosData pasajeroData = null;
+    private RutasData rutaData =  null;
+    private ColectivosData coleData =  null;
     
 
     public PasajeData() {
@@ -29,137 +18,152 @@ public class PasajeData {
         
     }
 
-    public void crearVenta(Pasaje venta) {
+    public void guardarPasaje(Pasaje pasaje) {
         String sql = "INSERT INTO pasajes(id_pasajero, id_colectivo, id_ruta, fecha_viaje, hora_viaje, asiento, precio, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, venta.getPasajero().getIdPasajero());
-            ps.setInt(2, venta.getColectivo().getIdColectivo());
-            ps.setInt(3, venta.getRuta().getIdRuta());
-            ps.setDate(4, venta.getFechaViaje());
-            ps.setTime(5, venta.getHoraViaje());
-            ps.setInt(6, venta.getAsiento());
-            ps.setDouble(7, venta.getPrecio());
+            
+            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
+            ps.setInt(2, pasaje.getColectivo().getIdColectivo());
+            ps.setInt(3, pasaje.getRuta().getIdRuta());
+            ps.setDate(4, Date.valueOf(pasaje.getFechaViaje()));
+            ps.setTime(5, Time.valueOf(pasaje.getHoraViaje()));
+            ps.setInt(6, pasaje.getAsiento());
+            ps.setDouble(7, pasaje.getPrecio());
             ps.setBoolean(8, true);
-            int filasAfectadas = ps.executeUpdate();
+            
+            ps.executeUpdate();
+            ResultSet idPasaje = ps.getGeneratedKeys();
 
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se creó exitosamente la venta");
+            if (idPasaje.next()) {
+                pasaje.setIdPasaje(idPasaje.getInt(1));
+                JOptionPane.showMessageDialog(null, "Se creó el pasaje");
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
-        }
-    }
-
-    public Pasaje buscarVenta(int id) {
-        String sql = "SELECT * FROM pasajes WHERE id_pasajes = ?";
-        Pasaje venta = null;
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                venta = new Pasaje();
-                venta.setIdPasaje(rs.getInt("id_pasajes"));
-                Pasajeros psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
-                venta.setPasajero(psjr);
-                Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
-                venta.setColectivo(cole);
-                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
-                venta.setRuta(ruta);
-                venta.setFechaViaje(rs.getDate("fecha_viaje"));
-                venta.setHoraViaje(rs.getTime("hora_viaje"));
-                venta.setAsiento(rs.getInt("asiento"));
-                venta.setPrecio(rs.getDouble("precio"));
-                
-                System.out.println(venta);
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe una venta con ese ID");
+            if(ex.getErrorCode()==1062){
+                JOptionPane.showMessageDialog(null, "Asiento Ocupado");               
+            }else{
+                JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ventas" + ex);
             }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
-        }
-        return venta;
-    }
-
-    public void modificarVenta(Pasaje venta) {
-        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, venta.getPasajero().getIdPasajero());
-            ps.setInt(2, venta.getColectivo().getIdColectivo());
-            ps.setInt(3, venta.getRuta().getIdRuta());
-            ps.setDate(4, venta.getFechaViaje());
-            ps.setTime(5, venta.getHoraViaje());
-            ps.setInt(6, venta.getAsiento());
-            ps.setDouble(7, venta.getPrecio());
-            ps.setInt(8, venta.getIdPasaje());
-            int filasAfectadas = ps.executeUpdate();
-
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se modificó exitosamente la venta");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la venta a modificar");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
         }
     }
+
+//    public Pasaje buscarVenta(int id) {
+//        String sql = "SELECT * FROM pasajes WHERE id_pasajes = ?";
+//        Pasaje pasaje = null;
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                pasaje = new Pasaje();
+//                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
+//                Pasajeros psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
+//                pasaje.setPasajero(psjr);
+//                Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
+//                pasaje.setColectivo(cole);
+//                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
+//                pasaje.setRuta(ruta);
+//                pasaje.setFechaViaje(rs.getDate("fecha_viaje"));
+//                pasaje.setHoraViaje(rs.getTime("hora_viaje"));
+//                pasaje.setAsiento(rs.getInt("asiento"));
+//                pasaje.setPrecio(rs.getDouble("precio"));
+//                
+//                System.out.println(pasaje);
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No existe una pasaje con ese ID");
+//            }
+//            ps.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+//        }
+//        return pasaje;
+//    }
+
+//    public void modificarVenta(Pasaje pasaje) {
+//        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
+//            ps.setInt(2, pasaje.getColectivo().getIdColectivo());
+//            ps.setInt(3, pasaje.getRuta().getIdRuta());
+//            ps.setDate(4, pasaje.getFechaViaje());
+//            ps.setTime(5, pasaje.getHoraViaje());
+//            ps.setInt(6, pasaje.getAsiento());
+//            ps.setDouble(7, pasaje.getPrecio());
+//            ps.setInt(8, pasaje.getIdPasaje());
+//            int filasAfectadas = ps.executeUpdate();
+//
+//            if (filasAfectadas > 0) {
+//                JOptionPane.showMessageDialog(null, "Se modificó exitosamente la pasaje");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No se encontró la pasaje a modificar");
+//            }
+//            ps.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+//        }
+//    }
 
     public void eliminarVenta(int id) {
-        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ?";
+        String sql = "DELETE FROM pasajes WHERE id_pasajes = ?";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             int filasAfectadas = ps.executeUpdate();
 
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se eliminó exitosamente la venta");
+            if (filasAfectadas == 1) {
+                JOptionPane.showMessageDialog(null, "Se eliminó la venta");
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró la venta a eliminar");
             }
             ps.close();
+            
         } catch (SQLException ex) {
-            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
         }
     }
 
     public List<Pasaje> listarVentas() {
-        String sql = "SELECT * FROM pasajes";
-        ArrayList<Pasaje> vent = new ArrayList<>();
+        ArrayList<Pasaje> listaVentas = new ArrayList<>();
+        String sql = "SELECT pasajes.* FROM pasajes "
+                + "JOIN pasajeros ON pasajes.id_pasajero = pasajeros.id_pasajero "
+                + "JOIN rutas ON pasajes.id_ruta = rutas.id_ruta "
+                + "JOIN colectivos ON pasajes.id_colectivo = colectivos.id_colectivo "
+                + "WHERE pasajeros.estado = 1";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Pasaje venta = new Pasaje();
-                venta.setIdPasaje(rs.getInt("id_pasajes"));
-                Pasajeros psj = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
-                venta.setPasajero(psj);
-                Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
-                venta.setColectivo(cole);
-                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
-                venta.setRuta(ruta);
-                venta.setFechaViaje(rs.getDate("Fecha_Viaje"));
-                venta.setHoraViaje(rs.getTime("Hora_Viaje"));
-                venta.setAsiento(rs.getInt("Asiento"));
-                venta.setPrecio(rs.getDouble("Precio"));
-                vent.add(venta);
+                Pasaje pasaje = new Pasaje();
+                pasajeroData = new PasajerosData();
+                coleData = new ColectivosData();
+                rutaData = new RutasData();
+                
+                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
+                pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
+                pasaje.setColectivo(coleData.buscarColectivo(rs.getInt("id_colectivo")));
+                pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
+                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("Asiento"));
+                pasaje.setPrecio(rs.getDouble("Precio"));
+                
+                listaVentas.add(pasaje);
             }
+            JOptionPane.showMessageDialog(null, "Pasajes listados");
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(PasajeData.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
         }
-        return vent;
+        return listaVentas;
     }
 }
 

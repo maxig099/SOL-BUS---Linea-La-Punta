@@ -13,7 +13,7 @@ public class PasajerosData {
         con = Conexion.getConexion();
     }
     
-    public void crearPasajero(Pasajeros pasajero) {
+    public void guardarPasajero(Pasajeros pasajero) {
         String sql = "INSERT INTO pasajeros(nombre, apellido, dni, correo, telefono, estado) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -33,13 +33,12 @@ public class PasajerosData {
             if(idPasajero.next()){  //si se genero un id es porque se guardo
                 
                 pasajero.setIdPasajero(idPasajero.getInt(1));
-                
-                System.out.println("Pasajero Guardado ID = "+pasajero.getIdPasajero());
+                JOptionPane.showMessageDialog(null, "Pasajero Guardado ID = "+pasajero.getIdPasajero());
             }
             ps.close();
         } catch (SQLException ex) {
             if(ex.getErrorCode()==1062){
-                System.out.println("Pasajero Repetido");                
+                JOptionPane.showMessageDialog(null, "Pasajero repetido");               
             }else{
                 JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
             }
@@ -130,13 +129,14 @@ public class PasajerosData {
             else {
                 JOptionPane.showMessageDialog(null, "No se encontro el pasajero" );
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
         }
     }
    
     public void eliminarPasajeros(int id) {
-        String sql = "UPDATE pasajeros SET estado= 0 WHERE id_Pasajero = ?";
+        String sql = "UPDATE pasajeros SET estado = 0 WHERE id_pasajero = ?";
        
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -149,6 +149,7 @@ public class PasajerosData {
             else {
                 JOptionPane.showMessageDialog(null, "No se encontro el pasajero a eliminar");
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
         }       

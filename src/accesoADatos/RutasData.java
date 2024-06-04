@@ -4,8 +4,6 @@ import entidades.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class RutasData {
@@ -15,7 +13,7 @@ public class RutasData {
         con =  Conexion.getConexion();
     }
 
-    public void crearRuta(Rutas ruta) {
+    public void guardarRuta(Rutas ruta) {
         
         String sql = "INSERT INTO ruta(origen, destino, duracion_estimada, estado) VALUES (?, ?, ?, ?)";
         try {
