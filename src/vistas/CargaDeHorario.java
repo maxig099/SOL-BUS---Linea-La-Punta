@@ -6,6 +6,8 @@ package vistas;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -21,7 +23,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     public CargaDeHorario() {
         initComponents();
         ocultarBarraTitulo();
-        
+       
         
     }
 
@@ -51,7 +53,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jTHoraSalida = new javax.swing.JTextField();
         jtHoraLLegada = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jtRuta = new javax.swing.JTextField();
+        jCRutas = new javax.swing.JComboBox<>();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -155,7 +157,9 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("Ruta:");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
-        jPanel3.add(jtRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 120, -1));
+
+        jCRutas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jCRutas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
 
@@ -190,6 +194,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jCRutas;
     private javax.swing.JPanel jGuardar;
     private javax.swing.JPanel jHistorial;
     private javax.swing.JLabel jLabel1;
@@ -207,7 +212,6 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTHoraSalida;
     private javax.swing.JTextField jtHoraLLegada;
-    private javax.swing.JTextField jtRuta;
     // End of variables declaration//GEN-END:variables
  public void ocultarBarraTitulo(){
         JComponent Barra = null;
@@ -218,5 +222,12 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         Barra.setPreferredSize(new Dimension(0,0));
         repaint();
     }
+public void llenarCombo(JComboBox<String>combo,List<String> lista){
+    combo.addItem("---");
+    for (String x : lista) {
+        combo.addItem(x);
+    }
+    combo.setSelectedIndex(-1);
 
+}
 }

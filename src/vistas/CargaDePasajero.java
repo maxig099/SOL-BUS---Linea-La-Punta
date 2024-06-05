@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import accesoADatos.PasajerosData;
+import entidades.Pasajeros;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JComponent;
@@ -15,14 +17,16 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class CargaDePasajero extends javax.swing.JInternalFrame {
 
+    Pasajeros per = null;
+    PasajerosData p = new PasajerosData();
+
     /**
      * Creates new form Pasaje
      */
     public CargaDePasajero() {
         initComponents();
         ocultarBarraTitulo();
-        
-        
+
     }
 
     /**
@@ -75,6 +79,9 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
             }
         });
         jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLimpiarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseExited(evt);
             }
@@ -97,6 +104,9 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
             }
         });
         jGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGuardarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jGuardarMouseExited(evt);
             }
@@ -166,21 +176,55 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jGuardarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseMoved
-        jGuardar.setBackground(new  Color (184,210,224));
+        jGuardar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jGuardarMouseMoved
 
     private void jGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseExited
-         jGuardar.setBackground(new Color(138,193,223));
+        jGuardar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jGuardarMouseExited
 
     private void jLimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseMoved
-         jLimpiar.setBackground(new Color(184,210,224));
+        jLimpiar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jLimpiarMouseMoved
 
     private void jLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseExited
-        jLimpiar.setBackground(new Color(138,193,223));
+        jLimpiar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
+    private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
+        limpiar();
+    }//GEN-LAST:event_jLimpiarMouseClicked
+
+    private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
+        guardar();
+          limpiar();
+    }//GEN-LAST:event_jGuardarMouseClicked
+
+    public void limpiar() {
+        jtDNI.setText("");
+        jtNombre.setText("");
+        jtApellido.setText("");
+        jtCorreo.setText("");
+        jtTelefono.setText("");
+        per = null;
+
+    }
+    //Pasajeros(String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado)
+
+    public void guardar() {
+        String Nombre = jtNombre.getText();
+        String Apellido = jtApellido.getText();
+        String dni = jtDNI.getText();
+        String correo = jtCorreo.getText();
+        String telefono = jtTelefono.getText();
+        boolean estado = true;
+
+        per = new Pasajeros(Nombre, Apellido, dni, correo, telefono, estado);
+
+        p.guardarPasajero(per);
+
+    }
+    ;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jGuardar;
@@ -205,13 +249,13 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtTelefono;
     // End of variables declaration//GEN-END:variables
- public void ocultarBarraTitulo(){
+ public void ocultarBarraTitulo() {
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
         dimBarra = Barra.getPreferredSize();
-        Barra.setSize(0,0);
-        Barra.setPreferredSize(new Dimension(0,0));
+        Barra.setSize(0, 0);
+        Barra.setPreferredSize(new Dimension(0, 0));
         repaint();
     }
 

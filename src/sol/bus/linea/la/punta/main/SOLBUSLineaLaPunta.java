@@ -25,8 +25,8 @@ public class SOLBUSLineaLaPunta {
      */
     public static void main(String[] args) {
         //PRUEBAS PASAJERO
-    //Pasajeros psjr = new Pasajeros(6, "Mario", "Rodriguez", "41246787", "rodri@esteb.com", "2664554636",true);
-    //PasajerosData x = new PasajerosData();
+    Pasajeros psjr = new Pasajeros( "Agustin", "Perez", "4564564", "holala@esteb.com", "2664554636",true);
+    PasajerosData x = new PasajerosData();
     //x.guardarPasajero(psjr);
     //x.buscarPasajeroDNI("40326787");
     //x.modificarPasajero(psjr);
@@ -36,7 +36,7 @@ public class SOLBUSLineaLaPunta {
      }*/
     
         //PRUEBAS RUTA
-    Rutas ruta = new Rutas(3, "San Luis", "Merlo", LocalTime.of(3, 10), true);
+//    Rutas ruta = new Rutas(3, "San Luis", "Merlo", LocalTime.of(3, 10), true);
     //RutasData x = new RutasData();
     //x.guardarRuta(ruta);
     //x.buscarRuta(2);
@@ -47,8 +47,8 @@ public class SOLBUSLineaLaPunta {
     }*/
     
         //PRUEBAS HORARIOS
-    Horarios hor = new Horarios(3, ruta, LocalTime.of(18,0), true);
-    HorariosData x = new HorariosData();
+//    Horarios hor = new Horarios(3, ruta, LocalTime.of(18,0), true);
+//    HorariosData x = new HorariosData();
     //x.guardarHorario(hor);
     //x.buscarHorario(3);
     //x.modificarHorario(hor);
