@@ -166,12 +166,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMRutasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMRutasActionPerformed
         // TODO add your handling code here:
-        mostrarPestaña(new Rutas());
+        mostrarPestaña(new BusquedaRutas());
     }//GEN-LAST:event_jMRutasActionPerformed
 
     private void jMHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMHorariosActionPerformed
         // TODO add your handling code here:
-        mostrarPestaña(new Horarios());
+        mostrarPestaña(new BusquedaHorarios());
     }//GEN-LAST:event_jMHorariosActionPerformed
 
     private void jCargaPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargaPasajeroActionPerformed

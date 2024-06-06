@@ -4,24 +4,32 @@
  */
 package vistas;
 
+import accesoADatos.RutasData;
+import entidades.Rutas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
 
 /**
  *
  * @author Cristian
  */
-public class Rutas extends javax.swing.JInternalFrame {
-
+public class BusquedaRutas extends javax.swing.JInternalFrame {
+    RutasData ruData = new RutasData();
+    List<Rutas> listaRutas;
+    
     /**
      * Creates new form Pasaje
      */
-    public Rutas() {
+    public BusquedaRutas() {
         initComponents();
         ocultarBarraTitulo();
-        
+        listaRutas = ruData.listarRutas();
+        llenarComboOrigen();
+        llenarComboDestino();
         
     }
 
@@ -50,8 +58,8 @@ public class Rutas extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jCBOrigen = new javax.swing.JComboBox<>();
+        jCBDestino = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
 
@@ -161,11 +169,11 @@ public class Rutas extends javax.swing.JInternalFrame {
         jLabel8.setText("Destino:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 210, -1));
+        jCBOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jCBOrigen.setSelectedIndex(-1);
+        jPanel3.add(jCBOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 210, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 210, -1));
+        jPanel3.add(jCBDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 210, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
 
@@ -212,8 +220,8 @@ public class Rutas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jCBDestino;
+    private javax.swing.JComboBox<String> jCBOrigen;
     private javax.swing.JPanel jGuardar;
     private javax.swing.JPanel jHistorial;
     private javax.swing.JLabel jLabel1;
@@ -233,7 +241,8 @@ public class Rutas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
- public void ocultarBarraTitulo(){
+    
+    public void ocultarBarraTitulo(){
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
@@ -243,4 +252,17 @@ public class Rutas extends javax.swing.JInternalFrame {
         repaint();
     }
 
+    public void llenarComboOrigen(){
+        for (Rutas x : listaRutas) {
+            jCBOrigen.addItem(x.getOrigen());
+        }
+        jCBOrigen.setSelectedIndex(-1);
+    }
+    
+    public void llenarComboDestino(){
+        for (Rutas x : listaRutas) {
+            jCBDestino.addItem(x.getDestino());
+        }
+        jCBDestino.setSelectedIndex(-1);
+    }
 }

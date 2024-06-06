@@ -13,12 +13,12 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  *
  * @author Cristian
  */
-public class Horarios extends javax.swing.JInternalFrame {
+public class BusquedaHorarios extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Pasaje
      */
-    public Horarios() {
+    public BusquedaHorarios() {
         initComponents();
         ocultarBarraTitulo();
         
