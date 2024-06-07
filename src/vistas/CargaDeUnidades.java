@@ -160,6 +160,12 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
         jPanel3.add(jTMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 140, -1));
         jPanel3.add(jTModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 140, -1));
+
+        jTCapacidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTCapacidadKeyTyped(evt);
+            }
+        });
         jPanel3.add(jTCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 140, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
@@ -195,7 +201,7 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         String matricula = jtMatricula.getText();
         String marca = jTMarca.getText();
         String modelo = jTModelo.getText();
-        int capacidad = Integer.valueOf(jTCapacidad.getText());
+            int capacidad = Integer.valueOf(jTCapacidad.getText());
         boolean estado = true;
         if (jtMatricula.getText().isEmpty() || jTModelo.getText().isEmpty() || jTMarca.getText().isEmpty() || jTCapacidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debes llenar todos los campos para guardar");
@@ -207,6 +213,13 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         }
         limpiarCampos();
     }//GEN-LAST:event_jGuardarMouseClicked
+
+    private void jTCapacidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCapacidadKeyTyped
+        // TODO add your handling code here:
+        if(!(jTCapacidad.getText()+evt.getKeyChar()).matches("\\d{1,2}")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTCapacidadKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

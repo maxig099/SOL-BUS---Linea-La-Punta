@@ -50,7 +50,6 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTHoraSalida = new javax.swing.JTextField();
         jtHoraLLegada = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jCRutas = new javax.swing.JComboBox<>();
@@ -67,7 +66,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 100));
 
         jHistorial.setBackground(new java.awt.Color(138, 193, 223));
-        jHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jHistorial.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jHistorialMouseMoved(evt);
@@ -82,7 +81,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jPanel2.add(jHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 140, -1));
 
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
-        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseMoved(evt);
@@ -104,7 +103,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jPanel2.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 140, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
-        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jGuardarMouseMoved(evt);
@@ -150,7 +149,6 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 51));
         jLabel12.setText("Hora de LLegada:");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, -1, -1));
-        jPanel3.add(jTHoraSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, -1));
         jPanel3.add(jtHoraLLegada, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -210,7 +208,6 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTHoraSalida;
     private javax.swing.JTextField jtHoraLLegada;
     // End of variables declaration//GEN-END:variables
  public void ocultarBarraTitulo(){

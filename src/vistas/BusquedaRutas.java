@@ -8,9 +8,12 @@ import accesoADatos.RutasData;
 import entidades.Rutas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -20,16 +23,32 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class BusquedaRutas extends javax.swing.JInternalFrame {
     RutasData ruData = new RutasData();
     List<Rutas> listaRutas;
+    List<Rutas> listaRutasporOrigen;
+    List<Rutas> listaRutasporDestino;
+    List<Rutas> listaRutasEspecificas;
     
     /**
      * Creates new form Pasaje
      */
+    
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        public boolean isCellEditable(int i, int i1) {
+
+            return false;
+
+        }
+    };
+    
     public BusquedaRutas() {
         initComponents();
+        armarCabecera();
         ocultarBarraTitulo();
         listaRutas = ruData.listarRutas();
+        listaRutasporOrigen = ruData.listarRutasPorOrigen();
+        listaRutasporDestino = ruData.listarRutasPorDestino();
         llenarComboOrigen();
         llenarComboDestino();
+        llenarTablas();
         
     }
 
@@ -45,8 +64,6 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jHistorial = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         jLimpiar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jGuardar = new javax.swing.JPanel();
@@ -74,28 +91,6 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoReal.jpg"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 100));
 
-        jHistorial.setBackground(new java.awt.Color(138, 193, 223));
-        jHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jHistorial.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jHistorialMouseMoved(evt);
-            }
-        });
-        jHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jHistorialMouseExited(evt);
-            }
-        });
-        jHistorial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/historial.png"))); // NOI18N
-        jLabel9.setText("Historial");
-        jHistorial.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
-
-        jPanel2.add(jHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 140, -1));
-
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
         jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -104,6 +99,9 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
             }
         });
         jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLimpiarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseExited(evt);
             }
@@ -126,6 +124,9 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
             }
         });
         jGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jGuardarMouseClicked(evt);
+            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jGuardarMouseExited(evt);
             }
@@ -135,7 +136,7 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
-        jLabel5.setText("Guardar");
+        jLabel5.setText("Buscar");
         jGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 80, 30));
 
         jPanel2.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 140, -1));
@@ -170,9 +171,19 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jCBOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jCBOrigen.setSelectedIndex(-1);
+        jCBOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBOrigenActionPerformed(evt);
+            }
+        });
         jPanel3.add(jCBOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 210, -1));
 
+        jCBDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        jCBDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCBDestinoActionPerformed(evt);
+            }
+        });
         jPanel3.add(jCBDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 210, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 650, 180));
@@ -210,20 +221,34 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         jLimpiar.setBackground(new Color(138,193,223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
-    private void jHistorialMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseMoved
-        jHistorial.setBackground(new Color(184,210,224));
-    }//GEN-LAST:event_jHistorialMouseMoved
+    private void jCBOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCBOrigenActionPerformed
 
-    private void jHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseExited
-         jHistorial.setBackground(new Color(138,193,223));
-    }//GEN-LAST:event_jHistorialMouseExited
+    private void jCBDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCBDestinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCBDestinoActionPerformed
+
+    private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
+        // TODO add your handling code here:
+        borrarFilas();
+        String origen = (String) jCBOrigen.getSelectedItem();
+        String destino = (String) jCBDestino.getSelectedItem();
+        buscarTabla(origen, destino);
+    }//GEN-LAST:event_jGuardarMouseClicked
+
+    private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
+        // TODO add your handling code here:
+        jCBOrigen.setSelectedIndex(-1);
+        jCBDestino.setSelectedIndex(-1);
+        llenarTablas();
+    }//GEN-LAST:event_jLimpiarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jCBDestino;
     private javax.swing.JComboBox<String> jCBOrigen;
     private javax.swing.JPanel jGuardar;
-    private javax.swing.JPanel jHistorial;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -233,7 +258,6 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jLimpiar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -251,16 +275,47 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         Barra.setPreferredSize(new Dimension(0,0));
         repaint();
     }
-
-    public void llenarComboOrigen(){
+    
+    private void llenarTablas(){
+        borrarFilas();
         for (Rutas x : listaRutas) {
-            jCBOrigen.addItem(x.getOrigen());
+                modeloTabla.addRow(new Object[]{x.getIdRuta(), x.getOrigen(), x.getDestino(), x.getDuracionEst()});
+            }
+    }
+    
+    public void buscarTabla(String origen, String destino){
+        listaRutasEspecificas = new ArrayList();
+        listaRutasEspecificas.addAll(ruData.listarRutasEspecificas(origen, destino));
+        for (Rutas x : listaRutasEspecificas) {
+            modeloTabla.addRow(new Object[]{x.getIdRuta(), x.getOrigen(), x.getDestino(), x.getDuracionEst()});
+        }
+            
+    }
+    
+    private void armarCabecera() {        
+        modeloTabla.addColumn("Ruta");
+        modeloTabla.addColumn("Origen");
+        modeloTabla.addColumn("Destino");
+        modeloTabla.addColumn("Duracion Estimada");
+        jTable.setModel(modeloTabla);
+    }
+
+    private void borrarFilas() {
+        int filas = modeloTabla.getRowCount() - 1;
+        for (int f = filas; f >= 0; f--) {
+            modeloTabla.removeRow(f);
+        }
+    }
+    
+    public void llenarComboOrigen(){
+        for (Rutas e : listaRutasporOrigen) {
+            jCBOrigen.addItem(e.getOrigen());
         }
         jCBOrigen.setSelectedIndex(-1);
     }
     
     public void llenarComboDestino(){
-        for (Rutas x : listaRutas) {
+        for (Rutas x : listaRutasporDestino) {
             jCBDestino.addItem(x.getDestino());
         }
         jCBDestino.setSelectedIndex(-1);

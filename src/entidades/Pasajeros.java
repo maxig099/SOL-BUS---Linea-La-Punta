@@ -3,8 +3,8 @@ package entidades;
 public class Pasajeros {
 
     private int idPasajero;
-    private String Nombre;
-    private String Apellido;
+    private String nombre;
+    private String apellido;
     private String dni;
     private String correo;
     private String telefono;
@@ -12,8 +12,8 @@ public class Pasajeros {
 
     public Pasajeros(int idPasajero, String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
         this.idPasajero = idPasajero;
-        this.Nombre = Nombre;
-        this.Apellido = Apellido;
+        this.nombre = Nombre;
+        this.apellido = Apellido;
         this.dni = dni;
         this.correo = correo;
         this.telefono = telefono;
@@ -21,8 +21,8 @@ public class Pasajeros {
     }
 
     public Pasajeros(String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado) {
-        this.Nombre = Nombre;
-        this.Apellido = Apellido;
+        this.nombre = Nombre;
+        this.apellido = Apellido;
         this.dni = dni;
         this.correo = correo;
         this.telefono = telefono;
@@ -41,19 +41,19 @@ public class Pasajeros {
     }
 
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+        this.nombre = Nombre;
     }
 
     public String getApellido() {
-        return Apellido;
+        return apellido;
     }
 
     public void setApellido(String Apellido) {
-        this.Apellido = Apellido;
+        this.apellido = Apellido;
     }
 
     public String getDni() {
@@ -90,7 +90,7 @@ public class Pasajeros {
 
     @Override
     public String toString() {
-        return "Pasajero: " + "ID Pasajero= " + idPasajero + ", Nombre= " + Nombre + ", Apellido= " + Apellido + ", DNI= " + dni + ", Correo= " + correo + ", Telefono= " + telefono + ", Estado= " + estado;
+        return "Pasajero: " + "ID Pasajero= " + idPasajero + ", Nombre= " + nombre + ", Apellido= " + apellido + ", DNI= " + dni + ", Correo= " + correo + ", Telefono= " + telefono + ", Estado= " + estado;
     }
 
 }

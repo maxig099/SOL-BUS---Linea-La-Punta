@@ -73,4 +73,5 @@ public class Rutas {
         return "ID Ruta= " + idRuta + ", Origen= " + origen + ", Destino= " + destino + ", Duracion Estimada= " + duracionEst + ", Estado= " + estado;
     }
 
+    
 }
