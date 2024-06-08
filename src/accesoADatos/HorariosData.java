@@ -137,6 +137,34 @@ public class HorariosData {
         }
         return horarios;
     }
+    
+    public List<Horarios> listarHorariosXRuta(int idRuta) {
+        List<Horarios> horarios = new ArrayList<>();
+        String sql = "SELECT * FROM horarios WHERE estado = 1 AND id_ruta = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idRuta);
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Horarios horario = new Horarios();
+                
+                horario.setIdHorarios(rs.getInt("id_horario"));
+                horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
+                horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
+                horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
+                horario.setEstado(rs.getBoolean("estado"));
+                
+                horarios.add(horario);
+            }
+            JOptionPane.showMessageDialog(null, "Horarios listados");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
+        }
+        return horarios;
+    }
 }
 
 
