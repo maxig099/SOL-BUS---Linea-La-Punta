@@ -34,20 +34,18 @@ import java.util.Date;
  * @author Cristian
  */
 public class CargaDeHorario extends javax.swing.JInternalFrame {
-  
-    
+
     RutasData ruData = new RutasData();
     ArrayList<Rutas> listaRutas;
-    
+
     public CargaDeHorario() {
         initComponents();
         formatoSpinner();
         jCRutas.removeAllItems();
         ocultarBarraTitulo();
-       listaRutas=ruData.listarRutas();
+        listaRutas = ruData.listarRutas();
         llenarCombo();
-        
-         
+
     }
 
     /**
@@ -187,31 +185,32 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jGuardarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseMoved
-        jGuardar.setBackground(new Color(184,210,224));
+        jGuardar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jGuardarMouseMoved
 
     private void jGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseExited
-         jGuardar.setBackground(new Color(138,193,223));
+        jGuardar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jGuardarMouseExited
 
     private void jLimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseMoved
-         jLimpiar.setBackground(new Color(184,210,224));
+        jLimpiar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jLimpiarMouseMoved
 
     private void jLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseExited
-        jLimpiar.setBackground(new Color(138,193,223));
+        jLimpiar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
     private void jHistorialMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseMoved
-        jHistorial.setBackground(new Color(184,210,224));
+        jHistorial.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jHistorialMouseMoved
 
     private void jHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseExited
-         jHistorial.setBackground(new Color(138,193,223));
+        jHistorial.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jHistorialMouseExited
 
     private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
-       guardar();
+        guardar();
+        limpiarCampos();
     }//GEN-LAST:event_jGuardarMouseClicked
 
 
@@ -233,50 +232,67 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
- public void ocultarBarraTitulo(){
+ public void ocultarBarraTitulo() {
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
         dimBarra = Barra.getPreferredSize();
-        Barra.setSize(0,0);
-        Barra.setPreferredSize(new Dimension(0,0));
+        Barra.setSize(0, 0);
+        Barra.setPreferredSize(new Dimension(0, 0));
         repaint();
     }
- //String sql = "INSERT INTO horarios(id_ruta, hora_salida, hora_llegada, estado) VALUES (?, ?, ?, ?)";
-public void guardar(){
-    int indice = jCRutas.getSelectedIndex();
-    Horarios hs = new Horarios();
-    Rutas rt = listaRutas.get(indice);
-    HorariosData hData = new HorariosData();
-    Boolean estado=true;
-    //Transformo date a tipo localTime
-    Date date = (Date) jSpinner1.getValue();
-    Instant instant = date.toInstant();
-    LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
-    LocalTime localTime = localDateTime.toLocalTime();
-    hs.setHoraLLegada(localTime);
-    hs.setHoraSalida(localTime);
-   hs.setRuta(rt);
-   hs.setEstado(true);
-   hData.guardarHorario(hs);
-}
-public void llenarCombo(){
-   
-    for (Rutas rt : listaRutas) {
-        jCRutas.addItem(rt.toString());
+
+    public void limpiarCampos() {
+        formatoSpinner();
+        jCRutas.setSelectedIndex(-1);
     }
-}
-public void formatoSpinner(){
-    try {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        Date hora = sdf.parse("00:00:00");
-        SpinnerDateModel sm = new SpinnerDateModel(hora,null,null,Calendar.HOUR_OF_DAY);
-        jSpinner1.setModel(sm);
-        JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1,"HH:mm:ss");
-        jSpinner1.setEditor(de);
-    } catch (Exception e) {
-        System.out.println("a nono");
+
+    public void guardar() {
+
+        int indice = jCRutas.getSelectedIndex();
+        Rutas rt = listaRutas.get(indice);
+
+        // Obtener la hora de salida del JSpinner y convertirla a LocalTime
+        Date date = (Date) jSpinner1.getValue();
+        Instant instant = date.toInstant();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        LocalTime horaSalida = localDateTime.toLocalTime();
+
+        // Calcular la hora de llegada sumando la duración estimada de la ruta a la hora de salida
+        LocalTime horaLlegada = horaSalida.plusHours(rt.getDuracionEst().getHour())
+                .plusMinutes(rt.getDuracionEst().getMinute())
+                .plusSeconds(rt.getDuracionEst().getSecond());
+
+        Horarios hs = new Horarios();
+        hs.setHoraSalida(horaSalida);
+        hs.setHoraLLegada(horaLlegada);
+        hs.setRuta(rt);
+        hs.setEstado(true);
+
+        HorariosData hData = new HorariosData();
+        hData.guardarHorario(hs);
+
     }
-    
-}
+
+    public void llenarCombo() {
+
+        for (Rutas rt : listaRutas) {
+            jCRutas.addItem(rt.toString());
+        }
+        jCRutas.setSelectedIndex(-1);
+    }
+
+    public void formatoSpinner() {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            Date hora = sdf.parse("00:00:00");
+            SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
+            jSpinner1.setModel(sm);
+            JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm:ss");
+            jSpinner1.setEditor(de);
+        } catch (Exception e) {
+            System.out.println("a nono");
+        }
+
+    }
 }
