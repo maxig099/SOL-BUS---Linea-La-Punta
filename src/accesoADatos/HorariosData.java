@@ -138,9 +138,10 @@ public class HorariosData {
         return horarios;
     }
     
-    public List<Horarios> listarHorariosXRuta(int idRuta) {
-        List<Horarios> horarios = new ArrayList<>();
+    public ArrayList<Horarios> listarHorariosXRuta(int idRuta) {
+        ArrayList<Horarios> listaHorarios = new ArrayList<>();
         String sql = "SELECT * FROM horarios WHERE estado = 1 AND id_ruta = ?";
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idRuta);
@@ -156,14 +157,14 @@ public class HorariosData {
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
                 horario.setEstado(rs.getBoolean("estado"));
                 
-                horarios.add(horario);
+                listaHorarios.add(horario);
             }
             JOptionPane.showMessageDialog(null, "Horarios listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
         }
-        return horarios;
+        return listaHorarios;
     }
 }
 
