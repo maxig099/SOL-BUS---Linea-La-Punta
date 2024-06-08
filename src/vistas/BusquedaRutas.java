@@ -45,7 +45,7 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         ocultarBarraTitulo();
         listaRutas = ruData.listarRutas();
         listaRutasporOrigen = ruData.listarRutasPorOrigen();
-        listaRutasporDestino = ruData.listarRutasPorDestino();
+        listaRutasporDestino = ruData.listarRutasDestino();
         llenarComboOrigen();
         llenarComboDestino();
         llenarTablas();

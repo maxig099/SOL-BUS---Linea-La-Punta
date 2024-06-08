@@ -4,8 +4,10 @@
  */
 package vistas;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -15,14 +17,11 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  */
 public class BusquedaHorarios extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Pasaje
-     */
+
     public BusquedaHorarios() {
         initComponents();
         ocultarBarraTitulo();
-        
-        
+       
     }
 
     /**
@@ -51,7 +50,7 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jCombo = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTHorarios = new javax.swing.JTable();
@@ -164,8 +163,8 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 260, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 80, -1));
+        jCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 80, -1));
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 80, -1));
@@ -190,33 +189,33 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jGuardarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseMoved
-        jGuardar.setBackground(new Color(184,210,224));
+        jGuardar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jGuardarMouseMoved
 
     private void jGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseExited
-         jGuardar.setBackground(new Color(138,193,223));
+        jGuardar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jGuardarMouseExited
 
     private void jLimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseMoved
-         jLimpiar.setBackground(new Color(184,210,224));
+        jLimpiar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jLimpiarMouseMoved
 
     private void jLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseExited
-        jLimpiar.setBackground(new Color(138,193,223));
+        jLimpiar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
     private void jHistorialMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseMoved
-        jHistorial.setBackground(new Color(184,210,224));
+        jHistorial.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jHistorialMouseMoved
 
     private void jHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseExited
-         jHistorial.setBackground(new Color(138,193,223));
+        jHistorial.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jHistorialMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jCombo;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JPanel jGuardar;
     private javax.swing.JPanel jHistorial;
@@ -237,14 +236,16 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTHorarios;
     // End of variables declaration//GEN-END:variables
- public void ocultarBarraTitulo(){
+ public void ocultarBarraTitulo() {
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
         dimBarra = Barra.getPreferredSize();
-        Barra.setSize(0,0);
-        Barra.setPreferredSize(new Dimension(0,0));
+        Barra.setSize(0, 0);
+        Barra.setPreferredSize(new Dimension(0, 0));
         repaint();
     }
+
+
 
 }

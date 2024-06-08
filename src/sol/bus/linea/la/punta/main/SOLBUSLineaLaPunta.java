@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalField;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,8 +26,8 @@ public class SOLBUSLineaLaPunta {
      */
     public static void main(String[] args) {
         //PRUEBAS PASAJERO
-    Pasajeros psjr = new Pasajeros( "Agustin", "Perez", "4564564", "holala@esteb.com", "2664554636",true);
-    PasajerosData x = new PasajerosData();
+//    Pasajeros psjr = new Pasajeros( "Agustin", "Perez", "4564564", "holala@esteb.com", "2664554636",true);
+//    PasajerosData x = new PasajerosData();
     //x.guardarPasajero(psjr);
     //x.buscarPasajeroDNI("40326787");
     //x.modificarPasajero(psjr);
@@ -36,15 +37,15 @@ public class SOLBUSLineaLaPunta {
      }*/
     
         //PRUEBAS RUTA
-//    Rutas ruta = new Rutas(3, "San Luis", "Merlo", LocalTime.of(3, 10), true);
-    //RutasData x = new RutasData();
+   // Rutas ruta = new Rutas(3, "San Luis", "Merlo", LocalTime.of(3, 10), true);
+    RutasData x = new RutasData();
     //x.guardarRuta(ruta);
     //x.buscarRuta(2);
     //x.eliminarRuta(2);
     //x.modificarRuta(ruta);
-    /*for(Rutas rutas : x.listarRutas()) {
+    for(Rutas rutas : x.listarRutas()) {
         System.out.println(rutas);
-    }*/
+    }
     
         //PRUEBAS HORARIOS
 //    Horarios hor = new Horarios(3, ruta, LocalTime.of(18,0), true);
@@ -81,9 +82,7 @@ public class SOLBUSLineaLaPunta {
         System.out.println(pas);
     }*/
     
-    
-    
-    
+  
     }
 }
     
