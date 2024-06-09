@@ -11,10 +11,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -30,9 +29,10 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     
     public CargaDePasaje() {
         initComponents();
-        llenarComboRuta(cbOrigen,rutaData.listarRutasPorOrigen());
+        //cbDestino.setSelectedIndex(-1);
+        llenarCombo(cbOrigen, rutaData.listarRutasPorOrigen());
+        //llenarComboRuta(cbOrigen,rutaData.listarRutasPorOrigen());
         //ocultarBarraTitulo();
-        //llenarComboRutas();
         armarCabecera();
         jDateChooser1.setMinSelectableDate(Date.valueOf(LocalDate.now()));
         jDateChooser1.setDate(Date.valueOf(LocalDate.now()));
@@ -54,8 +54,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jGuardar = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
         panelDatos = new javax.swing.JPanel();
         panelPasajero = new javax.swing.JPanel();
         jBCrear = new javax.swing.JButton();
@@ -71,17 +69,21 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         cbOrigen = new javax.swing.JComboBox<>();
         horario = new javax.swing.JPanel();
-        cbHorarios = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        cbHorarios = new javax.swing.JComboBox<>();
         fecha = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         panelAsiento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        panelTabla = new javax.swing.JPanel();
         panelOrdenar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        jCMostrarPor = new javax.swing.JComboBox<>();
+        cbOrden = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -168,22 +170,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
         menuLateral.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 140, -1));
 
-        panelPrincipal.add(menuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 470));
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Seleccion Colectivo"));
-
-        tabla.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tabla);
-
-        panelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 550, 100));
+        panelPrincipal.add(menuLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 140, 570));
 
         panelPasajero.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pasajero", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 1, 12))); // NOI18N
 
@@ -267,6 +254,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel13.setText("Origen:    ");
         panelOrigen.add(jLabel13, java.awt.BorderLayout.WEST);
 
+        cbOrigen.setToolTipText("");
         cbOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbOrigenActionPerformed(evt);
@@ -279,10 +267,9 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         rutaLayout.setHorizontalGroup(
             rutaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rutaLayout.createSequentialGroup()
-                .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(rutaLayout.createSequentialGroup()
-                .addComponent(panelOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(rutaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         rutaLayout.setVerticalGroup(
@@ -296,12 +283,18 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
         horario.setLayout(new java.awt.BorderLayout());
 
-        horario.add(cbHorarios, java.awt.BorderLayout.CENTER);
-
         jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 51));
         jLabel10.setText("Horario:  ");
         horario.add(jLabel10, java.awt.BorderLayout.WEST);
+
+        cbHorarios.setEnabled(false);
+        cbHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbHorariosActionPerformed(evt);
+            }
+        });
+        horario.add(cbHorarios, java.awt.BorderLayout.CENTER);
 
         fecha.setLayout(new java.awt.BorderLayout());
 
@@ -335,22 +328,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        panelOrdenar.setLayout(new java.awt.BorderLayout());
-
-        jLabel11.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 51));
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel11.setText("Ordenar por:  ");
-        panelOrdenar.add(jLabel11, java.awt.BorderLayout.NORTH);
-
-        jCMostrarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jCMostrarPor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCMostrarPorActionPerformed(evt);
-            }
-        });
-        panelOrdenar.add(jCMostrarPor, java.awt.BorderLayout.CENTER);
-
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
         panelDatosLayout.setHorizontalGroup(
@@ -361,9 +338,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                     .addGroup(panelDatosLayout.createSequentialGroup()
                         .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(panelOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(ruta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelDatosLayout.createSequentialGroup()
                                 .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -390,14 +364,44 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(horario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelOrdenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 37, Short.MAX_VALUE))
         );
 
-        panelPrincipal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 550, 320));
+        panelPrincipal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 550, 300));
 
-        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 470));
+        panelTabla.setLayout(new java.awt.BorderLayout());
+
+        panelOrdenar.setLayout(new java.awt.BorderLayout());
+
+        jLabel11.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Ordenar por:  ");
+        panelOrdenar.add(jLabel11, java.awt.BorderLayout.NORTH);
+
+        panelOrdenar.add(cbOrden, java.awt.BorderLayout.CENTER);
+
+        jLabel6.setText("                                                                                                                                        ");
+        panelOrdenar.add(jLabel6, java.awt.BorderLayout.LINE_START);
+
+        panelTabla.add(panelOrdenar, java.awt.BorderLayout.NORTH);
+
+        tabla.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla);
+
+        panelTabla.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        panelPrincipal.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 350, 550, 220));
+
+        getContentPane().add(panelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 570));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -441,39 +445,42 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         tfPasajero.setText(texto);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jCMostrarPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCMostrarPorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCMostrarPorActionPerformed
-
-    private void cbDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDestinoActionPerformed
-        if(cbDestino.getSelectedIndex()!=-1){
-            cbHorarios.setEnabled(true);
-            llenarComboHorarios();
-        }else{
-            cbHorarios.setEnabled(false);
-        }
-
-    }//GEN-LAST:event_cbDestinoActionPerformed
-
     private void cbOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrigenActionPerformed
-        if(cbOrigen.getSelectedIndex()!=-1){
-            cbDestino.setEnabled(true);
-            llenarComboRuta(cbDestino,rutaData.listarRutasDestino((String)cbOrigen.getSelectedItem()));
-        }else{
+        if(cbOrigen.getSelectedIndex()<1){
             cbDestino.setEnabled(false);
+        }else{
+            llenarCombo(cbDestino, rutaData.listarRutasDestino((String) cbOrigen.getSelectedItem()));
+            cbDestino.setEnabled(true);
         }
     }//GEN-LAST:event_cbOrigenActionPerformed
+
+    private void cbDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDestinoActionPerformed
+                if(cbDestino.getSelectedIndex()<1){
+            cbHorarios.setEnabled(false);
+        }else{
+            Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
+            llenarCombo(cbHorarios, horaData.listarHorariosXRuta(r.getIdRuta()));
+            cbHorarios.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbDestinoActionPerformed
+
+    private void cbHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHorariosActionPerformed
+        //si hay un colectivo asignado a la ruta y horario; y si hay lugares disponibles
+        //si no hay lugares disponibles, listar colectivos disponibles
+        
+        cargarTabla(lista);
+    }//GEN-LAST:event_cbHorariosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbDestino;
     private javax.swing.JComboBox<String> cbHorarios;
+    private javax.swing.JComboBox<String> cbOrden;
     private javax.swing.JComboBox<String> cbOrigen;
     private javax.swing.JPanel fecha;
     private javax.swing.JPanel horario;
     private javax.swing.JButton jBCrear;
-    private javax.swing.JComboBox<String> jCMostrarPor;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JPanel jGuardar;
@@ -487,6 +494,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -501,11 +509,13 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JPanel panelOrigen;
     private javax.swing.JPanel panelPasajero;
     private javax.swing.JPanel panelPrincipal;
+    private javax.swing.JPanel panelTabla;
     private javax.swing.JPanel ruta;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField tfDni;
     private javax.swing.JTextField tfPasajero;
     // End of variables declaration//GEN-END:variables
+    
     public void ocultarBarraTitulo() {
         JComponent Barra = null;
         Dimension dimBarra = null;
@@ -516,7 +526,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         repaint();
     }
     
-        private void armarCabecera(){
+    private void armarCabecera(){
         modeloTabla.addColumn("Colectivo");
         modeloTabla.addColumn("Origen");
         modeloTabla.addColumn("Destino");
@@ -531,25 +541,11 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         }
     }
 
-    private void llenarComboRuta(JComboBox combo,ArrayList<String> lista) {
+    private void llenarCombo(JComboBox<String> combo, Collection lista){
         combo.removeAllItems();
-        for (String x : lista) {
-            combo.addItem(x);
+        combo.addItem("---");
+        for (Object x : lista){
+            combo.addItem(x.toString());
         }
-        combo.setSelectedIndex(-1);
-    }
- 
-    private void llenarComboHorarios() {       
-//        combo.addItem("---");        
-        Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
-        if(r != null){
-            ArrayList<Horarios> listaHorarios = null;
-            listaHorarios.addAll(horaData.listarHorariosXRuta(r.getIdRuta()));
-            cbHorarios.removeAll();
-            for (Horarios x : listaHorarios) {
-                cbHorarios.addItem(x.toString());            
-            }
-        }
-        cbHorarios.setSelectedIndex(-1);
     }
 }

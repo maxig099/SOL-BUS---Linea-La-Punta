@@ -7,7 +7,7 @@ public class Rutas {
     private int idRuta;
     private String origen;
     private String destino;
-    public LocalTime duracionEst;
+    private LocalTime duracionEst;
     private boolean estado;
 
     public Rutas(int idRuta, String origen, String destino, LocalTime duracionEst, boolean estado) {

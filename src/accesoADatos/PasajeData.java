@@ -49,7 +49,7 @@ public class PasajeData {
         }
     }
 
-   /* public Pasaje buscarVenta(int id) {
+    public Pasaje buscarVenta(int id) {
         String sql = "SELECT * FROM pasajes WHERE id_pasajes = ?";
         Pasaje pasaje = null;
         try {
@@ -59,6 +59,7 @@ public class PasajeData {
 
             if (rs.next()) {
                 pasaje = new Pasaje();
+                
                 pasaje.setIdPasaje(rs.getInt("id_pasajes"));
                 Pasajeros psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
                 pasaje.setPasajero(psjr);
@@ -66,11 +67,10 @@ public class PasajeData {
                 pasaje.setColectivo(cole);
                 Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
                 pasaje.setRuta(ruta);
-                pasaje.setFechaViaje(rs.getDate("fecha_viaje"));
-                pasaje.setHoraViaje(rs.getTime("hora_viaje"));
+                pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
                 pasaje.setAsiento(rs.getInt("asiento"));
-                pasaje.setPrecio(rs.getDouble("precio"));
-                
+                pasaje.setPrecio(rs.getDouble("precio"));                
                 
             } else {
                 JOptionPane.showMessageDialog(null, "No existe una pasaje con ese ID");
@@ -82,30 +82,30 @@ public class PasajeData {
         return pasaje;
     }
 
-    public void modificarVenta(Pasaje pasaje) {
-        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
-            ps.setInt(2, pasaje.getColectivo().getIdColectivo());
-            ps.setInt(3, pasaje.getRuta().getIdRuta());
-            ps.setDate(4, pasaje.getFechaViaje().);
-            ps.setTime(5, pasaje.getHoraViaje());
-            ps.setInt(6, pasaje.getAsiento());
-            ps.setDouble(7, pasaje.getPrecio());
-            ps.setInt(8, pasaje.getIdPasaje());
-            int filasAfectadas = ps.executeUpdate();
-
-            if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Se modificó exitosamente la pasaje");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la pasaje a modificar");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
-        }
-    }*/
+//    public void modificarVenta(Pasaje pasaje) {
+//        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
+//            ps.setInt(2, pasaje.getColectivo().getIdColectivo());
+//            ps.setInt(3, pasaje.getRuta().getIdRuta());
+//            ps.setDate(4, pasaje.getFechaViaje().);
+//            ps.setTime(5, pasaje.getHoraViaje());
+//            ps.setInt(6, pasaje.getAsiento());
+//            ps.setDouble(7, pasaje.getPrecio());
+//            ps.setInt(8, pasaje.getIdPasaje());
+//            int filasAfectadas = ps.executeUpdate();
+//
+//            if (filasAfectadas > 0) {
+//                JOptionPane.showMessageDialog(null, "Se modificó exitosamente la pasaje");
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No se encontró la pasaje a modificar");
+//            }
+//            ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+//        }
+//    }
 
     public void eliminarVenta(int id) {
         String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ? AND estado = 1";
