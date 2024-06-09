@@ -7,7 +7,11 @@ public class Rutas {
     private int idRuta;
     private String origen;
     private String destino;
+<<<<<<< Updated upstream
     private LocalTime duracionEst;
+=======
+   private LocalTime duracionEst;
+>>>>>>> Stashed changes
     private boolean estado;
 
     public Rutas(int idRuta, String origen, String destino, LocalTime duracionEst, boolean estado) {
@@ -70,7 +74,7 @@ public class Rutas {
 
     @Override
     public String toString() {
-        return "ID Ruta= " + idRuta + ", Origen= " + origen + ", Destino= " + destino + ", Duracion Estimada= " + duracionEst + ", Estado= " + estado;
+        return "ID Ruta= " + idRuta + ", Origen= " + origen + ", Destino= " + destino;
     }
 
     
