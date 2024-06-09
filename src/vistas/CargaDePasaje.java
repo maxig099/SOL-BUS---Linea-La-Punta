@@ -455,12 +455,12 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbOrigenActionPerformed
 
     private void cbDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDestinoActionPerformed
-                if(cbDestino.getSelectedIndex()<1){
+        if(cbDestino.getSelectedIndex()<1){
             cbHorarios.setEnabled(false);
         }else{
             Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
             llenarCombo(cbHorarios, horaData.listarHorariosXRuta(r.getIdRuta()));
-            cbHorarios.setEnabled(true);
+            cbHorarios.setEnabled(true);            
         }
     }//GEN-LAST:event_cbDestinoActionPerformed
 
@@ -468,6 +468,10 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         //si hay un colectivo asignado a la ruta y horario; y si hay lugares disponibles
         //si no hay lugares disponibles, listar colectivos disponibles
         
+        listacolectivosXRuta o listacolectivosXRuta + listaColectivosDisponibles
+        
+                listacolectivosdisponibles(todos colectivos que no tengan pasajes 
+                para el dia y no esten dentro del horario del servicio)
         cargarTabla(lista);
     }//GEN-LAST:event_cbHorariosActionPerformed
 
@@ -530,8 +534,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Colectivo");
         modeloTabla.addColumn("Origen");
         modeloTabla.addColumn("Destino");
+        modeloTabla.addColumn("Horario");
         modeloTabla.addColumn("Disponibilidad");
-        modeloTabla.addColumn("Precio");
         tabla.setModel(modeloTabla);
     }
     

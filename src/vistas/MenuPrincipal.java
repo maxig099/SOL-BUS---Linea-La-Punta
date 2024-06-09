@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
-import static jdk.internal.org.jline.utils.Colors.s;
+
 
 public class MenuPrincipal extends javax.swing.JFrame {
 

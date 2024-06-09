@@ -81,6 +81,41 @@ public class PasajeData {
         }
         return pasaje;
     }
+    
+    public Pasaje buscarVenta(Date fecha, Time hora,int ruta) {
+        String sql = "SELECT * FROM colectivos\n" +
+"JOIN pasajes ON colectivos.id_colectivo = pasajes.id_colectivo\n" +
+"WHERE pasajes.fecha_viaje = \"2024-06-09\" AND pasajes.hora_viaje = \"12:00:00\" AND pasajes.id_ruta = 7 ";
+        Pasaje pasaje = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                pasaje = new Pasaje();
+                
+                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
+                Pasajeros psjr = pasajeroData.buscarPasajero(rs.getInt("id_pasajero"));
+                pasaje.setPasajero(psjr);
+                Colectivos cole = coleData.buscarColectivo(rs.getInt("id_colectivo"));
+                pasaje.setColectivo(cole);
+                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
+                pasaje.setRuta(ruta);
+                pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("asiento"));
+                pasaje.setPrecio(rs.getDouble("precio"));                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe una pasaje con ese ID");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+        }
+        return pasaje;
+    }
 
 //    public void modificarVenta(Pasaje pasaje) {
 //        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
