@@ -1,8 +1,10 @@
 package vistas;
 
+import accesoADatos.ColectivosData;
 import accesoADatos.HorariosData;
 import accesoADatos.PasajerosData;
 import accesoADatos.RutasData;
+import entidades.Colectivos;
 import entidades.Horarios;
 import entidades.Pasaje;
 import entidades.Pasajeros;
@@ -11,9 +13,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javafx.util.converter.LocalTimeStringConverter;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -24,7 +30,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private PasajerosData pasData = new PasajerosData();
     private RutasData rutaData = new RutasData();
     private HorariosData horaData = new HorariosData();
-    
+    private ColectivosData coleData = new ColectivosData();
+    private Rutas rutas = new Rutas();
     private DefaultTableModel modeloTabla = new DefaultTableModel();
     
     public CargaDePasaje() {
@@ -34,8 +41,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         //llenarComboRuta(cbOrigen,rutaData.listarRutasPorOrigen());
         //ocultarBarraTitulo();
         armarCabecera();
-        jDateChooser1.setMinSelectableDate(Date.valueOf(LocalDate.now()));
-        jDateChooser1.setDate(Date.valueOf(LocalDate.now()));
+        dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
+        dcFecha.setDate(Date.valueOf(LocalDate.now()));
     }
 
     @SuppressWarnings("unchecked")
@@ -73,7 +80,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         cbHorarios = new javax.swing.JComboBox<>();
         fecha = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dcFecha = new com.toedter.calendar.JDateChooser();
         panelAsiento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -302,7 +309,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel12.setForeground(new java.awt.Color(0, 0, 51));
         jLabel12.setText("Fecha:  ");
         fecha.add(jLabel12, java.awt.BorderLayout.WEST);
-        fecha.add(jDateChooser1, java.awt.BorderLayout.CENTER);
+        fecha.add(dcFecha, java.awt.BorderLayout.CENTER);
 
         jLabel2.setText("Asiento");
 
@@ -467,12 +474,17 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private void cbHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHorariosActionPerformed
         //si hay un colectivo asignado a la ruta y horario; y si hay lugares disponibles
         //si no hay lugares disponibles, listar colectivos disponibles
-        
-        listacolectivosXRuta o listacolectivosXRuta + listaColectivosDisponibles
-        
-                listacolectivosdisponibles(todos colectivos que no tengan pasajes 
-                para el dia y no esten dentro del horario del servicio)
-        cargarTabla(lista);
+        if(cbHorarios.getSelectedIndex()>0){
+            Date f=new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
+            LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
+            String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
+            LocalTime salida = new LocalTimeStringConverter().fromString(x);
+            String y = recuperarDato((String) cbHorarios.getSelectedItem(), "Llegada: ([0-9:0-9]+)");
+            LocalTime llegada = new LocalTimeStringConverter().fromString(y);
+            ArrayList lista = coleData.listarColectivosDisponibles(fec, salida, llegada);
+
+            cargarTabla(lista);
+        }
     }//GEN-LAST:event_cbHorariosActionPerformed
 
 
@@ -482,11 +494,11 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbHorarios;
     private javax.swing.JComboBox<String> cbOrden;
     private javax.swing.JComboBox<String> cbOrigen;
+    private com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JPanel fecha;
     private javax.swing.JPanel horario;
     private javax.swing.JButton jBCrear;
     private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JPanel jGuardar;
     private javax.swing.JPanel jHistorial;
     private javax.swing.JLabel jLabel1;
@@ -531,17 +543,17 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     }
     
     private void armarCabecera(){
+        modeloTabla.addColumn("Id");
         modeloTabla.addColumn("Colectivo");
-        modeloTabla.addColumn("Origen");
-        modeloTabla.addColumn("Destino");
-        modeloTabla.addColumn("Horario");
+        modeloTabla.addColumn("Capacidad");
         modeloTabla.addColumn("Disponibilidad");
         tabla.setModel(modeloTabla);
     }
     
-    private void cargarTabla(Collection<Pasaje> lista) {
-        for(Pasaje pasa:lista){
-            
+    private void cargarTabla(Collection<Colectivos> lista) {
+        borrarFilas();
+        for(Colectivos x: lista){
+            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad()});
         }
     }
 
@@ -550,6 +562,25 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         combo.addItem("---");
         for (Object x : lista){
             combo.addItem(x.toString());
+        }
+    }
+    
+    private String recuperarDato(String cadena, String patron){
+        Pattern pattern = Pattern.compile(patron, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(cadena);
+
+        //vemos si coincide el patrón con el texto
+        if (matcher.find()) {
+            //Coincidió => obtener el valor del grupo 1
+            return matcher.group(1);
+        }
+        return "No se encontro";
+    }
+
+    private void borrarFilas() {
+        int filas = modeloTabla.getRowCount() - 1;
+        for (int f = filas; f >= 0; f--) {
+            modeloTabla.removeRow(f);
         }
     }
 }

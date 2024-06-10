@@ -2,6 +2,8 @@ package accesoADatos;
 
 import entidades.*;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -118,6 +120,48 @@ public class ColectivosData {
         String sql = "SELECT * FROM colectivos WHERE estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Colectivos colectivo = new Colectivos();
+                
+                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                
+                listaColectivos.add(colectivo);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
+        }
+        return listaColectivos;
+    }
+    
+    public ArrayList<Colectivos> listarColectivosDisponibles(LocalDate fecha, LocalTime horaSalida, LocalTime horaLlegada) {
+        ArrayList<Colectivos> listaColectivos = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.* " +
+                    "FROM pasajes p " +
+                    "RIGHT JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
+                    "LEFT JOIN ruta r ON p.id_ruta = r.id_ruta " +
+                    "LEFT JOIN horarios h ON (p.hora_viaje = h.hora_salida AND r.id_ruta = h.id_ruta) " +
+                    "WHERE (NOT(((h.hora_salida BETWEEN ? AND ?) "
+                    + "OR (h.hora_llegada BETWEEN ? AND ?)) AND ?) OR p.id_ruta is null)";
+        
+//        SELECT c.*
+//FROM pasajes p
+//RIGHT JOIN colectivos c ON p.id_colectivo=c.id_colectivo
+//WHERE (not p.hora_viaje = "12:00") 
+//AND (NOT p.id_colectivo=(SELECT p.id_colectivo FROM pasajes p WHERE p.hora_viaje = "12:00")) OR p.id_ruta is null
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setTime(1, Time.valueOf(horaSalida));
+            ps.setTime(2, Time.valueOf(horaLlegada));
+            ps.setTime(3, Time.valueOf(horaSalida));
+            ps.setTime(4, Time.valueOf(horaLlegada));
+            ps.setDate(5, Date.valueOf(fecha));
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

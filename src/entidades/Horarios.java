@@ -79,7 +79,7 @@ public class Horarios {
 
     @Override
     public String toString() {
-        return "Salida: " + horaSalida + " - Llegada: " + horaLLegada;
+        return "Salida: " + horaSalida + " - Llegada: " + horaLLegada + " - ("+idHorarios+")";
     }
 
 }

@@ -407,7 +407,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabelVentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelVentasMouseClicked
-        jTabbedPane1.setSelectedIndex(2);
+        jTabbedPane1.setSelectedIndex(3);
+        jInicio.removeAll();
+        jInicio.repaint();
+        CargaDePasaje cp=new CargaDePasaje();
+        cp.setVisible(true);
+        cp.setLocation(0, 10);
+        
+       
+        jInicio.add(cp);
     }//GEN-LAST:event_jLabelVentasMouseClicked
 
     private void jLabelBusquedaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelBusquedaMouseClicked
