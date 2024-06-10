@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 import javafx.util.converter.LocalTimeStringConverter;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
@@ -47,6 +48,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         armarCabecera();
         //dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
         dcFecha.setDate(Date.valueOf(LocalDate.now().minusDays(1)));
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -87,7 +90,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         dcFecha = new com.toedter.calendar.JDateChooser();
         panelAsiento = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbAsientos = new javax.swing.JComboBox<>();
         panelTabla = new javax.swing.JPanel();
         panelOrdenar = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -317,7 +320,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Asiento");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbAsientos.setEnabled(false);
 
         javax.swing.GroupLayout panelAsientoLayout = new javax.swing.GroupLayout(panelAsiento);
         panelAsiento.setLayout(panelAsientoLayout);
@@ -326,8 +329,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             .addGroup(panelAsientoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(29, 29, 29)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelAsientoLayout.setVerticalGroup(
@@ -335,7 +338,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             .addGroup(panelAsientoLayout.createSequentialGroup()
                 .addGroup(panelAsientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbAsientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
@@ -346,20 +349,17 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             .addGroup(panelDatosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ruta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelDatosLayout.createSequentialGroup()
-                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelPasajero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ruta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelDatosLayout.createSequentialGroup()
-                                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelDatosLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(horario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))))
+                        .addGap(97, 97, 97)
+                        .addComponent(panelAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,6 +406,11 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla);
 
         panelTabla.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -461,6 +466,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         cargarTabla(lista);
         if(cbOrigen.getSelectedIndex()<1){
             cbDestino.setEnabled(false);
+            cbHorarios.setEnabled(false);
         }else{
             llenarCombo(cbDestino, rutaData.listarRutasDestino((String) cbOrigen.getSelectedItem()));
             cbDestino.setEnabled(true);
@@ -472,10 +478,11 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         cargarTabla(lista);
         if(cbDestino.getSelectedIndex()<1){
             cbHorarios.setEnabled(false);
+            cbAsientos.setEnabled(false);            
         }else{
             Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
             llenarCombo(cbHorarios, horaData.listarHorariosXRuta(r.getIdRuta()));
-            cbHorarios.setEnabled(true);            
+            cbHorarios.setEnabled(true);           
         }
     }//GEN-LAST:event_cbDestinoActionPerformed
 
@@ -483,7 +490,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         //si hay un colectivo asignado a la ruta y horario; y si hay lugares disponibles
         //si no hay lugares disponibles, listar colectivos disponibles
         Rutas r = rutaData.buscarRuta((String)cbOrigen.getSelectedItem(), (String)cbDestino.getSelectedItem());
-        
+        borrarFilas();
         if(cbHorarios.getSelectedIndex()>0){
             Date f=new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
             LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
@@ -500,11 +507,28 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
               venta.setHoraViaje(salida);
             cargarTabla(lista);
         }
+        cbAsientos.setEnabled(false);
     }//GEN-LAST:event_cbHorariosActionPerformed
+
+    private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
+        int fs = tabla.getSelectedRow();
+        if(fs>=0){
+            cbAsientos.setEnabled(true);
+            ArrayList<Integer> ocupados = pasajeData.AsientosVendidos((Integer)tabla.getValueAt(fs, 0), venta.getRuta().getIdRuta(), venta.getFechaViaje(), venta.getHoraViaje());
+            ArrayList<Integer> disponibles = new ArrayList<>();
+            for(int i=1;i<=(int)tabla.getValueAt(fs, 2);i++){
+                if(!ocupados.contains(i)){                
+                    disponibles.add(i);
+                }
+            }
+            llenarCombo(cbAsientos, disponibles);            
+        }
+    }//GEN-LAST:event_tablaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JComboBox<String> cbAsientos;
     private javax.swing.JComboBox<String> cbDestino;
     private javax.swing.JComboBox<String> cbHorarios;
     private javax.swing.JComboBox<String> cbOrden;
@@ -513,7 +537,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JPanel fecha;
     private javax.swing.JPanel horario;
     private javax.swing.JButton jBCrear;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jGuardar;
     private javax.swing.JPanel jHistorial;
     private javax.swing.JLabel jLabel1;
@@ -562,11 +585,13 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Colectivo");
         modeloTabla.addColumn("Capacidad");
         modeloTabla.addColumn("Disponibilidad");
-        tabla.setModel(modeloTabla);
+        tabla.setModel(modeloTabla);    
+        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
     private void cargarTabla(Collection<Colectivos> lista) {
         borrarFilas();
+        cbAsientos.removeAllItems();
         for(Colectivos x: lista){
             int asientosVendidos = pasajeData.AsientosVendidos(x.getIdColectivo(), venta.getRuta().getIdRuta(), venta.getFechaViaje(), venta.getHoraViaje()).size();
             int dispon = x.getCapacidad() - asientosVendidos;

@@ -79,7 +79,7 @@ public class Colectivos {
 
     @Override
     public String toString() {
-        return "Matricula: " + matricula + ", Marca: " + marca + ", Modelo: " + modelo;
+        return "Matricula: " + matricula + " / " + marca + " / " + modelo;
     }
 
 }
