@@ -2,6 +2,8 @@ package accesoADatos;
 
 import entidades.*;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -196,6 +198,65 @@ public class PasajeData {
         }
         return listaVentas          ;
     }
+    
+    public ArrayList<Colectivos> listarColectivosAsignados(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
+                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
+                    "WHERE p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_ruta);
+            ps.setDate(2, Date.valueOf(fechaViaje));
+            ps.setTime(3, Time.valueOf(horaViaje));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Colectivos colectivo = new Colectivos();
+                
+                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                listaColeAsig.add(colectivo);                
+            }
+            JOptionPane.showMessageDialog(null, "Colectivos listados");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return listaColeAsig;
+    }
+    
+    public ArrayList<Integer> AsientosVendidos(int id_colectivo, int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Integer> listaAsientosAsig = new ArrayList<>();
+        
+        String sql = "SELECT p.nroButaca FROM pasajes p "
+                    + "WHERE p.id_colectivo = ? AND p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_colectivo);
+            ps.setInt(2, id_ruta);
+            ps.setDate(3, Date.valueOf(fechaViaje));
+            ps.setTime(4, Time.valueOf(horaViaje));
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listaAsientosAsig.add(rs.getInt(1));                
+            }
+            JOptionPane.showMessageDialog(null, "Asientos listados");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return listaAsientosAsig;
+    }
+    
     public ArrayList<String> listarColectivosDisponibles() {
         ArrayList<Pasaje> listaVentas = new ArrayList<>();
         String sql = "SELECT DISTINCT p.id_pasajes, c.id_colectivo, c.capacidad, r.id_ruta, r.origen, r.destino, h.hora_salida, h.hora_llegada \n" +

@@ -2,6 +2,7 @@ package vistas;
 
 import accesoADatos.ColectivosData;
 import accesoADatos.HorariosData;
+import accesoADatos.PasajeData;
 import accesoADatos.PasajerosData;
 import accesoADatos.RutasData;
 import entidades.Colectivos;
@@ -28,11 +29,14 @@ import javax.swing.table.DefaultTableModel;
 public class CargaDePasaje extends javax.swing.JInternalFrame {
     private Pasajeros pasajero = null;
     private PasajerosData pasData = new PasajerosData();
+    private PasajeData pasajeData = new PasajeData();
     private RutasData rutaData = new RutasData();
     private HorariosData horaData = new HorariosData();
     private ColectivosData coleData = new ColectivosData();
     private Rutas rutas = new Rutas();
+    private Pasaje venta = new Pasaje();
     private DefaultTableModel modeloTabla = new DefaultTableModel();
+    private ArrayList lista = new ArrayList();
     
     public CargaDePasaje() {
         initComponents();
@@ -41,8 +45,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         //llenarComboRuta(cbOrigen,rutaData.listarRutasPorOrigen());
         //ocultarBarraTitulo();
         armarCabecera();
-        dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
-        dcFecha.setDate(Date.valueOf(LocalDate.now()));
+        //dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
+        dcFecha.setDate(Date.valueOf(LocalDate.now().minusDays(1)));
     }
 
     @SuppressWarnings("unchecked")
@@ -453,6 +457,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cbOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrigenActionPerformed
+        lista.clear();
+        cargarTabla(lista);
         if(cbOrigen.getSelectedIndex()<1){
             cbDestino.setEnabled(false);
         }else{
@@ -462,6 +468,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbOrigenActionPerformed
 
     private void cbDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDestinoActionPerformed
+        lista.clear();
+        cargarTabla(lista);
         if(cbDestino.getSelectedIndex()<1){
             cbHorarios.setEnabled(false);
         }else{
@@ -474,15 +482,22 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private void cbHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHorariosActionPerformed
         //si hay un colectivo asignado a la ruta y horario; y si hay lugares disponibles
         //si no hay lugares disponibles, listar colectivos disponibles
+        Rutas r = rutaData.buscarRuta((String)cbOrigen.getSelectedItem(), (String)cbDestino.getSelectedItem());
+        
         if(cbHorarios.getSelectedIndex()>0){
             Date f=new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
             LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
             String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
             LocalTime salida = new LocalTimeStringConverter().fromString(x);
-            String y = recuperarDato((String) cbHorarios.getSelectedItem(), "Llegada: ([0-9:0-9]+)");
-            LocalTime llegada = new LocalTimeStringConverter().fromString(y);
-            ArrayList lista = coleData.listarColectivosDisponibles(fec, salida, llegada);
+            
+//            String y = recuperarDato((String) cbHorarios.getSelectedItem(), "Llegada: ([0-9:0-9]+)");
+//            LocalTime llegada = new LocalTimeStringConverter().fromString(y);
+//            ArrayList lista = coleData.listarColectivosDisponibles(fec, salida, llegada);
 
+              lista = pasajeData.listarColectivosAsignados(r.getIdRuta(), fec, salida);
+              venta.setRuta(r);
+              venta.setFechaViaje(fec);
+              venta.setHoraViaje(salida);
             cargarTabla(lista);
         }
     }//GEN-LAST:event_cbHorariosActionPerformed
@@ -553,7 +568,10 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private void cargarTabla(Collection<Colectivos> lista) {
         borrarFilas();
         for(Colectivos x: lista){
-            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad()});
+            int asientosVendidos = pasajeData.AsientosVendidos(x.getIdColectivo(), venta.getRuta().getIdRuta(), venta.getFechaViaje(), venta.getHoraViaje()).size();
+            int dispon = x.getCapacidad() - asientosVendidos;
+                    
+            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
         }
     }
 
