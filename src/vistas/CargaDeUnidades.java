@@ -193,17 +193,26 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         String matricula = jtMatricula.getText();
         String marca = jTMarca.getText();
         String modelo = jTModelo.getText();
-            int capacidad = Integer.valueOf(jTCapacidad.getText());
-        boolean estado = true;
+        String capacidad = jTCapacidad.getText();
+       
         if (jtMatricula.getText().isEmpty() || jTModelo.getText().isEmpty() || jTMarca.getText().isEmpty() || jTCapacidad.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debes llenar todos los campos para guardar");
             return;
         }
+        try {
+            int capac = Integer.parseInt(capacidad);
+             boolean estado = true;
         if (colectivo == null) {
-            colectivo = new Colectivos (matricula, marca, modelo, capacidad, estado);
+            colectivo = new Colectivos (matricula, marca, modelo, capac, estado);
             coleData.guardarColectivo(colectivo);
         }
-        limpiarCampos();
+        limpiarCampos(); 
+        }
+        catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "La capacidad debe ser un numero");
+        }
+
+    
     }//GEN-LAST:event_jGuardarMouseClicked
 
     private void jTCapacidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCapacidadKeyTyped
