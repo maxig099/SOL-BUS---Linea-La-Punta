@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-05-2024 a las 23:52:57
+-- Tiempo de generación: 11-06-2024 a las 21:23:53
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -53,8 +53,7 @@ CREATE TABLE IF NOT EXISTS `horarios` (
   `hora_llegada` time NOT NULL,
   `estado` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_horario`),
-  KEY `id_ruta` (`id_ruta`),
-  KEY `id_ruta_2` (`id_ruta`)
+  UNIQUE KEY `id_ruta` (`id_ruta`,`hora_salida`,`hora_llegada`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -91,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `pasajes` (
   `nroButaca` int(11) NOT NULL,
   `precio` decimal(11,0) NOT NULL,
   PRIMARY KEY (`id_pasajes`),
-  UNIQUE KEY `ctrol_butaca` (`id_colectivo`,`fecha_viaje`,`hora_viaje`,`nroButaca`) USING BTREE,
+  UNIQUE KEY `ctrol_butaca` (`id_colectivo`,`id_ruta`,`fecha_viaje`,`hora_viaje`,`nroButaca`) USING BTREE,
   KEY `id_colectivo` (`id_colectivo`),
   KEY `id_pasajero` (`id_pasajero`),
   KEY `id_ruta` (`id_ruta`)
