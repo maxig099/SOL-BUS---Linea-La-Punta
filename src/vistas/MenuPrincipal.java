@@ -79,7 +79,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelAdmin.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabelAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/administracion.png"))); // NOI18N
         jLabelAdmin.setText("  Administracion");
-        jLabelAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabelAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelAdminMouseClicked(evt);
@@ -104,7 +104,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelVentas.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabelVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/venta.png"))); // NOI18N
         jLabelVentas.setText("    Ventas");
-        jLabelVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabelVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelVentasMouseClicked(evt);
@@ -129,7 +129,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelBusqueda.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabelBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Busqueda (2).png"))); // NOI18N
         jLabelBusqueda.setText("    Busqueda");
-        jLabelBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabelBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabelBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelBusquedaMouseClicked(evt);
@@ -145,7 +145,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jPanelBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 150, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 620));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 670));
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -158,7 +158,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/brailleb.png"))); // NOI18N
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 710, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 880, -1));
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -177,13 +177,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelUnidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Unidades.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
             }
         });
-        jPanelUnidades.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 29, -1, -1));
+        jPanelUnidades.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 9, -1, 80));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         jLabel6.setText("Carga de Unidades");
@@ -202,13 +202,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelRutas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Rutas.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
             }
         });
-        jPanelRutas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 29, -1, -1));
+        jPanelRutas.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         jLabel8.setText("Carga de Rutas");
@@ -227,13 +227,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPaneHorario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Horarios.png"))); // NOI18N
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
             }
         });
-        jPaneHorario.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 29, -1, -1));
+        jPaneHorario.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         jLabel10.setText("Carga de Horarios");
@@ -252,13 +252,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Usuarios.png"))); // NOI18N
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
             }
         });
-        jPanelPasajero.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 29, -1, -1));
+        jPanelPasajero.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 80, 90));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI Symbol", 0, 14)); // NOI18N
         jLabel12.setText("Carga de pasajero");
@@ -277,7 +277,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jPaneHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(jPanelRutas, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,7 +289,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addComponent(jPanelPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addComponent(jPanelUnidades, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("tab1", jPanel9);
@@ -309,13 +309,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Rutas.png"))); // NOI18N
-        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel15MouseClicked(evt);
             }
         });
-        jPanelPasajero1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 29, -1, -1));
+        jPanelPasajero1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
 
         jLabel16.setText("Busqueda de Rutas");
         jPanelPasajero1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
@@ -333,13 +333,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Horarios.png"))); // NOI18N
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel17MouseClicked(evt);
             }
         });
-        jPanelPasajero2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 29, -1, -1));
+        jPanelPasajero2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
 
         jLabel18.setText("Busqueda de Horarios");
         jPanelPasajero2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
@@ -351,24 +351,24 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(240, 240, 240)
                 .addComponent(jPanelPasajero1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addContainerGap(505, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addGap(55, 55, 55)
                     .addComponent(jPanelPasajero2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(520, Short.MAX_VALUE)))
+                    .addContainerGap(690, Short.MAX_VALUE)))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
                 .addComponent(jPanelPasajero1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(432, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addGap(57, 57, 57)
                     .addComponent(jPanelPasajero2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(383, Short.MAX_VALUE)))
+                    .addContainerGap(433, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("tab2", jPanel10);
@@ -377,11 +377,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGap(0, 878, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab3", jPanel11);
@@ -392,16 +392,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jInicio.setLayout(jInicioLayout);
         jInicioLayout.setHorizontalGroup(
             jInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGap(0, 878, Short.MAX_VALUE)
         );
         jInicioLayout.setVerticalGroup(
             jInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGap(0, 633, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab4", jInicio);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 710, 620));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 0, 880, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -412,7 +412,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jInicio.repaint();
         CargaDePasaje cp=new CargaDePasaje();
         cp.setVisible(true);
-        cp.setLocation(0, 10);
+        cp.setLocation(0, -14);
         
        
         jInicio.add(cp);
