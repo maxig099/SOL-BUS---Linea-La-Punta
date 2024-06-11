@@ -42,7 +42,12 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private ColectivosData coleData = new ColectivosData();
     private Rutas rutas = new Rutas();
     private Pasaje venta = new Pasaje();
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
+    private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int i, int i1) {
+            return false;
+        }
+    };
     private ArrayList lista = new ArrayList();
     
     public CargaDePasaje() {
@@ -227,6 +232,11 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
         btnAsignarUnidad.setText("Asignar Unidad"); // NOI18N
         btnAsignarUnidad.setEnabled(false);
+        btnAsignarUnidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarUnidadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTablaLayout = new javax.swing.GroupLayout(panelTabla);
         panelTabla.setLayout(panelTablaLayout);
@@ -623,8 +633,12 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         venta.setAsiento(Integer.parseInt(cbAsientos.getSelectedItem().toString()));
-        pasajeData.guardarPasaje(venta);
-        limpiarCampos();
+        if(pasajero!=null){
+            pasajeData.guardarPasaje(venta);
+            limpiarCampos();            
+        }else{
+            JOptionPane.showMessageDialog(this, "Cargue el pasajero");
+        }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void cbAsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAsientosActionPerformed
@@ -640,6 +654,17 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         CargarPasajero cp = new CargarPasajero(f, true, tfDni.getText());
         cp.setVisible(true);
     }//GEN-LAST:event_btnCrearPasActionPerformed
+
+    private void btnAsignarUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUnidadActionPerformed
+        ArrayList listaDispon = null;
+        Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
+        Date f = new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
+        LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
+        String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
+        LocalTime salida = new LocalTimeStringConverter().fromString(x);
+        listaDispon = pasajeData.listarColectivosDisponibles(r.getIdRuta(), fec, salida);
+        sumarATabla(listaDispon);
+    }//GEN-LAST:event_btnAsignarUnidadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -706,15 +731,46 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         modeloTabla.addColumn("Disponibilidad");
         tabla.setModel(modeloTabla);    
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabla.getColumnModel().getColumn(0).setPreferredWidth(7);
+        tabla.getColumnModel().getColumn(1).setPreferredWidth(130);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(18);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(20);
     }
     
     private void cargarTabla(Collection<Colectivos> lista) {
+        boolean noHayDisp=true;
         borrarFilas();
         cbAsientos.removeAllItems();
         for(Colectivos x: lista){
-            int asientosVendidos = pasajeData.AsientosVendidos(x.getIdColectivo(), venta.getRuta().getIdRuta(), venta.getFechaViaje(), venta.getHoraViaje()).size();
-            int dispon = x.getCapacidad() - asientosVendidos;
-                    
+            int idP = x.getIdColectivo();
+            int idR = venta.getRuta().getIdRuta();
+            LocalDate fV = venta.getFechaViaje();
+            LocalTime hV = venta.getHoraViaje();
+            int asientosVendidos = pasajeData.AsientosVendidos(idP, idR, fV, hV).size();
+            int a = x.getCapacidad() - asientosVendidos;
+            String dispon = a+"";
+            if(a==0 && noHayDisp){
+                btnAsignarUnidad.setEnabled(true);
+            }else{
+                noHayDisp=false;
+                btnAsignarUnidad.setEnabled(false);
+            }
+            if(a==0){                
+                dispon="LLENO";
+            }
+            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
+        }
+    }
+    
+    private void sumarATabla(Collection<Colectivos> lista) {
+        for(Colectivos x: lista){
+            int idP = x.getIdColectivo();
+            int idR = venta.getRuta().getIdRuta();
+            LocalDate fV = venta.getFechaViaje();
+            LocalTime hV = venta.getHoraViaje();
+            int asientosVendidos = pasajeData.AsientosVendidos(idP, idR, fV, hV).size();
+            int a = x.getCapacidad() - asientosVendidos;
+            String dispon = a+"";
             modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
         }
     }

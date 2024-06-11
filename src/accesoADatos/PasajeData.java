@@ -229,6 +229,38 @@ public class PasajeData {
         return listaColeAsig;
     }
     
+        public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
+                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
+                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_ruta);
+            ps.setDate(2, Date.valueOf(fechaViaje));
+            ps.setTime(3, Time.valueOf(horaViaje));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Colectivos colectivo = new Colectivos();
+                
+                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                listaColeAsig.add(colectivo);                
+            }
+            JOptionPane.showMessageDialog(null, "Colectivos listados");
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return listaColeAsig;
+    }
+    
     public ArrayList<Integer> AsientosVendidos(int id_colectivo, int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
         ArrayList<Integer> listaAsientosAsig = new ArrayList<>();
         
@@ -254,44 +286,6 @@ public class PasajeData {
         }
         return listaAsientosAsig;
     }
-    
-    public ArrayList<String> listarColectivosDisponibles() {
-        ArrayList<Pasaje> listaVentas = new ArrayList<>();
-        String sql = "SELECT DISTINCT p.id_pasajes, c.id_colectivo, c.capacidad, r.id_ruta, r.origen, r.destino, h.hora_salida, h.hora_llegada \n" +
-"FROM pasajes p\n" +
-"RIGHT JOIN colectivos c ON p.id_colectivo = c.id_colectivo\n" +
-"LEFT JOIN ruta r ON p.id_ruta = r.id_ruta\n" +
-"LEFT JOIN horarios h ON (p.hora_viaje = h.hora_salida AND r.id_ruta = h.id_ruta)\n" +
-"WHERE (NOT((h.hora_salida BETWEEN \"10:00:00\" AND \"15:00:00\") OR (h.hora_llegada BETWEEN \"10:00:00\" AND \"15:00:00\")) OR p.id_ruta is null)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Pasaje pasaje = new Pasaje();
-                pasajeroData = new PasajerosData();
-                coleData = new ColectivosData();
-                rutaData = new RutasData();
-                
-                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
-                pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
-                pasaje.setColectivo(coleData.buscarColectivo(rs.getInt("id_colectivo")));
-                pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
-                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
-                pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
-                pasaje.setAsiento(rs.getInt("nroButaca"));
-                pasaje.setPrecio(rs.getDouble("Precio"));
-                
-                listaVentas.add(pasaje);
-                
-                
-            }
-            JOptionPane.showMessageDialog(null, "Pasajes listados");
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
-        }
-        return listaVentas          ;
-    }
+   
 }
 
