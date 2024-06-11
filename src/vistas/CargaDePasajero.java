@@ -8,7 +8,10 @@ import accesoADatos.PasajerosData;
 import entidades.Pasajeros;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -73,6 +76,11 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 30, -1));
 
         jtDNI.setForeground(java.awt.SystemColor.activeCaptionBorder);
+        jtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtDNIKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 200, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -93,9 +101,33 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel12.setText("Telefono:");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtApellidoKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 200, -1));
+
+        jtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtCorreoFocusLost(evt);
+            }
+        });
         jPanel3.add(jtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, -1));
+
+        jtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtTelefonoKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 200, -1));
+
+        jtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNombreKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 200, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
@@ -190,6 +222,40 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
           limpiar();
     }//GEN-LAST:event_jGuardarMouseClicked
 
+    private void jtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyTyped
+        if(!(jtDNI.getText()+evt.getKeyChar()).matches("\\d{1,8}")){
+            evt.consume();
+        }
+        if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }   
+    }//GEN-LAST:event_jtDNIKeyTyped
+
+    private void jtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelefonoKeyTyped
+        if(!(jtTelefono.getText()+evt.getKeyChar()).matches("\\d{1,8}")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtTelefonoKeyTyped
+
+    private void jtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyTyped
+         if(!(jtTelefono.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtNombreKeyTyped
+
+    private void jtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyTyped
+         if(!(jtApellido.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtApellidoKeyTyped
+
+    private void jtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtCorreoFocusLost
+     String correo=jtCorreo.getText();
+        if (!validarMail(jtCorreo.getText())) {
+            JOptionPane.showMessageDialog(null, "Mail no valido");
+        } 
+    }//GEN-LAST:event_jtCorreoFocusLost
+
     public void limpiar() {
         jtDNI.setText("");
         jtNombre.setText("");
@@ -245,5 +311,9 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
         Barra.setPreferredSize(new Dimension(0, 0));
         repaint();
     }
-
+public boolean validarMail(String email){
+    Pattern patron= Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    Matcher mather = patron.matcher(email);
+    return mather.find();
+}
 }

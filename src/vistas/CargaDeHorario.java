@@ -92,6 +92,12 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
 
         jCRutas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel3.add(jCRutas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
+
+        jSpinner1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jSpinner1KeyTyped(evt);
+            }
+        });
         jPanel3.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 80, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
@@ -185,6 +191,12 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
         limpiarCampos();
     }//GEN-LAST:event_jLimpiarMouseClicked
+
+    private void jSpinner1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSpinner1KeyTyped
+        
+            
+        
+    }//GEN-LAST:event_jSpinner1KeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
