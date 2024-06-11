@@ -21,7 +21,7 @@ public class PasajeData {
     }
 
     public void guardarPasaje(Pasaje pasaje) {
-        String sql = "INSERT INTO pasajes(id_pasajero, id_colectivo, id_ruta, fecha_viaje, hora_viaje, asiento, precio, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO pasajes(id_pasajero, id_colectivo, id_ruta, fecha_viaje, hora_viaje, nroButaca, precio) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             
@@ -32,7 +32,6 @@ public class PasajeData {
             ps.setTime(5, Time.valueOf(pasaje.getHoraViaje()));
             ps.setInt(6, pasaje.getAsiento());
             ps.setDouble(7, pasaje.getPrecio());
-            ps.setBoolean(8, true);
             
             ps.executeUpdate();
             ResultSet idPasaje = ps.getGeneratedKeys();
@@ -71,7 +70,7 @@ public class PasajeData {
                 pasaje.setRuta(ruta);
                 pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
-                pasaje.setAsiento(rs.getInt("asiento"));
+                pasaje.setAsiento(rs.getInt("nroButaca"));
                 pasaje.setPrecio(rs.getDouble("precio"));                
                 
             } else {
@@ -106,7 +105,7 @@ public class PasajeData {
                 pasaje.setRuta(ruta);
                 pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
-                pasaje.setAsiento(rs.getInt("asiento"));
+                pasaje.setAsiento(rs.getInt("nroButaca"));
                 pasaje.setPrecio(rs.getDouble("precio"));                
                 
             } else {
@@ -183,9 +182,8 @@ public class PasajeData {
                 pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
-                pasaje.setAsiento(rs.getInt("Asiento"));
+                pasaje.setAsiento(rs.getInt("nroButaca"));
                 pasaje.setPrecio(rs.getDouble("Precio"));
-                pasaje.setEstado(rs.getBoolean("estado"));
                 
                 listaVentas.add(pasaje);
                 
@@ -281,9 +279,8 @@ public class PasajeData {
                 pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
                 pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
-                pasaje.setAsiento(rs.getInt("Asiento"));
+                pasaje.setAsiento(rs.getInt("nroButaca"));
                 pasaje.setPrecio(rs.getDouble("Precio"));
-                pasaje.setEstado(rs.getBoolean("estado"));
                 
                 listaVentas.add(pasaje);
                 

@@ -13,7 +13,6 @@ public class Pasaje {
     private LocalTime horaViaje;
     private int asiento;
     private double precio;
-    private boolean estado;
 
     public Pasaje(int idPasaje, Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
         this.idPasaje = idPasaje;
@@ -24,7 +23,6 @@ public class Pasaje {
         this.horaViaje = horaViaje;
         this.asiento = asiento;
         this.precio = precio;
-        this.estado = estado;
     }
 
     public Pasaje(Pasajeros Pasajero, Rutas Ruta, Colectivos colectivo, LocalDate fechaViaje, LocalTime horaViaje, int asiento, double precio, boolean estado) {
@@ -35,7 +33,6 @@ public class Pasaje {
         this.horaViaje = horaViaje;
         this.asiento = asiento;
         this.precio = precio;
-        this.estado = estado;
     }
 
     public Pasaje() {
@@ -105,17 +102,9 @@ public class Pasaje {
         this.precio = precio;
     }
 
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
     @Override
     public String toString() {
-        return "ID Pasaje= " + idPasaje + ", Pasajero= " + pasajero.getApellido() + " " + pasajero.getNombre() + ", Ruta= " + ruta.getOrigen() + " - " + ruta.getDestino() + ",Colectivo= " + colectivo.getMatricula() + ", Fecha Viaje= " + fechaViaje + ", Hora Viaje= " + horaViaje + ", Asiento= " + asiento + ", Precio= " + precio + ", Estado= " + estado;
+        return "ID Pasaje= " + idPasaje + ", Pasajero= " + pasajero.getApellido() + " " + pasajero.getNombre() + ", Ruta= " + ruta.getOrigen() + " - " + ruta.getDestino() + ",Colectivo= " + colectivo.getMatricula() + ", Fecha Viaje= " + fechaViaje + ", Hora Viaje= " + horaViaje + ", Asiento= " + asiento + ", Precio= " + precio;
     }
 
 }
