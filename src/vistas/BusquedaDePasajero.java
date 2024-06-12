@@ -5,6 +5,7 @@ import entidades.Pasajeros;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComponent;
@@ -12,16 +13,27 @@ import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.DefaultTableModel;
 
 public class BusquedaDePasajero extends javax.swing.JInternalFrame {
-
+    List<Pasajeros>listaPasajeros;
     Pasajeros per = null;
     PasajerosData p = new PasajerosData();
     Border bordeError;
     Border bordeOrig;
+    
+     private DefaultTableModel modeloTabla = new DefaultTableModel(){
+        public boolean isCellEditable(int i, int i1) {
+
+            return false;
+
+        }
+    };
 
     public BusquedaDePasajero() {
         initComponents();
+        armarCabecera();
+        listaPasajeros=p.listarPasajeros();
         ocultarBarraTitulo();
         bordeOrig = jtCorreo.getBorder();
         bordeError = new LineBorder(Color.RED, 1);
@@ -51,8 +63,11 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jEditar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jVerTodos = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTablePasajeros = new javax.swing.JTable();
 
         setBorder(null);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -158,7 +173,7 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 0, 70, 30));
 
-        jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 120, -1));
+        jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, 120, -1));
 
         jGuardar1.setBackground(new java.awt.Color(138, 193, 223));
         jGuardar1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -177,12 +192,11 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         });
         jGuardar1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
 
-        jPanel3.add(jGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 120, -1));
+        jPanel3.add(jGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 210, 120, -1));
 
-        jButton1.setBackground(new java.awt.Color(138, 193, 223));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Buscar");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -190,10 +204,9 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         });
         jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
 
-        jEditar.setBackground(new java.awt.Color(138, 193, 223));
         jEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jEditar.setForeground(new java.awt.Color(255, 255, 255));
         jEditar.setText("Editar");
+        jEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jEditar.setEnabled(false);
         jEditar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -202,10 +215,9 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         });
         jPanel3.add(jEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(138, 193, 223));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Eliminar");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
@@ -213,7 +225,16 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         });
         jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 520, 310));
+        jVerTodos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jVerTodos.setText("Ver Todos");
+        jVerTodos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jVerTodosMouseClicked(evt);
+            }
+        });
+        jPanel3.add(jVerTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 90, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 730, 250));
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -224,7 +245,22 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         jLabel3.setText("Busqueda de Pasajero");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 190, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 40));
+
+        jTablePasajeros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "DNI", "Nombre", "Apellido", "Correo", "Telefono"
+            }
+        ));
+        jScrollPane1.setViewportView(jTablePasajeros);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 710, 240));
 
         getContentPane().add(jPanel1);
 
@@ -297,11 +333,16 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
 
     private void jtDNIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDNIMouseClicked
         jtDNI.setText("");
+        jtDNI.setForeground(new Color (0,0,0));
     }//GEN-LAST:event_jtDNIMouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
        editar();
     }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jVerTodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jVerTodosMouseClicked
+       llenarTablas();
+    }//GEN-LAST:event_jVerTodosMouseClicked
 
     public void limpiar() {
 
@@ -419,6 +460,9 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTablePasajeros;
+    private javax.swing.JButton jVerTodos;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtCorreo;
     private javax.swing.JTextField jtDNI;
@@ -440,5 +484,26 @@ public class BusquedaDePasajero extends javax.swing.JInternalFrame {
         Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher mather = patron.matcher(email);
         return mather.find();
+    }
+    private void armarCabecera() {        
+        modeloTabla.addColumn("DNI");
+        modeloTabla.addColumn("Nombre");
+        modeloTabla.addColumn("Apellido");
+        modeloTabla.addColumn("Correo");
+         modeloTabla.addColumn("Telefono");
+        jTablePasajeros.setModel(modeloTabla);
+    }
+
+    private void borrarFilas() {
+        int filas = modeloTabla.getRowCount() - 1;
+        for (int f = filas; f >= 0; f--) {
+            modeloTabla.removeRow(f);
+        }
+    }
+     private void llenarTablas(){
+        borrarFilas();
+        for (Pasajeros x : listaPasajeros) {
+               modeloTabla.addRow(new Object[]{x.getDni(), x.getNombre(), x.getApellido(), x.getCorreo(), x.getTelefono()});
+            }
     }
 }
