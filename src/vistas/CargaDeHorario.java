@@ -281,15 +281,12 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date hora = sdf.parse("00:00");
 
-            // Crear el modelo de SpinnerDate
             SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
             jSpinner1.setModel(sm);
 
-            // Establecer un editor de fecha personalizado
             JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm");
             jSpinner1.setEditor(de);
 
-            // Asegurarse de que el campo de texto del editor no sea editable
             JFormattedTextField txt = ((JSpinner.DefaultEditor) jSpinner1.getEditor()).getTextField();
             txt.setEditable(false);
 
