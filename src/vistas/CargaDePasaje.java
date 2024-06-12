@@ -105,7 +105,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnVender = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ftfPrecio = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -414,15 +413,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         });
         panelPrincipal.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 440, -1, -1));
 
-        btnSalir.setText("Salir");
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        panelPrincipal.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, -1, -1));
-
         jPanel2.setBackground(new java.awt.Color(138, 193, 223));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -573,10 +563,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tablaMouseClicked
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         venta.setAsiento(Integer.parseInt(cbAsientos.getSelectedItem().toString()));
         if(pasajero!=null){
@@ -618,7 +604,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAsignarUnidad;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCrearPas;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVender;
     private javax.swing.JComboBox<String> cbAsientos;
     private javax.swing.JComboBox<String> cbDestino;

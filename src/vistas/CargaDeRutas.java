@@ -14,6 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import entidades.Rutas;
+import java.util.Locale;
 
 /**
  *
@@ -183,8 +184,8 @@ public class CargaDeRutas extends javax.swing.JInternalFrame {
 
     private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
         // TODO add your handling code here:
-        String origen = jtOrigen.getText();
-        String destino = jtDestino.getText();
+        String origen = jtOrigen.getText().toUpperCase();
+        String destino = jtDestino.getText().toUpperCase();
         LocalTime s = LocalTime.of(Integer.valueOf(jSHoras.getValue().toString()), Integer.valueOf(jSMinutos.getValue().toString()));
         boolean estado = true;
         if (jtOrigen.getText().isEmpty() || jtDestino.getText().isEmpty()) {

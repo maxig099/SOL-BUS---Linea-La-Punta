@@ -235,7 +235,7 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtTelefonoKeyTyped
 
     private void jtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyTyped
-         if(!(jtTelefono.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+         if(!(jtNombre.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
             evt.consume();
         }
     }//GEN-LAST:event_jtNombreKeyTyped

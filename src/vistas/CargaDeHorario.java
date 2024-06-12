@@ -28,6 +28,7 @@ import javax.swing.JSpinner.DateEditor;
 import javax.swing.SpinnerDateModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -83,22 +84,22 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 51));
         jLabel8.setText("Hora de salida:");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 51));
         jLabel6.setText("Ruta:");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         jCRutas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel3.add(jCRutas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
+        jPanel3.add(jCRutas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
 
         jSpinner1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jSpinner1KeyTyped(evt);
             }
         });
-        jPanel3.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 80, -1));
+        jPanel3.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 80, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
         jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -193,9 +194,8 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jLimpiarMouseClicked
 
     private void jSpinner1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jSpinner1KeyTyped
-        
-            
-        
+
+
     }//GEN-LAST:event_jSpinner1KeyTyped
 
 
@@ -229,8 +229,10 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
     }
 
     public void guardar() {
-
-        int indice = jCRutas.getSelectedIndex();
+        
+            
+        try {
+              int indice = jCRutas.getSelectedIndex();
         Rutas rt = listaRutas.get(indice);
 
         // Obtener la hora de salida del JSpinner y convertirla a LocalTime
@@ -252,24 +254,33 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
 
         HorariosData hData = new HorariosData();
         hData.guardarHorario(hs);
-
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Tiene que elegir una ruta" );
+        }
+       
+       
+           
+        
+        
     }
 
     public void llenarCombo() {
-
+       
         for (Rutas rt : listaRutas) {
             jCRutas.addItem(rt.toString());
         }
-        jCRutas.setSelectedIndex(-1);
+
+        jCRutas.setSelectedIndex(0);
+
     }
 
     public void formatoSpinner() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            Date hora = sdf.parse("00:00:00");
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date hora = sdf.parse("00:00");
             SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
             jSpinner1.setModel(sm);
-            JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm:ss");
+            JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm");
             jSpinner1.setEditor(de);
         } catch (Exception e) {
             System.out.println("Error!!!!");
