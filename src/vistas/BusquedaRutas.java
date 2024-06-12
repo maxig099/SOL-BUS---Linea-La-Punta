@@ -25,7 +25,7 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
     List<Rutas> listaRutas;
     List<Rutas> listaRutasporOrigen;
     List<Rutas> listaRutasporDestino;
-    List<Rutas> listaRutasEspecificas;
+    Rutas rutasEspecificas;
     
     /**
      * Creates new form Pasaje
@@ -273,11 +273,8 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
     }
     
     public void buscarTabla(String origen, String destino){
-        listaRutasEspecificas = new ArrayList();
-        listaRutasEspecificas.addAll(ruData.listarRutasEspecificas(origen, destino));
-        for (Rutas x : listaRutasEspecificas) {
-            modeloTabla.addRow(new Object[]{x.getIdRuta(), x.getOrigen(), x.getDestino(), x.getDuracionEst()});
-        }
+        rutasEspecificas = ruData.buscarRuta(origen, destino);
+        modeloTabla.addRow(new Object[]{rutasEspecificas.getIdRuta(), rutasEspecificas.getOrigen(), rutasEspecificas.getDestino(), rutasEspecificas.getDuracionEst()});
             
     }
     
