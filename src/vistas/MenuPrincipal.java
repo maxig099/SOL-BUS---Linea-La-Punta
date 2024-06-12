@@ -50,6 +50,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jPanelPasajero3 = new javax.swing.JPanel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jPanelPasajero4 = new javax.swing.JPanel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jPanelPasajero5 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jInicio = new javax.swing.JPanel();
 
@@ -341,14 +350,104 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel18.setText("Busqueda de Horarios");
         jPanelPasajero2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
 
+        jPanelPasajero3.setBackground(new java.awt.Color(250, 250, 250));
+        jPanelPasajero3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelPasajero3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelPasajero3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelPasajero3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelPasajero3MouseExited(evt);
+            }
+        });
+        jPanelPasajero3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Unidades.png"))); // NOI18N
+        jLabel19.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel19MouseClicked(evt);
+            }
+        });
+        jPanelPasajero3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
+
+        jLabel20.setText("Busqueda de Unidades");
+        jPanelPasajero3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        jPanelPasajero4.setBackground(new java.awt.Color(250, 250, 250));
+        jPanelPasajero4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelPasajero4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelPasajero4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelPasajero4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelPasajero4MouseExited(evt);
+            }
+        });
+        jPanelPasajero4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Pasaje.png"))); // NOI18N
+        jLabel21.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel21MouseClicked(evt);
+            }
+        });
+        jPanelPasajero4.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
+
+        jLabel22.setText("Busqueda de Pasaje");
+        jPanelPasajero4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+
+        jPanelPasajero5.setBackground(new java.awt.Color(250, 250, 250));
+        jPanelPasajero5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelPasajero5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelPasajero5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanelPasajero5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jPanelPasajero5MouseExited(evt);
+            }
+        });
+        jPanelPasajero5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Usuarios.png"))); // NOI18N
+        jLabel23.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23MouseClicked(evt);
+            }
+        });
+        jPanelPasajero5.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, -1, -1, 100));
+
+        jLabel24.setText("Busqueda de pasajero");
+        jPanelPasajero5.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, -1));
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(240, 240, 240)
-                .addComponent(jPanelPasajero1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(jPanelPasajero1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jPanelPasajero4, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelPasajero5, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(48, 48, 48)
+                .addComponent(jPanelPasajero3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(324, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addGap(55, 55, 55)
@@ -359,8 +458,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jPanelPasajero1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(432, Short.MAX_VALUE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelPasajero3, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelPasajero1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelPasajero4, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanelPasajero5, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(254, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel10Layout.createSequentialGroup()
                     .addGap(57, 57, 57)
@@ -559,18 +664,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanelPasajero1MouseExited
 
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-        jTabbedPane1.setSelectedIndex(3);
-        jInicio.removeAll();
-        jInicio.repaint();
-        BusquedaHorarios ap=new BusquedaHorarios();
-        ap.setVisible(true);
-        ap.setLocation(0, 10);
-        
-       
-        jInicio.add(ap);
-    }//GEN-LAST:event_jLabel17MouseClicked
-
     private void jPanelPasajero2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero2MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanelPasajero2MouseEntered
@@ -584,6 +677,86 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jPanelPasajero1MouseClicked
+
+    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
+        jTabbedPane1.setSelectedIndex(3);
+        jInicio.removeAll();
+        jInicio.repaint();
+        BusquedaHorarios ap=new BusquedaHorarios();
+        ap.setVisible(true);
+        ap.setLocation(0, 10);
+
+        jInicio.add(ap);
+    }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void jPanelPasajero3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero3MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero3MouseClicked
+
+    private void jPanelPasajero3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero3MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero3MouseEntered
+
+    private void jPanelPasajero3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero3MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero3MouseExited
+
+    private void jPanelPasajero4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero4MouseClicked
+
+    private void jPanelPasajero4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero4MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero4MouseEntered
+
+    private void jPanelPasajero4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero4MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero4MouseExited
+
+    private void jPanelPasajero5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero5MouseClicked
+
+    private void jPanelPasajero5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero5MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero5MouseEntered
+
+    private void jPanelPasajero5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero5MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanelPasajero5MouseExited
+
+    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+         jTabbedPane1.setSelectedIndex(3);
+        jInicio.removeAll();
+        jInicio.repaint();
+        BusquedaDeUnidades ap=new BusquedaDeUnidades();
+        ap.setVisible(true);
+        ap.setLocation(0, 10);
+
+        jInicio.add(ap);
+    }//GEN-LAST:event_jLabel19MouseClicked
+
+    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+       jTabbedPane1.setSelectedIndex(3);
+        jInicio.removeAll();
+        jInicio.repaint();
+        BusquedaDePasaje ap=new BusquedaDePasaje();
+        ap.setVisible(true);
+        ap.setLocation(0, 10);
+
+        jInicio.add(ap);
+    }//GEN-LAST:event_jLabel21MouseClicked
+
+    private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
+       jTabbedPane1.setSelectedIndex(3);
+        jInicio.removeAll();
+        jInicio.repaint();
+        BusquedaDePasajero ap=new BusquedaDePasajero();
+        ap.setVisible(true);
+        ap.setLocation(0, 10);
+
+        jInicio.add(ap);
+    }//GEN-LAST:event_jLabel23MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -629,6 +802,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -651,6 +830,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelPasajero;
     private javax.swing.JPanel jPanelPasajero1;
     private javax.swing.JPanel jPanelPasajero2;
+    private javax.swing.JPanel jPanelPasajero3;
+    private javax.swing.JPanel jPanelPasajero4;
+    private javax.swing.JPanel jPanelPasajero5;
     private javax.swing.JPanel jPanelRutas;
     private javax.swing.JPanel jPanelUnidades;
     private javax.swing.JPanel jPanelVentas;
