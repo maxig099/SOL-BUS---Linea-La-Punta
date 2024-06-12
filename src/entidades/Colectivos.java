@@ -26,6 +26,16 @@ public class Colectivos {
         this.estado = estado;
     }
 
+    public Colectivos(int idColectivo, String matricula, String marca, String modelo, int capacidad) {
+        this.idColectivo = idColectivo;
+        this.matricula = matricula;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.capacidad = capacidad;
+    }
+    
+    
+
     public Colectivos() {
     }
 

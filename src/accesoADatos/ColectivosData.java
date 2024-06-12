@@ -112,7 +112,7 @@ public class ColectivosData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
         }
     }
-
+    
     public ArrayList<Colectivos> listarColectivos() {
         ArrayList<Colectivos> listaColectivos = new ArrayList<>();
         String sql = "SELECT * FROM colectivos WHERE estado = 1";
@@ -239,5 +239,114 @@ public class ColectivosData {
         }
         return listaColeAsig;
     }
-}
+    
+    public ArrayList<Colectivos> listarColePorMatricula(String matri) {
+        ArrayList<Colectivos> lista = new ArrayList<>();
+        String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE matricula = ? AND estado = 1";
+     try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, matri);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                colectivo = new Colectivos();
+                
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                lista.add(colectivo);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return lista;
+    }
+    
+     public ArrayList<Colectivos> listarColePorMarca(String marca) {
+        ArrayList<Colectivos> lista = new ArrayList<>();
+        String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE marca = ? AND estado = 1";
+     try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, marca);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                colectivo = new Colectivos();
+                
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                lista.add(colectivo);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return lista;
+    }
+     
+      public ArrayList<Colectivos> listarColePorCapaci(int cap) {
+        ArrayList<Colectivos> lista = new ArrayList<>();
+        String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE capacidad = ? AND estado = 1";
+     try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, cap);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                colectivo = new Colectivos();
+                
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                lista.add(colectivo);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return lista;
+    }
+    
+    public ArrayList<Colectivos> listarColePorEspec(String matri, String marca, int cap) {
+        ArrayList<Colectivos> lista = new ArrayList<>();
+        String sql = "SELECT matricula, marca, modelo, capacidad FROM colectivos WHERE matricula = ? AND marca = ? AND capacidad = ? AND estado = 1";
+     try {
+            PreparedStatement ps = con.prepareStatement(sql);
+         
+            ps.setString(1, matri);
+            ps.setString(2, marca);
+            ps.setInt(3, cap);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                colectivo = new Colectivos();
+                
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                lista.add(colectivo);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return lista;
+    }
+      
+    }
+
 
