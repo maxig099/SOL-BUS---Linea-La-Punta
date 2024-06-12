@@ -285,6 +285,6 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error!!!!");
         }
-
+        JOptionPane.show
     }
 }
