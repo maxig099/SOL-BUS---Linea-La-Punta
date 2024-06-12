@@ -268,33 +268,33 @@ public class RutasData {
     
 
     
-//    public ArrayList<Rutas> listarRutasEspecificas(String origen, String destino) {     //igual que buscar ruta
-//        ArrayList<Rutas> rutas = new ArrayList<>();
-//        String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? AND destino = ?";
-//        
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setString(1, origen);
-//            ps.setString(2, destino);
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                Rutas ruta = new Rutas();
-//                
-//                ruta.setIdRuta(rs.getInt("id_ruta"));
-//                ruta.setOrigen(rs.getString("origen"));
-//                ruta.setDestino(rs.getString("destino"));
-//                ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
-//                ruta.setEstado(rs.getBoolean("estado"));
-//                rutas.add(ruta);
-//            }
-//        
-//            ps.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
-//        }
-//        return rutas;
-//    }
+    public ArrayList<Rutas> listarRutasEspecificas(String origen, String destino) {     //igual que buscar ruta
+        ArrayList<Rutas> rutas = new ArrayList<>();
+        String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? AND destino = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, origen);
+            ps.setString(2, destino);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Rutas ruta = new Rutas();
+                
+                ruta.setIdRuta(rs.getInt("id_ruta"));
+                ruta.setOrigen(rs.getString("origen"));
+                ruta.setDestino(rs.getString("destino"));
+                ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
+                ruta.setEstado(rs.getBoolean("estado"));
+                rutas.add(ruta);
+            }
+        
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
+        }
+        return rutas;
+    }
     
 }
 

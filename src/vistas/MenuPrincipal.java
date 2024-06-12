@@ -72,7 +72,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelAdmin.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabelAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/administracion.png"))); // NOI18N
         jLabelAdmin.setText("  Administracion");
-        jLabelAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelAdminMouseClicked(evt);
@@ -97,7 +97,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelVentas.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabelVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/venta.png"))); // NOI18N
         jLabelVentas.setText("    Ventas");
-        jLabelVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelVentas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelVentasMouseClicked(evt);
@@ -122,7 +122,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabelBusqueda.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabelBusqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Busqueda (2).png"))); // NOI18N
         jLabelBusqueda.setText("    Busqueda");
-        jLabelBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelBusqueda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelBusqueda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelBusquedaMouseClicked(evt);
@@ -171,7 +171,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelUnidades.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Unidades.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
@@ -196,7 +196,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelRutas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Rutas.png"))); // NOI18N
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
@@ -221,7 +221,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPaneHorario.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Horarios.png"))); // NOI18N
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel9MouseClicked(evt);
@@ -246,7 +246,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Usuarios.png"))); // NOI18N
-        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel11MouseClicked(evt);
@@ -293,6 +293,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero1.setBackground(new java.awt.Color(250, 250, 250));
         jPanelPasajero1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelPasajero1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanelPasajero1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanelPasajero1MouseEntered(evt);
             }
@@ -303,7 +306,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Rutas.png"))); // NOI18N
-        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel15MouseClicked(evt);
@@ -327,7 +330,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanelPasajero2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Horarios.png"))); // NOI18N
-        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel17.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel17MouseClicked(evt);
@@ -537,6 +540,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
         // TODO add your handling code here:
+        jTabbedPane1.setSelectedIndex(3);
+        jInicio.removeAll();
+        jInicio.repaint();
+        BusquedaRutas ap=new BusquedaRutas();
+        ap.setVisible(true);
+        ap.setLocation(0, 10);
+        
+       
+        jInicio.add(ap);
     }//GEN-LAST:event_jLabel15MouseClicked
 
     private void jPanelPasajero1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero1MouseEntered
@@ -566,6 +578,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jPanelPasajero2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero2MouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanelPasajero2MouseExited
+
+    private void jPanelPasajero1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelPasajero1MouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jPanelPasajero1MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
