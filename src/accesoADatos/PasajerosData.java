@@ -65,7 +65,6 @@ public class PasajerosData {
                 pasaj.setTelefono(rs.getString("telefono"));
                 pasaj.setEstado(rs.getBoolean("estado"));
               
-                JOptionPane.showMessageDialog(null, "Pasajero encontrado");
             }else{
                 JOptionPane.showMessageDialog(null, "No existe un pasajero con ese ID");
             }
@@ -96,8 +95,7 @@ public class PasajerosData {
                 pasaj.setCorreo(rs.getString("correo"));
                 pasaj.setTelefono(rs.getString("telefono"));
                 pasaj.setEstado(rs.getBoolean("estado"));
-              
-                JOptionPane.showMessageDialog(null, "Pasajero encontrado");
+
             }else{
                 JOptionPane.showMessageDialog(null, "No existe un pasajero con ese ID");
             }
@@ -176,7 +174,6 @@ public class PasajerosData {
 
                 listaPasajeros.add(pasaj);
             }
-            JOptionPane.showMessageDialog(null, "Pasajeros listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);

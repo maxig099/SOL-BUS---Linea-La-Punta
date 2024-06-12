@@ -38,7 +38,7 @@ public class PasajeData {
 
             if (idPasaje.next()) {
                 pasaje.setIdPasaje(idPasaje.getInt(1));
-                JOptionPane.showMessageDialog(null, "Se creó el pasaje");
+              
             }
             ps.close();
         } catch (SQLException ex) {
@@ -83,7 +83,7 @@ public class PasajeData {
         return pasaje;
     }
     
-    public Pasaje buscarVenta(Date fecha, Time hora,int ruta) {
+   /* public Pasaje buscarVenta(Date fecha, Time hora,int ruta) {
         String sql = "SELECT * FROM colectivos\n" +
 "JOIN pasajes ON colectivos.id_colectivo = pasajes.id_colectivo\n" +
 "WHERE pasajes.fecha_viaje = \"2024-06-09\" AND pasajes.hora_viaje = \"12:00:00\" AND pasajes.id_ruta = 7 ";
@@ -116,32 +116,32 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
         }
         return pasaje;
-    }
+    }*/
 
-//    public void modificarVenta(Pasaje pasaje) {
-//        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
-//        try {
-//            PreparedStatement ps = con.prepareStatement(sql);
-//            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
-//            ps.setInt(2, pasaje.getColectivo().getIdColectivo());
-//            ps.setInt(3, pasaje.getRuta().getIdRuta());
-//            ps.setDate(4, pasaje.getFechaViaje().);
-//            ps.setTime(5, pasaje.getHoraViaje());
-//            ps.setInt(6, pasaje.getAsiento());
-//            ps.setDouble(7, pasaje.getPrecio());
-//            ps.setInt(8, pasaje.getIdPasaje());
-//            int filasAfectadas = ps.executeUpdate();
-//
-//            if (filasAfectadas > 0) {
-//                JOptionPane.showMessageDialog(null, "Se modificó exitosamente la pasaje");
-//            } else {
-//                JOptionPane.showMessageDialog(null, "No se encontró la pasaje a modificar");
-//            }
-//            ps.close();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
-//        }
-//    }
+/*    public void modificarVenta(Pasaje pasaje) {
+        String sql = "UPDATE pasajes SET id_pasajero = ?, id_colectivo = ?, id_ruta = ?, fecha_viaje = ?, hora_viaje = ?, asiento = ?, precio = ? WHERE id_pasajes = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, pasaje.getPasajero().getIdPasajero());
+            ps.setInt(2, pasaje.getColectivo().getIdColectivo());
+            ps.setInt(3, pasaje.getRuta().getIdRuta());
+            ps.setDate(4, pasaje.getFechaViaje().);
+            ps.setTime(5, pasaje.getHoraViaje());
+            ps.setInt(6, pasaje.getAsiento());
+            ps.setDouble(7, pasaje.getPrecio());
+            ps.setInt(8, pasaje.getIdPasaje());
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(null, "Se modificó exitosamente la pasaje");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la pasaje a modificar");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+        }
+    }*/
 
     public void eliminarVenta(int id) {
         String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ? AND estado = 1";
@@ -189,7 +189,6 @@ public class PasajeData {
                 
                 
             }
-            JOptionPane.showMessageDialog(null, "Pasajes listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
@@ -221,7 +220,6 @@ public class PasajeData {
                 
                 listaColeAsig.add(colectivo);                
             }
-            JOptionPane.showMessageDialog(null, "Colectivos listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
@@ -253,7 +251,6 @@ public class PasajeData {
                 
                 listaColeAsig.add(colectivo);                
             }
-            JOptionPane.showMessageDialog(null, "Colectivos listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
@@ -279,7 +276,6 @@ public class PasajeData {
             while (rs.next()) {
                 listaAsientosAsig.add(rs.getInt(1));                
             }
-            JOptionPane.showMessageDialog(null, "Asientos listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);

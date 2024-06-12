@@ -30,7 +30,6 @@ public class HorariosData {
 
             if (idHorario.next()) {
                 horario.setIdHorarios(idHorario.getInt(1));
-                JOptionPane.showMessageDialog(null, "Se guardo el horario");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -61,7 +60,6 @@ public class HorariosData {
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
                 horario.setEstado(rs.getBoolean("estado"));
                 
-                JOptionPane.showMessageDialog(null, "Horario encontrado");
             } else {
                 JOptionPane.showMessageDialog(null, "No existe un horario con ese ID");
             }
@@ -130,7 +128,6 @@ public class HorariosData {
                 
                 horarios.add(horario);
             }
-            JOptionPane.showMessageDialog(null, "Horarios listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
@@ -159,7 +156,6 @@ public class HorariosData {
                 
                 listaHorarios.add(horario);
             }
-            JOptionPane.showMessageDialog(null, "Horarios listados");
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Horario" + ex);
