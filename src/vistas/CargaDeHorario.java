@@ -28,6 +28,7 @@ import javax.swing.JSpinner.DateEditor;
 import javax.swing.SpinnerDateModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -274,6 +275,6 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println("Error!!!!");
         }
-
+        JOptionPane.show
     }
 }

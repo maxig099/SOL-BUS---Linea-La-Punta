@@ -52,13 +52,12 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     
     public CargaDePasaje() {
         initComponents();
-        //cbDestino.setSelectedIndex(-1);
         llenarCombo(cbOrigen, rutaData.listarRutasPorOrigen());
         //llenarComboRuta(cbOrigen,rutaData.listarRutasPorOrigen());
-        //ocultarBarraTitulo();
+        ocultarBarraTitulo();
         armarCabecera();
-        //dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
-        dcFecha.setDate(Date.valueOf(LocalDate.now().minusDays(2)));
+        dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
+        dcFecha.setDate(Date.valueOf(LocalDate.now()));
         
         
     }
@@ -105,7 +104,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnVender = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ftfPrecio = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -173,7 +171,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         btnCrearPas.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         btnCrearPas.setText("Crear Usuario");
         btnCrearPas.setToolTipText("");
-        btnCrearPas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCrearPas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnCrearPas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearPasActionPerformed(evt);
@@ -181,7 +179,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         });
 
         btnBuscar.setText("Buscar");
-        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -287,7 +285,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 .addComponent(panelOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelDatos.add(ruta, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 145, -1, -1));
@@ -341,7 +339,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
         jLabel5.setText("Guardar");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 80, 30));
 
         panelDatos.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 122, -1));
@@ -364,7 +362,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/historial.png"))); // NOI18N
         jLabel9.setText("Historial");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jHistorial.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
 
         panelDatos.add(jHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 122, -1));
@@ -387,7 +385,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar2.png"))); // NOI18N
         jLabel7.setText("Limpiar");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 0, 90, 30));
 
         panelDatos.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 122, -1));
@@ -405,7 +403,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         panelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 40));
 
         btnVender.setText("Vender Pasaje");
-        btnVender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnVender.setEnabled(false);
         btnVender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,15 +411,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             }
         });
         panelPrincipal.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 440, -1, -1));
-
-        btnSalir.setText("Salir");
-        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        panelPrincipal.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 480, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(138, 193, 223));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -573,10 +562,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_tablaMouseClicked
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         venta.setAsiento(Integer.parseInt(cbAsientos.getSelectedItem().toString()));
         if(pasajero!=null){
@@ -618,7 +603,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAsignarUnidad;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCrearPas;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnVender;
     private javax.swing.JComboBox<String> cbAsientos;
     private javax.swing.JComboBox<String> cbDestino;
