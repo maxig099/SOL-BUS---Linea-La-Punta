@@ -3,10 +3,13 @@ package vistas;
 import accesoADatos.PasajerosData;
 import entidades.Pasajeros;
 import java.awt.Color;
+import java.sql.Date;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 public class CargarPasajero extends javax.swing.JDialog {
-        Pasajeros per = null;
-    PasajerosData p = new PasajerosData();
+    Pasajeros per = null;
+    PasajerosData p = null;
 
     public CargarPasajero(java.awt.Frame parent, boolean modal, String texto) {
         super(parent, modal);
@@ -51,7 +54,12 @@ public class CargarPasajero extends javax.swing.JDialog {
         jLabel6.setText("DNI:");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 30, -1));
 
-        jtDNI.setForeground(java.awt.SystemColor.activeCaptionBorder);
+        jtDNI.setForeground(java.awt.Color.black);
+        jtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtDNIKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 200, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -72,9 +80,32 @@ public class CargarPasajero extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         jLabel12.setText("Telefono:");
         jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
+
+        jtApellido.setForeground(java.awt.Color.black);
+        jtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtApellidoKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 200, -1));
+
+        jtCorreo.setForeground(java.awt.Color.black);
         jPanel3.add(jtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, -1));
+
+        jtTelefono.setForeground(java.awt.Color.black);
+        jtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtTelefonoKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 200, -1));
+
+        jtNombre.setForeground(java.awt.Color.black);
+        jtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNombreKeyTyped(evt);
+            }
+        });
         jPanel3.add(jtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 200, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
@@ -127,7 +158,7 @@ public class CargarPasajero extends javax.swing.JDialog {
 
         jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 140, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 520, 310));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 350, 310));
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -137,27 +168,27 @@ public class CargarPasajero extends javax.swing.JDialog {
         jLabel3.setText("Carga de Pasajero");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 160, 40));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addGap(0, 383, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGap(0, 396, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -187,33 +218,31 @@ public class CargarPasajero extends javax.swing.JDialog {
     private void jLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseExited
         jLimpiar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jLimpiarMouseExited
+
+    private void jtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyTyped
+        if(!(jtDNI.getText()+evt.getKeyChar()).matches("\\d{1,8}")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtDNIKeyTyped
+
+    private void jtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyTyped
+        if(!(jtTelefono.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtNombreKeyTyped
+
+    private void jtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyTyped
+        if(!(jtTelefono.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtApellidoKeyTyped
+
+    private void jtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelefonoKeyTyped
+        if(!(jtDNI.getText()+evt.getKeyChar()).matches("\\d{1,20}")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtTelefonoKeyTyped
     
-    public void limpiar() {
-        jtDNI.setText("");
-        jtNombre.setText("");
-        jtApellido.setText("");
-        jtCorreo.setText("");
-        jtTelefono.setText("");
-        per = null;
-
-    }
-    //Pasajeros(String Nombre, String Apellido, String dni, String correo, String telefono, boolean estado)
-
-    public void guardar() {
-        String Nombre = jtNombre.getText();
-        String Apellido = jtApellido.getText();
-        String dni = jtDNI.getText();
-        String correo = jtCorreo.getText();
-        String telefono = jtTelefono.getText();
-        boolean estado = true;
-
-        per = new Pasajeros(Nombre, Apellido, dni, correo, telefono, estado);
-
-        p.guardarPasajero(per);
-
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jGuardar;
     private javax.swing.JLabel jLabel10;
@@ -234,4 +263,38 @@ public class CargarPasajero extends javax.swing.JDialog {
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtTelefono;
     // End of variables declaration//GEN-END:variables
+
+    public void limpiar() {
+        jtDNI.setText("");
+        jtNombre.setText("");
+        jtApellido.setText("");
+        jtCorreo.setText("");
+        jtTelefono.setText("");
+        per = null;
+
+    }
+
+    public void guardar() {
+        String nombre = jtNombre.getText();
+        String apellido = jtApellido.getText();
+        String dni = jtDNI.getText();
+        String correo = jtCorreo.getText();
+        String telefono = jtTelefono.getText();
+        boolean estado = true;
+        
+        boolean cor = correo.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        boolean tel = telefono.matches("\\d{8,20}");
+        if(jtDNI.getText().isEmpty()||jtApellido.getText().isEmpty()||jtNombre.getText().isEmpty()||cor||tel){
+            JOptionPane.showMessageDialog(this, "Complete todos los campos", "CAMPOS VACIOS", JOptionPane.ERROR_MESSAGE);
+            
+        }else{            
+            Pasajeros pasajero = new Pasajeros(nombre,apellido,dni,correo,telefono,estado);
+            
+            String texto = "DESEA GUARDAR EL PASAJERO:\n"+pasajero.toString();
+            int guardar = JOptionPane.showConfirmDialog(this, texto, "CONFIRMAR PASAJERO", JOptionPane.YES_NO_OPTION);
+            if(guardar == 0){
+                new PasajerosData().guardarPasajero(pasajero);                
+            }
+        }
+    }
 }
