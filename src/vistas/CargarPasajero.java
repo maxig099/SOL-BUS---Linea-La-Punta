@@ -15,6 +15,7 @@ public class CargarPasajero extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         jtDNI.setText(texto);
+        jlError.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +38,11 @@ public class CargarPasajero extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLimpiar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jlError = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -93,6 +99,7 @@ public class CargarPasajero extends javax.swing.JDialog {
         jPanel3.add(jtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 200, -1));
 
         jtTelefono.setForeground(java.awt.Color.black);
+        jtTelefono.setToolTipText("Ingresar 8 digitos");
         jtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtTelefonoKeyTyped(evt);
@@ -158,7 +165,29 @@ public class CargarPasajero extends javax.swing.JDialog {
 
         jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 140, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 350, 310));
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel1.setText("*");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 10, -1));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel2.setText("*");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 20, -1));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel4.setText("*");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 20, -1));
+
+        jLabel9.setText("Campos opcionales");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+
+        jlError.setForeground(new java.awt.Color(255, 0, 0));
+        jlError.setText("Minimo 8 digitos");
+        jPanel3.add(jlError, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 200, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 360, 330));
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -200,7 +229,6 @@ public class CargarPasajero extends javax.swing.JDialog {
 
     private void jGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseClicked
         guardar();
-        limpiar();
     }//GEN-LAST:event_jGuardarMouseClicked
 
     private void jGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseExited
@@ -226,37 +254,42 @@ public class CargarPasajero extends javax.swing.JDialog {
     }//GEN-LAST:event_jtDNIKeyTyped
 
     private void jtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNombreKeyTyped
-        if(!(jtTelefono.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+        if(!(jtNombre.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
             evt.consume();
         }
     }//GEN-LAST:event_jtNombreKeyTyped
 
     private void jtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtApellidoKeyTyped
-        if(!(jtTelefono.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
+        if(!(jtApellido.getText()+evt.getKeyChar()).matches("[a-zA-Z ]+")){
             evt.consume();
         }
     }//GEN-LAST:event_jtApellidoKeyTyped
 
     private void jtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTelefonoKeyTyped
-        if(!(jtDNI.getText()+evt.getKeyChar()).matches("\\d{1,20}")){
+        if(!(jtTelefono.getText()+evt.getKeyChar()).matches("\\d{1,20}")){
             evt.consume();
         }
     }//GEN-LAST:event_jtTelefonoKeyTyped
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jGuardar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jLimpiar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel jlError;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtCorreo;
     private javax.swing.JTextField jtDNI;
@@ -283,8 +316,22 @@ public class CargarPasajero extends javax.swing.JDialog {
         boolean estado = true;
         
         boolean cor = correo.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        if(!(cor||correo.isEmpty())){
+            jtCorreo.setForeground(Color.red);
+        }else{
+            jtCorreo.setForeground(Color.BLACK);
+        }
+        
         boolean tel = telefono.matches("\\d{8,20}");
-        if(jtDNI.getText().isEmpty()||jtApellido.getText().isEmpty()||jtNombre.getText().isEmpty()||cor||tel){
+        if(!(tel||telefono.isEmpty())){
+            jtTelefono.setForeground(Color.red);
+            jlError.setVisible(true);
+        }else{
+            jtTelefono.setForeground(Color.BLACK);
+            jlError.setVisible(false);
+        }
+        
+        if(jtDNI.getText().isEmpty()||jtApellido.getText().isEmpty()||jtNombre.getText().isEmpty()||!(cor||correo.isEmpty())||!(tel||telefono.isEmpty())){
             JOptionPane.showMessageDialog(this, "Complete todos los campos", "CAMPOS VACIOS", JOptionPane.ERROR_MESSAGE);
             
         }else{            
@@ -293,7 +340,8 @@ public class CargarPasajero extends javax.swing.JDialog {
             String texto = "DESEA GUARDAR EL PASAJERO:\n"+pasajero.toString();
             int guardar = JOptionPane.showConfirmDialog(this, texto, "CONFIRMAR PASAJERO", JOptionPane.YES_NO_OPTION);
             if(guardar == 0){
-                new PasajerosData().guardarPasajero(pasajero);                
+                new PasajerosData().guardarPasajero(pasajero);
+                dispose();               
             }
         }
     }

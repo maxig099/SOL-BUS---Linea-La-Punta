@@ -1,15 +1,15 @@
 package accesoADatos;
 
-import entidades.*;
+import entidades.Colectivos;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class ColectivosData {
     private Connection con =  null;
+    Colectivos colectivo = null;
 
     public ColectivosData() {
        con = Conexion.getConexion();
@@ -30,7 +30,7 @@ public class ColectivosData {
             ResultSet idColectivo = ps.getGeneratedKeys();
             if (idColectivo.next()) {
                 colectivo.setIdColectivo(idColectivo.getInt(1));
-                
+                JOptionPane.showMessageDialog(null, "Se guardo el colectivo");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -44,7 +44,7 @@ public class ColectivosData {
 
     public Colectivos buscarColectivo(int id) {
         String sql = "SELECT * FROM colectivos WHERE estado = 1 AND id_colectivo = ?";
-        Colectivos colectivo = null;
+        
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
@@ -113,7 +113,7 @@ public class ColectivosData {
         }
     }
 
-    public List<Colectivos> listarColectivos() {
+    public ArrayList<Colectivos> listarColectivos() {
         ArrayList<Colectivos> listaColectivos = new ArrayList<>();
         String sql = "SELECT * FROM colectivos WHERE estado = 1";
         try {
@@ -121,7 +121,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Colectivos colectivo = new Colectivos();
+                colectivo = new Colectivos();
                 
                 colectivo.setIdColectivo(rs.getInt("id_colectivo"));
                 colectivo.setMatricula(rs.getString("matricula"));
@@ -138,6 +138,39 @@ public class ColectivosData {
         return listaColectivos;
     }
     
+//LISTO COLECTIVOS ASIGNADOS A DETERMINADO RECOORRIDO - USO EN VENTAS PARA CARGAR EL COLECTIVO
+    public ArrayList<Colectivos> listarColectivosAsignados(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
+                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
+                    "WHERE p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_ruta);
+            ps.setDate(2, Date.valueOf(fechaViaje));
+            ps.setTime(3, Time.valueOf(horaViaje));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                colectivo = new Colectivos();
+                
+                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                listaColeAsig.add(colectivo);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return listaColeAsig;
+    }
+    
+//LISTO LOS COLECTIVOS DISPONIBLES - LO UTILIZO PARA ASIGNAR NUEVA UNIDAD
     public ArrayList<Colectivos> listarColectivosDisponibles(LocalDate fecha, LocalTime horaSalida, LocalTime horaLlegada) {
         ArrayList<Colectivos> listaColectivos = new ArrayList<>();
         String sql = "SELECT DISTINCT c.* " +
@@ -147,12 +180,7 @@ public class ColectivosData {
                     "LEFT JOIN horarios h ON (p.hora_viaje = h.hora_salida AND r.id_ruta = h.id_ruta) " +
                     "WHERE (NOT(((h.hora_salida BETWEEN ? AND ?) "
                     + "OR (h.hora_llegada BETWEEN ? AND ?)) AND ?) OR p.id_ruta is null)";
-        
-//        SELECT c.*
-//FROM pasajes p
-//RIGHT JOIN colectivos c ON p.id_colectivo=c.id_colectivo
-//WHERE (not p.hora_viaje = "12:00") 
-//AND (NOT p.id_colectivo=(SELECT p.id_colectivo FROM pasajes p WHERE p.hora_viaje = "12:00")) OR p.id_ruta is null
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setTime(1, Time.valueOf(horaSalida));
@@ -163,7 +191,7 @@ public class ColectivosData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Colectivos colectivo = new Colectivos();
+                colectivo = new Colectivos();
                 
                 colectivo.setIdColectivo(rs.getInt("id_colectivo"));
                 colectivo.setMatricula(rs.getString("matricula"));
@@ -178,6 +206,38 @@ public class ColectivosData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
         }
         return listaColectivos;
+    }    
+    
+//LISTO COLECTIVOS DISPONIBLES PARA EL VIAJE DETERMINADO
+    public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
+        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
+                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
+                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?)";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_ruta);
+            ps.setDate(2, Date.valueOf(fechaViaje));
+            ps.setTime(3, Time.valueOf(horaViaje));
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                colectivo = new Colectivos();
+                
+                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
+                colectivo.setMatricula(rs.getString("matricula"));
+                colectivo.setMarca(rs.getString("marca"));
+                colectivo.setModelo(rs.getString("modelo"));
+                colectivo.setCapacidad(rs.getInt("capacidad"));
+                colectivo.setEstado(true);
+                
+                listaColeAsig.add(colectivo);                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return listaColeAsig;
     }
 }
 

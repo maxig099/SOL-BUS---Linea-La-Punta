@@ -3,13 +3,11 @@ package accesoADatos;
 import entidades.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
-public class HorariosData {
-    
+public class HorariosData {    
     private Connection con = null;
-    private RutasData rutaData = new RutasData();
+    private RutasData rutaData = null;
     
 
     public HorariosData() {
@@ -30,6 +28,7 @@ public class HorariosData {
 
             if (idHorario.next()) {
                 horario.setIdHorarios(idHorario.getInt(1));
+                JOptionPane.showMessageDialog(null, "Horario guardado");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -54,7 +53,7 @@ public class HorariosData {
                 horario = new Horarios();
                 
                 horario.setIdHorarios(rs.getInt("id_horario"));
-                Rutas ruta = rutaData.buscarRuta(rs.getInt("id_ruta"));
+                Rutas ruta = new RutasData().buscarRuta(rs.getInt("id_ruta"));
                 horario.setRuta(ruta);
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
                 horario.setHoraLLegada(rs.getTime("hora_llegada").toLocalTime());
@@ -110,8 +109,8 @@ public class HorariosData {
         }
     }
 
-    public List<Horarios> listarHorarios() {
-        List<Horarios> horarios = new ArrayList<>();
+    public ArrayList<Horarios> listarHorarios() {
+        ArrayList<Horarios> horarios = new ArrayList<>();
         String sql = "SELECT * FROM horarios WHERE estado = 1";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

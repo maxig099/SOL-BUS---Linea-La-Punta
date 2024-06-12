@@ -12,12 +12,18 @@ public class Horarios {
     private LocalTime horaSalida;
     private boolean estado;
 
+    public Horarios(Rutas ruta, LocalTime horaLLegada, LocalTime horaSalida, boolean estado) {
+        this.ruta = ruta;
+        this.horaLLegada = horaLLegada;
+        this.horaSalida = horaSalida;
+        this.estado = estado;
+    }
+
     public Horarios(int idHorarios, Rutas Ruta, LocalTime horaSalida, boolean estado) {
         this.idHorarios = idHorarios;
         this.ruta = Ruta;
         this.horaSalida = horaSalida;
         this.estado = estado;
-        calcularLlegada();
     }
 
     public Horarios(Rutas Ruta, LocalTime horaSalida, boolean estado) {
@@ -25,7 +31,6 @@ public class Horarios {
         this.horaLLegada = horaLLegada;
         this.horaSalida = horaSalida;
         this.estado = estado;
-        calcularLlegada();
     }
 
     public Horarios() {
@@ -70,12 +75,6 @@ public class Horarios {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }    
-        
-    private void calcularLlegada(){
-        LocalTime s = LocalTime.of(00, 00);
-        long minutos = s.until(this.ruta.getDuracionEst(), ChronoUnit.MINUTES);
-        this.horaLLegada = this.horaSalida.plusMinutes(minutos);
-    }
 
     @Override
     public String toString() {

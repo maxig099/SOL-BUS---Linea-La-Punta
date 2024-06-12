@@ -1,13 +1,6 @@
 package vistas;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JInternalFrame;
 
 
 public class MenuPrincipal extends javax.swing.JFrame {

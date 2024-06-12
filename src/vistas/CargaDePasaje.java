@@ -1,15 +1,7 @@
 package vistas;
 
-import accesoADatos.ColectivosData;
-import accesoADatos.HorariosData;
-import accesoADatos.PasajeData;
-import accesoADatos.PasajerosData;
-import accesoADatos.RutasData;
-import entidades.Colectivos;
-import entidades.Horarios;
-import entidades.Pasaje;
-import entidades.Pasajeros;
-import entidades.Rutas;
+import accesoADatos.*;
+import entidades.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -19,28 +11,22 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.util.converter.LocalTimeStringConverter;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 public class CargaDePasaje extends javax.swing.JInternalFrame {
-    private Pasajeros pasajero = null;
-    private PasajerosData pasData = new PasajerosData();
     private PasajeData pasajeData = new PasajeData();
     private RutasData rutaData = new RutasData();
     private HorariosData horaData = new HorariosData();
     private ColectivosData coleData = new ColectivosData();
-    private Rutas rutas = new Rutas();
+    private Pasajeros pasajero = null;
     private Pasaje venta = new Pasaje();
     private DefaultTableModel modeloTabla = new DefaultTableModel(){
         @Override
@@ -53,7 +39,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     public CargaDePasaje() {
         initComponents();
         llenarCombo(cbOrigen, rutaData.listarRutasPorOrigen());
-        //llenarComboRuta(cbOrigen,rutaData.listarRutasPorOrigen());
         ocultarBarraTitulo();
         armarCabecera();
         dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
@@ -539,7 +524,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
             LocalTime salida = new LocalTimeStringConverter().fromString(x);
             
-              lista = pasajeData.listarColectivosAsignados(r.getIdRuta(), fec, salida);
+              lista = coleData.listarColectivosAsignados(r.getIdRuta(), fec, salida);
               venta.setRuta(r);
               venta.setFechaViaje(fec);
               venta.setHoraViaje(salida);
@@ -595,13 +580,12 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCrearPasActionPerformed
 
     private void btnAsignarUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUnidadActionPerformed
-        ArrayList listaDispon = null;
         Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
         Date f = new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
         LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
         String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
         LocalTime salida = new LocalTimeStringConverter().fromString(x);
-        listaDispon = pasajeData.listarColectivosDisponibles(r.getIdRuta(), fec, salida);
+        ArrayList listaDispon = coleData.listarColectivosDisponibles(r.getIdRuta(), fec, salida);
         sumarATabla(listaDispon);
     }//GEN-LAST:event_btnAsignarUnidadActionPerformed
 

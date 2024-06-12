@@ -10,7 +10,6 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 public class CargaDeUnidades extends javax.swing.JInternalFrame {
     Colectivos colectivo = null;
-    ColectivosData coleData = new ColectivosData();
 
     public CargaDeUnidades() {
         initComponents();
@@ -196,24 +195,10 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
                             + "\nCapacidad: " + capacidad;
             int guardar = JOptionPane.showConfirmDialog(this, texto, "CONFIRMAR ALUMNO", JOptionPane.YES_NO_OPTION);
             if(guardar == 0){                               
-                coleData.guardarColectivo(colectivo);
+                new ColectivosData().guardarColectivo(colectivo);
                 limpiarCampos();
             }
         }
-//        try {
-//            int capac = Integer.parseInt(capacidad);
-//            
-//        if (colectivo == null) {
-//            colectivo = new Colectivos (matricula, marca, modelo, capac, estado);
-//            coleData.guardarColectivo(colectivo);
-//        }
-//        limpiarCampos(); 
-//        }
-//        catch(NumberFormatException ex) {
-//            JOptionPane.showMessageDialog(null, "La capacidad debe ser un numero");
-//        }
-
-    
     }//GEN-LAST:event_jGuardarMouseClicked
 
     private void jTCapacidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTCapacidadKeyTyped

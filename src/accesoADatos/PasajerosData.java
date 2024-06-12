@@ -1,6 +1,6 @@
 package accesoADatos;
 
-import entidades.*;
+import entidades.Pasajeros;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class PasajerosData {
         return pasaj;
     }
     
-        public Pasajeros buscarPasajeroDNI(String dni) {
+    public Pasajeros buscarPasajeroDNI(String dni) {
         Pasajeros pasaj = null;
         String sql = "SELECT * FROM pasajeros WHERE dni = ? AND estado = true";
 
@@ -84,10 +84,10 @@ public class PasajerosData {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, dni);
             ResultSet rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 pasaj = new Pasajeros();
-                
+
                 pasaj.setIdPasajero(rs.getInt("id_pasajero"));
                 pasaj.setNombre(rs.getString("nombre"));
                 pasaj.setApellido(rs.getString("apellido"));
@@ -96,10 +96,10 @@ public class PasajerosData {
                 pasaj.setTelefono(rs.getString("telefono"));
                 pasaj.setEstado(rs.getBoolean("estado"));
 
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "No existe un pasajero con ese ID");
             }
-            
+
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);

@@ -5,7 +5,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class PasajeData {
@@ -38,7 +37,7 @@ public class PasajeData {
 
             if (idPasaje.next()) {
                 pasaje.setIdPasaje(idPasaje.getInt(1));
-              
+                JOptionPane.showMessageDialog(null, "Venta exitosa");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -81,9 +80,87 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
         }
         return pasaje;
+    }    
+
+    public void eliminarVenta(int id) {
+        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ? AND estado = 1";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas == 1) {
+                JOptionPane.showMessageDialog(null, "Se eliminó la venta");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la venta a eliminar");
+            }
+            ps.close();
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+    }
+
+    public ArrayList<Pasaje> listarVentas() {
+        ArrayList<Pasaje> listaVentas = new ArrayList<>();
+        String sql = "SELECT * FROM pasajes WHERE estado  = 1";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                pasajeroData = new PasajerosData();
+                coleData = new ColectivosData();
+                rutaData = new RutasData();
+                
+                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
+                pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
+                pasaje.setColectivo(coleData.buscarColectivo(rs.getInt("id_colectivo")));
+                pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
+                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("nroButaca"));
+                pasaje.setPrecio(rs.getDouble("Precio"));
+                
+                listaVentas.add(pasaje);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
+        }
+        return listaVentas;
+    }
+        
+    //LISTO LOS ASIENTOS VENDIDOS DE DETERMINADO VIAJE Y COLECTIVO
+    public ArrayList<Integer> AsientosVendidos(int id_colectivo, int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+        ArrayList<Integer> listaAsientosAsig = new ArrayList<>();
+        
+        String sql = "SELECT p.nroButaca FROM pasajes p "
+                    + "WHERE p.id_colectivo = ? AND p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id_colectivo);
+            ps.setInt(2, id_ruta);
+            ps.setDate(3, Date.valueOf(fechaViaje));
+            ps.setTime(4, Time.valueOf(horaViaje));
+            
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                listaAsientosAsig.add(rs.getInt(1));                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+        }
+        return listaAsientosAsig;
     }
     
-   /* public Pasaje buscarVenta(Date fecha, Time hora,int ruta) {
+    
+      /* public Pasaje buscarVenta(Date fecha, Time hora,int ruta) {
         String sql = "SELECT * FROM colectivos\n" +
 "JOIN pasajes ON colectivos.id_colectivo = pasajes.id_colectivo\n" +
 "WHERE pasajes.fecha_viaje = \"2024-06-09\" AND pasajes.hora_viaje = \"12:00:00\" AND pasajes.id_ruta = 7 ";
@@ -143,145 +220,5 @@ public class PasajeData {
         }
     }*/
 
-    public void eliminarVenta(int id) {
-        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ? AND estado = 1";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            int filasAfectadas = ps.executeUpdate();
-
-            if (filasAfectadas == 1) {
-                JOptionPane.showMessageDialog(null, "Se eliminó la venta");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la venta a eliminar");
-            }
-            ps.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
-        }
-    }
-
-    public List<Pasaje> listarVentas() {
-        ArrayList<Pasaje> listaVentas = new ArrayList<>();
-        String sql = "SELECT * FROM pasajes WHERE estado  = 1";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Pasaje pasaje = new Pasaje();
-                pasajeroData = new PasajerosData();
-                coleData = new ColectivosData();
-                rutaData = new RutasData();
-                
-                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
-                pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
-                pasaje.setColectivo(coleData.buscarColectivo(rs.getInt("id_colectivo")));
-                pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
-                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
-                pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
-                pasaje.setAsiento(rs.getInt("nroButaca"));
-                pasaje.setPrecio(rs.getDouble("Precio"));
-                
-                listaVentas.add(pasaje);
-                
-                
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
-        }
-        return listaVentas          ;
-    }
-    
-    public ArrayList<Colectivos> listarColectivosAsignados(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
-        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
-        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
-                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
-                    "WHERE p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id_ruta);
-            ps.setDate(2, Date.valueOf(fechaViaje));
-            ps.setTime(3, Time.valueOf(horaViaje));
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Colectivos colectivo = new Colectivos();
-                
-                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
-                colectivo.setMatricula(rs.getString("matricula"));
-                colectivo.setMarca(rs.getString("marca"));
-                colectivo.setModelo(rs.getString("modelo"));
-                colectivo.setCapacidad(rs.getInt("capacidad"));
-                colectivo.setEstado(true);
-                
-                listaColeAsig.add(colectivo);                
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
-        }
-        return listaColeAsig;
-    }
-    
-        public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
-        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
-        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
-                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
-                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id_ruta);
-            ps.setDate(2, Date.valueOf(fechaViaje));
-            ps.setTime(3, Time.valueOf(horaViaje));
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Colectivos colectivo = new Colectivos();
-                
-                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
-                colectivo.setMatricula(rs.getString("matricula"));
-                colectivo.setMarca(rs.getString("marca"));
-                colectivo.setModelo(rs.getString("modelo"));
-                colectivo.setCapacidad(rs.getInt("capacidad"));
-                colectivo.setEstado(true);
-                
-                listaColeAsig.add(colectivo);                
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
-        }
-        return listaColeAsig;
-    }
-    
-    public ArrayList<Integer> AsientosVendidos(int id_colectivo, int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
-        ArrayList<Integer> listaAsientosAsig = new ArrayList<>();
-        
-        String sql = "SELECT p.nroButaca FROM pasajes p "
-                    + "WHERE p.id_colectivo = ? AND p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id_colectivo);
-            ps.setInt(2, id_ruta);
-            ps.setDate(3, Date.valueOf(fechaViaje));
-            ps.setTime(4, Time.valueOf(horaViaje));
-            
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                listaAsientosAsig.add(rs.getInt(1));                
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
-        }
-        return listaAsientosAsig;
-    }
-   
 }
 

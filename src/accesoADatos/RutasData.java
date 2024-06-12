@@ -1,9 +1,8 @@
 package accesoADatos;
 
-import entidades.*;
+import entidades.Rutas;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class RutasData {
@@ -28,7 +27,7 @@ public class RutasData {
             
             if (idRuta.next()) {
                 ruta.setIdRuta(idRuta.getInt(1));
-          
+                JOptionPane.showMessageDialog(null, "Se creó exitosamente la ruta");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -40,9 +39,10 @@ public class RutasData {
             }
         }
     }
-
-    public Rutas buscarRuta(int id) {
-        String sql = "SELECT * FROM ruta WHERE estado = 1 AND id_ruta = ?";
+    
+//BUSCO RUTA POR ID
+    public Rutas buscarRuta(int id) {   
+        String sql = "SELECT * FROM ruta WHERE estado = 1 AND id_ruta = ?";     
         Rutas ruta = null;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -58,9 +58,6 @@ public class RutasData {
                 ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
                 ruta.setEstado(true);
                 
-            
-                
-                
             } else {
                 JOptionPane.showMessageDialog(null, "No existe una ruta con ese ID");
             }
@@ -71,7 +68,8 @@ public class RutasData {
         return ruta;
     }
     
-    public Rutas buscarRuta(String origen, String destino) {   //LO UTILIZO PARA BUSCAR EL HORARIO
+// BUSCO RUTA POR ORIGEN Y DESTINO ESPECIFICO //LO UTILIZO PARA BUSCAR EL HORARIO
+    public Rutas buscarRuta(String origen, String destino) {   
         String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? AND destino = ?";
         Rutas ruta = null;
         try {
@@ -138,10 +136,11 @@ public class RutasData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
         }
     }
-
+    
+//LISTO TODAS LAS RUTAS
     public ArrayList<Rutas> listarRutas() {
         ArrayList<Rutas> rutas = new ArrayList<>();
-        String sql = "SELECT * FROM ruta WHERE estado = 1";
+        String sql = "SELECT * FROM ruta WHERE estado = 1";    
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -164,7 +163,8 @@ public class RutasData {
         return rutas;
     }
     
-    public ArrayList<String> listarRutasPorOrigen() {
+//LISTA TODOS LOS ORIGENES DISTINTOS
+    public ArrayList<String> listarRutasPorOrigen() {       
         ArrayList<String> rutas = new ArrayList<>();
         String sql = "SELECT DISTINCT origen FROM ruta WHERE estado = 1";
         
@@ -182,7 +182,9 @@ public class RutasData {
         }
         return rutas;
     }
-    public ArrayList<String> listarRutasDestino() {
+    
+//LISTA TODOS LOS DESTINOS DISTINTOS
+    public ArrayList<String> listarRutasDestino() {         
         ArrayList<String> rutas = new ArrayList<>();
         String sql = "SELECT DISTINCT destino FROM ruta WHERE estado = 1";
         
@@ -201,7 +203,8 @@ public class RutasData {
         return rutas;
     }
     
-    public ArrayList<String> listarRutasDestino(String origen) {
+//LISTA TODOS LOS DESTINOS DISTINTOS DE DETERMINADO ORIGEN
+    public ArrayList<String> listarRutasDestino(String origen) {        
         ArrayList<String> rutas = new ArrayList<>();
         String sql = "SELECT DISTINCT destino FROM ruta WHERE estado = 1 AND origen = ?";
         
@@ -221,37 +224,8 @@ public class RutasData {
         return rutas;
     }
     
-
-    
-    public ArrayList<Rutas> listarRutasEspecificas(String origen, String destino) {
-        ArrayList<Rutas> rutas = new ArrayList<>();
-        String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? AND destino = ?";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, origen);
-            ps.setString(2, destino);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Rutas ruta = new Rutas();
-                
-                ruta.setIdRuta(rs.getInt("id_ruta"));
-                ruta.setOrigen(rs.getString("origen"));
-                ruta.setDestino(rs.getString("destino"));
-                ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
-                ruta.setEstado(rs.getBoolean("estado"));
-                rutas.add(ruta);
-            }
-        
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
-        }
-        return rutas;
-    }
-    
-     public ArrayList<Rutas> listarRutasPorOrigenBusqueda() {
+//LISTA TODAS LAS RUTAS CON DISTINTO ORIGEN
+     public ArrayList<Rutas> listarRutasPorOrigenBusqueda() {       
         ArrayList<Rutas> rutas = new ArrayList<>();
         String sql = "SELECT DISTINCT origen FROM ruta WHERE estado = 1";
         
@@ -270,8 +244,9 @@ public class RutasData {
         }
         return rutas;
     }
-     
-       public ArrayList<Rutas> listarRutasPorDestinoBusqueda() {
+
+//LISTA TODAS LAS RUTAS CON DISTINTO DESTINO
+       public ArrayList<Rutas> listarRutasPorDestinoBusqueda() {        
         ArrayList<Rutas> rutas = new ArrayList<>();
         String sql = "SELECT DISTINCT destino FROM ruta WHERE estado = 1";
         
@@ -290,6 +265,36 @@ public class RutasData {
         }
         return rutas;
     }
+    
+
+    
+//    public ArrayList<Rutas> listarRutasEspecificas(String origen, String destino) {     //igual que buscar ruta
+//        ArrayList<Rutas> rutas = new ArrayList<>();
+//        String sql = "SELECT * FROM ruta WHERE estado = 1 AND origen = ? AND destino = ?";
+//        
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setString(1, origen);
+//            ps.setString(2, destino);
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                Rutas ruta = new Rutas();
+//                
+//                ruta.setIdRuta(rs.getInt("id_ruta"));
+//                ruta.setOrigen(rs.getString("origen"));
+//                ruta.setDestino(rs.getString("destino"));
+//                ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
+//                ruta.setEstado(rs.getBoolean("estado"));
+//                rutas.add(ruta);
+//            }
+//        
+//            ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
+//        }
+//        return rutas;
+//    }
     
 }
 
