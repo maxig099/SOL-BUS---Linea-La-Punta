@@ -28,7 +28,7 @@ public class RutasData {
             
             if (idRuta.next()) {
                 ruta.setIdRuta(idRuta.getInt(1));
-                JOptionPane.showMessageDialog(null, "Se creó exitosamente la ruta");
+          
             }
             ps.close();
         } catch (SQLException ex) {
@@ -58,7 +58,7 @@ public class RutasData {
                 ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
                 ruta.setEstado(true);
                 
-                JOptionPane.showMessageDialog(null, "Ruta encontrada");
+            
                 
                 
             } else {
@@ -88,8 +88,7 @@ public class RutasData {
                 ruta.setDestino(rs.getString("destino"));
                 ruta.setDuracionEst(rs.getTime("duracion_estimada").toLocalTime());
                 ruta.setEstado(true);
-                
-                JOptionPane.showMessageDialog(null, "Ruta encontrada");                
+                     
             } else {
                 JOptionPane.showMessageDialog(null, "No existe una ruta con ese ID");
             }
@@ -244,7 +243,47 @@ public class RutasData {
                 ruta.setEstado(rs.getBoolean("estado"));
                 rutas.add(ruta);
             }
-            JOptionPane.showMessageDialog(null, "Rutas listadas");
+        
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
+        }
+        return rutas;
+    }
+    
+     public ArrayList<Rutas> listarRutasPorOrigenBusqueda() {
+        ArrayList<Rutas> rutas = new ArrayList<>();
+        String sql = "SELECT DISTINCT origen FROM ruta WHERE estado = 1";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Rutas origen = new Rutas();
+                origen.setOrigen(rs.getString("origen"));
+                rutas.add(origen);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);
+        }
+        return rutas;
+    }
+     
+       public ArrayList<Rutas> listarRutasPorDestinoBusqueda() {
+        ArrayList<Rutas> rutas = new ArrayList<>();
+        String sql = "SELECT DISTINCT destino FROM ruta WHERE estado = 1";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Rutas destino = new Rutas();
+                destino.setDestino(rs.getString("destino"));
+                rutas.add(destino);
+            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Ruta" + ex);

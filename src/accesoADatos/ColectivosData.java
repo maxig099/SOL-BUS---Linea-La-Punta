@@ -31,7 +31,6 @@ public class ColectivosData {
             if (idColectivo.next()) {
                 colectivo.setIdColectivo(idColectivo.getInt(1));
                 
-                JOptionPane.showMessageDialog(null, "Se guardo el colectivo");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -62,7 +61,6 @@ public class ColectivosData {
                 colectivo.setCapacidad(rs.getInt("capacidad"));
                 colectivo.setEstado(rs.getBoolean("estado"));
                
-                JOptionPane.showMessageDialog(null, "Colectivo encontrado");
             } else {
                 JOptionPane.showMessageDialog(null, "No existe un colectivo con ese ID");
             }
