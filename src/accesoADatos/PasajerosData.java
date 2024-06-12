@@ -97,7 +97,7 @@ public class PasajerosData {
                 pasaj.setEstado(rs.getBoolean("estado"));
 
             } else {
-                JOptionPane.showMessageDialog(null, "No existe un pasajero con ese ID");
+                JOptionPane.showMessageDialog(null, "No existe un pasajero con ese DNI");
             }
 
             ps.close();
@@ -132,6 +132,31 @@ public class PasajerosData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
         }
     }
+     public void modificarPasajeroPorDni(Pasajeros psj) {
+        String sql = "UPDATE pasajeros SET nombre= ?, apellido= ?, dni= ?, correo= ?, telefono= ? "
+               + " WHERE dni = ?";
+       
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, psj.getNombre());
+            ps.setString(2, psj.getApellido());
+            ps.setString(3, psj.getDni());
+            ps.setString(4, psj.getCorreo());
+            ps.setString(5, psj.getTelefono());
+            ps.setString(6, psj.getDni());
+            
+            int filasAf = ps.executeUpdate();
+            if(filasAf == 1) {
+                JOptionPane.showMessageDialog(null, "Pasajero modificado");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No se encontro el pasajero" );
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
+        }
+    }
    
     public void eliminarPasajeros(int id) {
         String sql = "UPDATE pasajeros SET estado = 0 WHERE id_pasajero = ? AND estado = 1";
@@ -139,6 +164,27 @@ public class PasajerosData {
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
+            
+            int filasAf = ps.executeUpdate();
+            if (filasAf == 1) {
+                JOptionPane.showMessageDialog(null, "Pasajero eliminado");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No se encontro el pasajero a eliminar");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajero" + ex);
+        }       
+    }
+    
+     public void eliminarPasajerosPorDni(Pasajeros psj) {
+         
+         String sql = "UPDATE pasajeros SET estado = 0 WHERE dni = ? AND estado = 1";
+       
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, psj.getDni());
             
             int filasAf = ps.executeUpdate();
             if (filasAf == 1) {
