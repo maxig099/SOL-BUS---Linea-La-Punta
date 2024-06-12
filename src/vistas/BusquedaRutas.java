@@ -25,7 +25,7 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
     List<Rutas> listaRutas;
     List<Rutas> listaRutasporOrigen;
     List<Rutas> listaRutasporDestino;
-    Rutas rutasEspecificas = null;
+    List<Rutas> listaRutasEspecificas;
     
     /**
      * Creates new form Pasaje
@@ -136,7 +136,7 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
         jLabel5.setText("Buscar");
         jGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 80, 30));
 
@@ -269,12 +269,16 @@ public class BusquedaRutas extends javax.swing.JInternalFrame {
         borrarFilas();
         for (Rutas x : listaRutas) {
                 modeloTabla.addRow(new Object[]{x.getIdRuta(), x.getOrigen(), x.getDestino(), x.getDuracionEst()});
-        }
+            }
     }
     
     public void buscarTabla(String origen, String destino){
-        rutasEspecificas = ruData.buscarRuta(origen, destino);
-        modeloTabla.addRow(new Object[]{rutasEspecificas.getIdRuta(), rutasEspecificas.getOrigen(), rutasEspecificas.getDestino(), rutasEspecificas.getDuracionEst()});
+        listaRutasEspecificas = new ArrayList();
+        listaRutasEspecificas.addAll(ruData.listarRutasEspecificas(origen, destino));
+        for (Rutas x : listaRutasEspecificas) {
+            modeloTabla.addRow(new Object[]{x.getIdRuta(), x.getOrigen(), x.getDestino(), x.getDuracionEst()});
+        }
+            
     }
     
     private void armarCabecera() {        

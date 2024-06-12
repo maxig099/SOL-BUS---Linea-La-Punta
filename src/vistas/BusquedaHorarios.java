@@ -5,51 +5,23 @@
 package vistas;
 
 
-import accesoADatos.HorariosData;
-import accesoADatos.RutasData;
-import entidades.Horarios;
-import entidades.Rutas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Cristian
  */
 public class BusquedaHorarios extends javax.swing.JInternalFrame {
-    RutasData ruData = new RutasData();
-    HorariosData horarioData = new HorariosData();
-    List<Horarios> listadoHorariosXID;
-    List<Rutas> listaRutas;
-    List<Horarios> listadoHorarios;
-    List<Horarios> listaXhora;
-    List<Horarios> listaXhorayRuta;
-    
-    private DefaultTableModel modeloTabla = new DefaultTableModel(){
-        public boolean isCellEditable(int i, int i1) {
 
-            return false;
-
-        }
-    };
 
     public BusquedaHorarios() {
         initComponents();
-        armarCabecera();
         ocultarBarraTitulo();
-        listaRutas = ruData.listarRutas();
-        listadoHorarios = horarioData.listarHorarios();
-        llenarTablas();
-        llenarComboRuta();
-        llenarComboHoraSalida();
+       
     }
 
     /**
@@ -65,12 +37,14 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jCSeleccionRuta = new javax.swing.JComboBox<>();
-        jCHoraSalida = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jCombo = new javax.swing.JComboBox<>();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jGuardar = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jLimpiar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jBuscar = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTHorarios = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -94,19 +68,41 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         jLabel8.setText("Horario de salida:");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
-        jCSeleccionRuta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCSeleccionRutaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(jCSeleccionRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 260, -1));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Horario de llegada: ");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, -1, -1));
 
-        jCHoraSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCHoraSalidaActionPerformed(evt);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 260, -1));
+
+        jCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 80, -1));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel3.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 80, -1));
+
+        jGuardar.setBackground(new java.awt.Color(138, 193, 223));
+        jGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jGuardarMouseMoved(evt);
             }
         });
-        jPanel3.add(jCHoraSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 260, -1));
+        jGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jGuardarMouseExited(evt);
+            }
+        });
+        jGuardar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
+        jLabel5.setText("Guardar");
+        jGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 80, 30));
+
+        jPanel3.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 130, -1));
 
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
         jLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -117,9 +113,6 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
             }
         });
         jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLimpiarMouseClicked(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jLimpiarMouseExited(evt);
             }
@@ -130,35 +123,9 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar2.png"))); // NOI18N
         jLabel7.setText("Limpiar");
-        jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 30));
+        jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 0, 90, 30));
 
-        jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 130, 30));
-
-        jBuscar.setBackground(new java.awt.Color(138, 193, 223));
-        jBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jBuscar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jBuscarMouseMoved(evt);
-            }
-        });
-        jBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jBuscarMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jBuscarMouseExited(evt);
-            }
-        });
-        jBuscar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        jLabel10.setText("Buscar");
-        jBuscar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 80, 30));
-
-        jPanel3.add(jBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, 130, 30));
+        jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 130, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 630, 180));
 
@@ -190,6 +157,14 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jGuardarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseMoved
+        jGuardar.setBackground(new Color(184, 210, 224));
+    }//GEN-LAST:event_jGuardarMouseMoved
+
+    private void jGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseExited
+        jGuardar.setBackground(new Color(138, 193, 223));
+    }//GEN-LAST:event_jGuardarMouseExited
+
     private void jLimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseMoved
         jLimpiar.setBackground(new Color(184, 210, 224));
     }//GEN-LAST:event_jLimpiarMouseMoved
@@ -198,58 +173,15 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         jLimpiar.setBackground(new Color(138, 193, 223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
-    private void jCSeleccionRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCSeleccionRutaActionPerformed
-        // TODO add your handling code here:
-        borrarComboBoxHoras();
-    }//GEN-LAST:event_jCSeleccionRutaActionPerformed
-
-    private void jLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseClicked
-        // TODO add your handling code here:
-        llenarComboHoraSalida();
-        llenarTablas();
-    }//GEN-LAST:event_jLimpiarMouseClicked
-
-    private void jBuscarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBuscarMouseMoved
-        // TODO add your handling code here:
-        jBuscar.setBackground(new Color(184, 210, 224));
-    }//GEN-LAST:event_jBuscarMouseMoved
-
-    private void jBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBuscarMouseClicked
-        // TODO add your handling code here:
-        if (jCHoraSalida.getSelectedIndex() == (-1)) {
-            Rutas i = (Rutas) jCSeleccionRuta.getSelectedItem();
-            listadoHorariosXID = horarioData.listarHorariosXRuta(i.getIdRuta());
-            llenarComboHoraSalidaXRuta();
-            buscarTabla();
-        } else if (jCSeleccionRuta.getSelectedIndex() == -1) {
-            Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
-            listaXhora = horarioData.listarHorariosXSalida(h.getHoraSalida());
-            llenarTablaHorarios();
-        } else {
-            Rutas i = (Rutas) jCSeleccionRuta.getSelectedItem();
-            Horarios h = (Horarios) jCHoraSalida.getSelectedItem();
-            listaXhorayRuta = horarioData.listarHorariosDoble(i.getIdRuta(), h.getHoraSalida());
-            llenarTablaDoble();
-        }
-        
-    }//GEN-LAST:event_jBuscarMouseClicked
-
-    private void jBuscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBuscarMouseExited
-        // TODO add your handling code here:
-        jBuscar.setBackground(new Color(138, 193, 223));
-    }//GEN-LAST:event_jBuscarMouseExited
-
-    private void jCHoraSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCHoraSalidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCHoraSalidaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jBuscar;
-    private javax.swing.JComboBox<Horarios> jCHoraSalida;
-    private javax.swing.JComboBox<Rutas> jCSeleccionRuta;
+    private javax.swing.JComboBox<String> jCombo;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JPanel jGuardar;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -260,9 +192,7 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTHorarios;
     // End of variables declaration//GEN-END:variables
-    
-    
-    public void ocultarBarraTitulo() {
+ public void ocultarBarraTitulo() {
         JComponent Barra = null;
         Dimension dimBarra = null;
         Barra = ((BasicInternalFrameUI) getUI()).getNorthPane();
@@ -271,86 +201,7 @@ public class BusquedaHorarios extends javax.swing.JInternalFrame {
         Barra.setPreferredSize(new Dimension(0, 0));
         repaint();
     }
-    
-    private void armarCabecera() {        
-        modeloTabla.addColumn("Salida");
-        modeloTabla.addColumn("Llegada");
-        modeloTabla.addColumn("Ruta");
-        jTHorarios.setModel(modeloTabla);
-    }
-    
-    private void llenarTablas(){
-        borrarFilas();
-        for (Horarios x : listadoHorarios) {
-                modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
-        }
-    }
-        
-    public void buscarTabla(){
-        borrarFilas();
-        for (Horarios x : listadoHorariosXID) {
-                modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
-        }
-            
-    }   
-    
-    private void llenarTablaHorarios(){
-        borrarFilas();
-        for (Horarios x : listaXhora) {
-                modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
-        } 
-        
-    }
-    
-    private void llenarTablaDoble(){
-        borrarFilas();
-        for (Horarios x : listaXhorayRuta) {
-                modeloTabla.addRow(new Object[]{x.getHoraSalida(), x.getHoraLLegada(), x.getRuta()});
-        } 
-    }
 
-    public void llenarComboRuta(){
-        for (Rutas e : listaRutas) {
-            jCSeleccionRuta.addItem(e); 
-        }
-        
-        jCSeleccionRuta.setSelectedIndex(-1);
-    }
-    
-    public void llenarComboHoraSalida(){
-        borrarComboBox();
-        for (Horarios s : listadoHorarios) {
-            jCHoraSalida.addItem(s);
-        }
-        jCHoraSalida.setSelectedIndex(-1);
-    }
-    
-    public void llenarComboHoraSalidaXRuta(){
-        borrarComboBoxHoras();
-        for (Horarios s : listadoHorariosXID) {
-            jCHoraSalida.addItem(s);
-        }
-        jCHoraSalida.setSelectedIndex(-1);
-    }
-    
 
-    private void borrarFilas() {
-        int filas = modeloTabla.getRowCount() - 1;
-        for (int f = filas; f >= 0; f--) {
-            modeloTabla.removeRow(f);
-        }
-    }
-    
-    private void borrarComboBox(){
-        jCSeleccionRuta.setSelectedIndex(-1);
-        jCHoraSalida.setSelectedIndex(-1);
-        
-    }
-    
-    private void borrarComboBoxHoras(){
-        jCHoraSalida.removeAllItems();
-    }
-    
 
-    
 }
