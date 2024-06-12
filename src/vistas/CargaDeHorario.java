@@ -10,6 +10,7 @@ import entidades.Horarios;
 import entidades.Rutas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -28,6 +29,7 @@ import javax.swing.JSpinner.DateEditor;
 import javax.swing.SpinnerDateModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.util.Date;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 
 /**
@@ -271,20 +273,28 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         }
 
         jCRutas.setSelectedIndex(0);
-
+      
     }
 
-    public void formatoSpinner() {
+   public void formatoSpinner() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
             Date hora = sdf.parse("00:00");
+
+            // Crear el modelo de SpinnerDate
             SpinnerDateModel sm = new SpinnerDateModel(hora, null, null, Calendar.HOUR_OF_DAY);
             jSpinner1.setModel(sm);
+
+            // Establecer un editor de fecha personalizado
             JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm");
             jSpinner1.setEditor(de);
-        } catch (Exception e) {
-            System.out.println("Error!!!!");
+
+            // Asegurarse de que el campo de texto del editor no sea editable
+            JFormattedTextField txt = ((JSpinner.DefaultEditor) jSpinner1.getEditor()).getTextField();
+            txt.setEditable(false);
+
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "El formato de horario ingresado no es válido, reintente.");
         }
-       
     }
 }
