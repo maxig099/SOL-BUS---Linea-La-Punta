@@ -55,7 +55,6 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jLabel6.setText("Matricula:");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 80, -1));
 
-        jtMatricula.setForeground(new java.awt.Color(0, 0, 0));
         jtMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jtMatriculaKeyTyped(evt);
@@ -77,14 +76,9 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jLabel11.setForeground(new java.awt.Color(0, 0, 51));
         jLabel11.setText("Capacidad:");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
-
-        jTMarca.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.add(jTMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 140, -1));
-
-        jTModelo.setForeground(new java.awt.Color(0, 0, 0));
         jPanel3.add(jTModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 140, -1));
 
-        jTCapacidad.setForeground(new java.awt.Color(0, 0, 0));
         jTCapacidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTCapacidadKeyTyped(evt);
@@ -93,6 +87,7 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jPanel3.add(jTCapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 140, -1));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
+        jGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -116,9 +111,10 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
 
-        jPanel3.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 130, -1));
+        jPanel3.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 120, -1));
 
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
+        jLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -142,11 +138,12 @@ public class CargaDeUnidades extends javax.swing.JInternalFrame {
         jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 0, 70, 30));
 
-        jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 120, -1));
+        jPanel3.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 120, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 570, 260));
 
         jPanel4.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N

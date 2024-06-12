@@ -68,7 +68,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logoReal.jpg"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 120));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 150, 20));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 110, 20));
 
         jPanelAdmin.setBackground(new java.awt.Color(255, 255, 255));
         jPanelAdmin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,6 +148,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 150, 670));
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setFont(new java.awt.Font("Roboto Medium", 1, 18)); // NOI18N
@@ -412,7 +413,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jInicio.repaint();
         CargaDePasaje cp=new CargaDePasaje();
         cp.setVisible(true);
-        cp.setLocation(0, -14);
+        cp.setLocation(0, 10);
         
        
         jInicio.add(cp);

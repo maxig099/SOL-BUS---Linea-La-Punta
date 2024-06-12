@@ -322,6 +322,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         panelDatos.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 231, 28));
 
         jGuardar.setBackground(new java.awt.Color(138, 193, 223));
+        jGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -345,6 +346,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         panelDatos.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 122, -1));
 
         jHistorial.setBackground(new java.awt.Color(138, 193, 223));
+        jHistorial.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jHistorial.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -368,6 +370,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         panelDatos.add(jHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 122, -1));
 
         jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
+        jLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
@@ -393,6 +396,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         panelPrincipal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 300));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
