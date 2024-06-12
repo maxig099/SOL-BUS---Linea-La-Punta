@@ -528,8 +528,8 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
               venta.setRuta(r);
               venta.setFechaViaje(fec);
               venta.setHoraViaje(salida);
-            cargarTabla(lista);
         }
+            cargarTabla(lista);
         cbAsientos.setEnabled(false);
     }//GEN-LAST:event_cbHorariosActionPerformed
 
@@ -584,8 +584,10 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         Date f = new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
         LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
         String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
-        LocalTime salida = new LocalTimeStringConverter().fromString(x);
+        String[] hora=x.split(":");
+        LocalTime salida = LocalTime.of(Integer.parseInt(hora[0]), Integer.parseInt(hora[1]));        
         ArrayList listaDispon = coleData.listarColectivosDisponibles(r.getIdRuta(), fec, salida);
+        System.out.println("listados");
         sumarATabla(listaDispon);
     }//GEN-LAST:event_btnAsignarUnidadActionPerformed
 
@@ -678,6 +680,9 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 dispon="LLENO";
             }
             modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
+        }
+        if(lista.isEmpty()){
+            btnAsignarUnidad.setEnabled(true);
         }
     }
     

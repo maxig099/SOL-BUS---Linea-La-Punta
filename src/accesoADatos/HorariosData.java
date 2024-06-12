@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class HorariosData {    
     private Connection con = null;
-    private RutasData rutaData = null;
+    private RutasData rutaData = new RutasData();
     
 
     public HorariosData() {
@@ -146,7 +146,6 @@ public class HorariosData {
 
             while (rs.next()) {
                 Horarios horario = new Horarios();
-                
                 horario.setIdHorarios(rs.getInt("id_horario"));
                 horario.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
                 horario.setHoraSalida(rs.getTime("hora_salida").toLocalTime());
