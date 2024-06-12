@@ -583,8 +583,11 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private void btnCrearPasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPasActionPerformed
         Frame f = JOptionPane.getFrameForComponent(this);
         CargarPasajero cp = new CargarPasajero(f, true, tfDni.getText());
-        cp.setVisible(true);
-        cp.setLocation(50, 50);
+
+        cp.pack();
+        cp.setLocationRelativeTo(null); 
+    
+    cp.setVisible(true);
     }//GEN-LAST:event_btnCrearPasActionPerformed
 
     private void btnAsignarUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUnidadActionPerformed
