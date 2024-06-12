@@ -213,7 +213,7 @@ public class ColectivosData {
         ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
         String sql = "SELECT DISTINCT c.* FROM pasajes p " +
                     "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
-                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?)";
+                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?) OR ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id_ruta);

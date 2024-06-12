@@ -67,7 +67,7 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
         jLabel6.setText("DNI:");
         jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 30, -1));
 
-        jtDNI.setForeground(java.awt.SystemColor.activeCaptionBorder);
+        jtDNI.setForeground(new java.awt.Color(0, 0, 0));
         jtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jtDNIFocusGained(evt);
@@ -314,8 +314,7 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
     if (!correo.isEmpty() && !validarMail(jtCorreo.getText())) {
             jtCorreo.setBorder(bordeError);
             JOptionPane.showMessageDialog(null, "Debe ingresar un mail valido");
-            return;
-            
+            return;            
         }  
     else {
         jtCorreo.setBorder(bordeOrig);
@@ -326,7 +325,6 @@ public class CargaDePasajero extends javax.swing.JInternalFrame {
    if(respuesta == JOptionPane.YES_OPTION) {
       per = new Pasajeros(Nombre, Apellido, dni, correo, telefono, estado);
     p.guardarPasajero(per);
-    JOptionPane.showMessageDialog(null, "Datos guardados");
     limpiar();
    } 
    else {
