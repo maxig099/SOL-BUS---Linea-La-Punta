@@ -420,7 +420,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int filaTabla = tabla.getSelectedRow();
-
+        System.out.println(filaTabla);
         if (filaTabla != (-1)) {
             int idPasaje = (Integer) modeloTabla.getValueAt(filaTabla, 0);
             String texto = "¿¿SEGURO QUE DESEA ELIMINAR EL PASAJE??";
@@ -430,7 +430,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
             }
             btnBuscar.doClick();
         } else {
-            JOptionPane.showInternalMessageDialog(this, "Seleccione un Pasaje");
+            //JOptionPane.showInternalMessageDialog(this, "Seleccione un Pasaje");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

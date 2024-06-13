@@ -641,6 +641,9 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             }
             modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
         }
+        if(tabla.getRowCount()==0){
+            btnAsignarUnidad.setEnabled(true);
+        }
     }
     
 //    private void sumarATabla(Collection<Colectivos> lista) {
