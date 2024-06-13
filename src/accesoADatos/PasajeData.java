@@ -101,6 +101,37 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
         }
     }
+  public ArrayList<Pasaje> listarVentasXPasajero(int id) {
+        ArrayList<Pasaje> listaVentas = new ArrayList<>();
+        String sql = "SELECT * FROM pasajes WHERE id_pasajero  = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                pasajeroData = new PasajerosData();
+                coleData = new ColectivosData();
+                rutaData = new RutasData();
+                
+                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
+                pasaje.setPasajero(pasajeroData.buscarPasajero(rs.getInt("id_pasajero")));
+                pasaje.setColectivo(coleData.buscarColectivo(rs.getInt("id_colectivo")));
+                pasaje.setRuta(rutaData.buscarRuta(rs.getInt("id_ruta")));
+                pasaje.setFechaViaje(rs.getDate("Fecha_Viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("Hora_Viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("nroButaca"));
+                pasaje.setPrecio(rs.getDouble("Precio"));
+                
+                listaVentas.add(pasaje);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasaje" + ex);
+        }
+        return listaVentas;
+    }
 
     public ArrayList<Pasaje> listarVentas() {
         ArrayList<Pasaje> listaVentas = new ArrayList<>();
