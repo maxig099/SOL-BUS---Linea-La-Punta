@@ -643,6 +643,10 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         }
         if(tabla.getRowCount()==0){
             btnAsignarUnidad.setEnabled(true);
+        }else{
+//            if(tabla.getSelectedRowCount()>0){
+//                btnVender.setEnabled(true);
+//            }
         }
     }
     

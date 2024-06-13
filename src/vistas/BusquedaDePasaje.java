@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -15,6 +16,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 public class BusquedaDePasaje extends javax.swing.JInternalFrame {
+    private ArrayList<Pasaje> listaPasajes = new ArrayList<>();
     private DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int i, int i1) {
@@ -72,6 +74,8 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        cbOrdenar = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -290,7 +294,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        panelDatos.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 100, 40));
+        panelDatos.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 100, 40));
 
         btnBuscar.setText("FILTRAR");
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -299,7 +303,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        panelDatos.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 100, 40));
+        panelDatos.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 100, 40));
 
         jButton1.setText("LIMPIAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +311,19 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        panelDatos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 100, 40));
+        panelDatos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 120, 100, 40));
+
+        cbOrdenar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-----", "Colectivo", "Ruta", "Codigo" }));
+        cbOrdenar.setSelectedIndex(-1);
+        cbOrdenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbOrdenarActionPerformed(evt);
+            }
+        });
+        panelDatos.add(cbOrdenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 130, -1));
+
+        jLabel2.setText("Orden:");
+        panelDatos.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, -1, 30));
 
         principal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 220));
 
@@ -383,7 +399,8 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
             sql = " SELECT * FROM pasajes WHERE id_pasajes = "+idBoleto;
         }
 //PASO LA CONSULTA A PASAJEDATA Y CARGO LA TABLA
-        cargarTabla(new PasajeData().prueba(sql));
+        listaPasajes = new PasajeData().prueba(sql);
+        cargarTabla(listaPasajes);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tfIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdKeyTyped
@@ -434,6 +451,12 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void cbOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrdenarActionPerformed
+                ordenarListaProductos((String)cbOrdenar.getSelectedItem());
+        borrarFilas();
+        cargarTabla(listaPasajes);
+    }//GEN-LAST:event_cbOrdenarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -441,6 +464,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbBuscar;
     private javax.swing.JComboBox<Object> cbColectivos;
     private javax.swing.JComboBox<Object> cbHorarios;
+    private javax.swing.JComboBox<String> cbOrdenar;
     private javax.swing.JComboBox<Object> cbRutas;
     private com.toedter.calendar.JDateChooser dcDesde;
     private com.toedter.calendar.JDateChooser dcHasta;
@@ -449,6 +473,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
@@ -542,5 +567,21 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         dcDesde.setDate(Date.valueOf(LocalDate.now()));        
         dcHasta.setDate(Date.valueOf(LocalDate.now())); 
         borrarFilas();
+    }
+    
+    private void ordenarListaProductos(String item) {
+        switch (item) {
+            case "Colectivo":
+                Collections.sort(listaPasajes, Comparar.porColectivo);
+                break;
+            case "Ruta":
+                Collections.sort(listaPasajes, Comparar.porRuta);
+                break;
+            case "Codigo":
+                Collections.sort(listaPasajes, Comparar.porCodigo);
+                break;
+            case "-----":
+                break;
+        }
     }
 }
