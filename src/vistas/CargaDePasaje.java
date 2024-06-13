@@ -5,6 +5,7 @@ import entidades.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,6 +18,7 @@ import javafx.util.converter.LocalTimeStringConverter;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +45,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         armarCabecera();
         dcFecha.setMinSelectableDate(Date.valueOf(LocalDate.now()));
         dcFecha.setDate(Date.valueOf(LocalDate.now()));
+        ((JTextField) this.dcFecha.getDateEditor()).setEditable(false);
         
         
     }
@@ -80,18 +83,14 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         fecha = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         dcFecha = new com.toedter.calendar.JDateChooser();
-        jGuardar = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jHistorial = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        ftfPrecio = new javax.swing.JFormattedTextField();
+        jLabel6 = new javax.swing.JLabel();
+        btnVender = new javax.swing.JButton();
         jLimpiar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        btnVender = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        ftfPrecio = new javax.swing.JFormattedTextField();
-        jLabel6 = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
@@ -119,7 +118,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        panelTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 18, 412, 210));
+        panelTabla.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 18, 540, 210));
 
         panelAsiento.setLayout(new java.awt.BorderLayout());
 
@@ -134,7 +133,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         });
         panelAsiento.add(cbAsientos, java.awt.BorderLayout.SOUTH);
 
-        panelTabla.add(panelAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 18, 121, -1));
+        panelTabla.add(panelAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 121, -1));
 
         btnAsignarUnidad.setText("Asignar Unidad"); // NOI18N
         btnAsignarUnidad.setEnabled(false);
@@ -143,9 +142,9 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 btnAsignarUnidadActionPerformed(evt);
             }
         });
-        panelTabla.add(btnAsignarUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 110, -1));
+        panelTabla.add(btnAsignarUnidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 110, -1));
 
-        panelPrincipal.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 610, 240));
+        panelPrincipal.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 720, 240));
 
         panelDatos.setBackground(new java.awt.Color(255, 255, 255));
         panelDatos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -154,6 +153,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         panelPasajero.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pasajero", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 1, 12))); // NOI18N
 
         btnCrearPas.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        btnCrearPas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/perfil (1).png"))); // NOI18N
         btnCrearPas.setText("Crear Usuario");
         btnCrearPas.setToolTipText("");
         btnCrearPas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -163,6 +163,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar (1).png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -193,27 +194,31 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21)
                 .addComponent(lPasajero)
                 .addGap(4, 4, 4)
-                .addGroup(panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPasajeroLayout.createSequentialGroup()
-                        .addComponent(tfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnCrearPas))
+                .addGroup(panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasajeroLayout.createSequentialGroup()
+                        .addComponent(tfDni)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar))
                     .addComponent(tfPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(btnCrearPas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         panelPasajeroLayout.setVerticalGroup(
             panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPasajeroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar)
-                    .addComponent(lPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCrearPas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPasajeroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBuscar)
+                            .addComponent(lPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDni))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPasajeroLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(btnCrearPas)))
                 .addContainerGap())
         );
 
@@ -292,7 +297,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         });
         horario.add(cbHorarios, java.awt.BorderLayout.CENTER);
 
-        panelDatos.add(horario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 293, 28));
+        panelDatos.add(horario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 293, 28));
 
         fecha.setBackground(new java.awt.Color(255, 255, 255));
         fecha.setLayout(new java.awt.BorderLayout());
@@ -305,101 +310,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         fecha.add(dcFecha, java.awt.BorderLayout.CENTER);
 
         panelDatos.add(fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 231, 28));
-
-        jGuardar.setBackground(new java.awt.Color(138, 193, 223));
-        jGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jGuardar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jGuardarMouseMoved(evt);
-            }
-        });
-        jGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jGuardarMouseExited(evt);
-            }
-        });
-        jGuardar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/guardar.png"))); // NOI18N
-        jLabel5.setText("Guardar");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jGuardar.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 80, 30));
-
-        panelDatos.add(jGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 50, 122, -1));
-
-        jHistorial.setBackground(new java.awt.Color(138, 193, 223));
-        jHistorial.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jHistorial.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jHistorial.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jHistorialMouseMoved(evt);
-            }
-        });
-        jHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jHistorialMouseExited(evt);
-            }
-        });
-        jHistorial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/historial.png"))); // NOI18N
-        jLabel9.setText("Historial");
-        jLabel9.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jHistorial.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 70, 30));
-
-        panelDatos.add(jHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 122, -1));
-
-        jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
-        jLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                jLimpiarMouseMoved(evt);
-            }
-        });
-        jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLimpiarMouseExited(evt);
-            }
-        });
-        jLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar2.png"))); // NOI18N
-        jLabel7.setText("Limpiar");
-        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 0, 90, 30));
-
-        panelDatos.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 122, -1));
-
-        panelPrincipal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 300));
-
-        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Carga de Pasajes");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 150, 40));
-
-        panelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 40));
-
-        btnVender.setText("Vender Pasaje");
-        btnVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVender.setEnabled(false);
-        btnVender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVenderActionPerformed(evt);
-            }
-        });
-        panelPrincipal.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 440, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(138, 193, 223));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -421,7 +331,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel6)
-                    .addComponent(ftfPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                    .addComponent(ftfPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -434,20 +344,67 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
                 .addGap(6, 6, 6))
         );
 
-        panelPrincipal.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 340, -1, -1));
+        panelDatos.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 140, 90));
+
+        btnVender.setFont(new java.awt.Font("Roboto Black", 1, 14)); // NOI18N
+        btnVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/autobus (1).png"))); // NOI18N
+        btnVender.setText("Vender Pasaje");
+        btnVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnVender.setEnabled(false);
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
+        panelDatos.add(btnVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 190, -1, 50));
+
+        jLimpiar.setBackground(new java.awt.Color(138, 193, 223));
+        jLimpiar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLimpiar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jLimpiarMouseMoved(evt);
+            }
+        });
+        jLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLimpiarMouseExited(evt);
+            }
+        });
+        jLimpiar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar2.png"))); // NOI18N
+        jLabel7.setText("Limpiar");
+        jLabel7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        jLimpiar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 30));
+
+        panelDatos.add(jLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, 122, -1));
+
+        panelPrincipal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 740, 300));
+
+        jPanel3.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Carga de Pasajes");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 150, 40));
+
+        panelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 40));
 
         getContentPane().add(panelPrincipal);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jGuardarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseMoved
-        jGuardar.setBackground(new Color(184,210,224));
-    }//GEN-LAST:event_jGuardarMouseMoved
-
-    private void jGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jGuardarMouseExited
-         jGuardar.setBackground(new Color(138,193,223));
-    }//GEN-LAST:event_jGuardarMouseExited
 
     private void jLimpiarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLimpiarMouseMoved
          jLimpiar.setBackground(new Color(184,210,224));
@@ -457,15 +414,10 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         jLimpiar.setBackground(new Color(138,193,223));
     }//GEN-LAST:event_jLimpiarMouseExited
 
-    private void jHistorialMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseMoved
-        jHistorial.setBackground(new Color(184,210,224));
-    }//GEN-LAST:event_jHistorialMouseMoved
-
-    private void jHistorialMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHistorialMouseExited
-         jHistorial.setBackground(new Color(138,193,223));
-    }//GEN-LAST:event_jHistorialMouseExited
-
     private void tfDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDniKeyTyped
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            btnBuscar.doClick();
+        }
         if(!(tfDni.getText()+evt.getKeyChar()).matches("\\d{1,8}")){
             evt.consume();
         }
@@ -590,13 +542,17 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         LocalTime salida = LocalTime.of(Integer.parseInt(hora[0]), Integer.parseInt(hora[1]));    
 //LISTO LOS COLECTIVOS DIPONIBLES
         ArrayList listaDispon = coleData.listarColectivosDisponibles(r.getIdRuta(), fec, salida);
-//        System.out.println("listados");
-        if(listaDispon.isEmpty()){
+
+        if(modeloTabla.getRowCount()==listaDispon.size()){            
             JOptionPane.showMessageDialog(this, "No hay colectivos disponibles");
         }else{            
-            sumarATabla(listaDispon);
+            cargarTabla(listaDispon);
         }
     }//GEN-LAST:event_btnAsignarUnidadActionPerformed
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        limpiarCampos();
+    }//GEN-LAST:event_jLabel7MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -612,18 +568,14 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
     private javax.swing.JPanel fecha;
     private javax.swing.JFormattedTextField ftfPrecio;
     private javax.swing.JPanel horario;
-    private javax.swing.JPanel jGuardar;
-    private javax.swing.JPanel jHistorial;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jLimpiar;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -688,23 +640,20 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             }
             modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
         }
-//        if(lista.isEmpty()){
-//            btnAsignarUnidad.setEnabled(true);
-//        }
     }
     
-    private void sumarATabla(Collection<Colectivos> lista) {
-        for(Colectivos x: lista){
-            int idP = x.getIdColectivo();
-            int idR = venta.getRuta().getIdRuta();
-            LocalDate fV = venta.getFechaViaje();
-            LocalTime hV = venta.getHoraViaje();
-            int asientosVendidos = pasajeData.AsientosVendidos(idP, idR, fV, hV).size();
-            int a = x.getCapacidad() - asientosVendidos;
-            String dispon = a+"";
-            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
-        }
-    }
+//    private void sumarATabla(Collection<Colectivos> lista) {
+//        for(Colectivos x: lista){
+//            int idP = x.getIdColectivo();
+//            int idR = venta.getRuta().getIdRuta();
+//            LocalDate fV = venta.getFechaViaje();
+//            LocalTime hV = venta.getHoraViaje();
+//            int asientosVendidos = pasajeData.AsientosVendidos(idP, idR, fV, hV).size();
+//            int a = x.getCapacidad() - asientosVendidos;
+//            String dispon = a+"";
+//            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
+//        }
+//    }
 
     private void llenarCombo(JComboBox<String> combo, Collection lista){
         combo.removeAllItems();
@@ -748,7 +697,6 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         cbHorarios.setSelectedIndex(-1);
         cbAsientos.setSelectedIndex(-1);
         ftfPrecio.setText("");
-        
-        
+        dcFecha.setDate(Date.valueOf(LocalDate.now()));        
     }
 }
