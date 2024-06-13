@@ -83,7 +83,7 @@ public class PasajeData {
     }    
 
     public void eliminarVenta(int id) {
-        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ? AND estado = 1";
+        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class PasajeData {
 
     public ArrayList<Pasaje> listarVentas() {
         ArrayList<Pasaje> listaVentas = new ArrayList<>();
-        String sql = "SELECT * FROM pasajes WHERE estado  = 1";
+        String sql = "SELECT * FROM pasajes";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
