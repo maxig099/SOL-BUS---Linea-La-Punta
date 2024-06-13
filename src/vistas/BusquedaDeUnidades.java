@@ -18,6 +18,8 @@ public class BusquedaDeUnidades extends javax.swing.JInternalFrame {
     List<Colectivos> listaMarca;
     List<Colectivos> listaCapac;
     List<Colectivos> listaEspecifica;
+    List<Colectivos> listaColeDist;
+    List<Colectivos> listaColeDistCap;
 
     
 
@@ -25,7 +27,11 @@ public class BusquedaDeUnidades extends javax.swing.JInternalFrame {
         initComponents();
         ocultarBarraTitulo();
         listaCole = coleData.listarColectivos();
-        llenarCombos();
+        listaColeDist = coleData.listaColeDist();
+        listaColeDistCap = coleData.listaColeDistCap();
+        llenarCombo();
+        llenarComboMarca();
+        llenarComboCapac();
         armarCabecera();
         llenarTabla();
         
@@ -418,12 +424,25 @@ public class BusquedaDeUnidades extends javax.swing.JInternalFrame {
         
     }
     
-    public void llenarCombos() {
+    public void llenarCombo() {
     for (Colectivos c : listaCole){
-        jcMarca.addItem(c.getMarca());
         jcMatricula.addItem(c.getMatricula());
-        jcCapacidad.addItem(""+c.getCapacidad());
     }
+    jcMatricula.setSelectedIndex(-1);
+    }
+    
+    private void llenarComboMarca(){
+        for (Colectivos c : listaColeDist) {
+            jcMarca.addItem(c.getMarca());
+        }
+        jcMarca.setSelectedIndex(-1);
+    }
+    
+    private void llenarComboCapac(){
+        for(Colectivos c : listaColeDistCap) {
+            jcCapacidad.addItem(""+c.getCapacidad());
+        }
+          jcCapacidad.setSelectedIndex(-1);
     }
     
      private void armarCabecera() {  

@@ -257,7 +257,7 @@ public class ColectivosData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
         }
         return lista;
     }
@@ -283,7 +283,7 @@ public class ColectivosData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
         }
         return lista;
     }
@@ -309,7 +309,7 @@ public class ColectivosData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
         }
         return lista;
     }
@@ -338,11 +338,52 @@ public class ColectivosData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
+        }
+        return lista;
+    }
+      public ArrayList<Colectivos> listaColeDist() {
+          ArrayList<Colectivos> lista = new ArrayList<>();
+          String sql = "SELECT DISTINCT marca FROM colectivos WHERE estado = 1";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Colectivos marca = new Colectivos();
+                marca.setMarca(rs.getString("marca"));
+                lista.add(marca);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
         }
         return lista;
     }
       
+       public ArrayList<Colectivos> listaColeDistCap() {
+          ArrayList<Colectivos> lista = new ArrayList<>();
+          String sql = "SELECT DISTINCT capacidad FROM colectivos WHERE estado = 1";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Colectivos capa = new Colectivos();
+                capa.setCapacidad(rs.getInt("capacidad"));
+                lista.add(capa);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Colectivo" + ex);
+        }
+        return lista;
     }
+      }
+    
+     
+      
 
 

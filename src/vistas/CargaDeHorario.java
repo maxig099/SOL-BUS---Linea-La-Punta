@@ -286,7 +286,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         for (Rutas rt : listaRutas) {
             jCRutas.addItem(rt.toString());
         }
-        jCRutas.setSelectedIndex(0);      
+        jCRutas.setSelectedIndex(-1);      
     }
 
     public void formatoSpinner() {
