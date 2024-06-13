@@ -250,6 +250,37 @@ public class PasajeData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
         }
     }*/
+    
+    public ArrayList<Pasaje> prueba(String sql) {
+        ArrayList<Pasaje> listaPasajes = new ArrayList<>();
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Pasaje pasaje = new Pasaje();
+                
+                pasaje.setIdPasaje(rs.getInt("id_pasajes"));
+                Pasajeros psjr = new PasajerosData().buscarPasajero(rs.getInt("id_pasajero"));
+                pasaje.setPasajero(psjr);
+                Colectivos cole = new ColectivosData().buscarColectivo(rs.getInt("id_colectivo"));
+                pasaje.setColectivo(cole);
+                Rutas ruta = new RutasData().buscarRuta(rs.getInt("id_ruta"));
+                pasaje.setRuta(ruta);
+                pasaje.setFechaViaje(rs.getDate("fecha_viaje").toLocalDate());
+                pasaje.setHoraViaje(rs.getTime("hora_viaje").toLocalTime());
+                pasaje.setAsiento(rs.getInt("nroButaca"));
+                pasaje.setPrecio(rs.getDouble("precio"));       
+                
+                listaPasajes.add(pasaje);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla " + ex);
+        }
+        return listaPasajes;
+    }    
 
 }
 

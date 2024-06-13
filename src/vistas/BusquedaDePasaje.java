@@ -2,28 +2,16 @@ package vistas;
 
 import accesoADatos.*;
 import entidades.*;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 
 public class BusquedaDePasaje extends javax.swing.JInternalFrame {
-
-    private Pasaje pasajeUnico;
-    private List<Pasaje> listaPasaje;
-   
-    private PasajeData pasajeData = new PasajeData();
-   
-    private Pasajeros pasajero = null;
-    private List<Pasaje> muchosPasajes;
-    private Pasaje pasaje = new Pasaje();
     private DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public boolean isCellEditable(int i, int i1) {
@@ -34,14 +22,14 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
     public BusquedaDePasaje() {
         initComponents();
         armarCabecera();
-       
-        listaPasaje = pasajeData.listarVentas();
-        cargarTabla();
+        llenarComboColectivos();
+        llenarComboRutas();
+        llenarComboHorarios();
         ocultarBarraTitulo();
-//        dcDesde.setMaxSelectableDate(Date.valueOf(LocalDate.now()));
-//        dcDesde.setDate(Date.valueOf(LocalDate.now()));
-//        dcHasta.setMaxSelectableDate(Date.valueOf(LocalDate.now()));
-//        dcHasta.setDate(Date.valueOf(LocalDate.now()));
+        dcDesde.setMaxSelectableDate(Date.valueOf(LocalDate.now()));
+        dcDesde.setDate(Date.valueOf(LocalDate.now()));
+        dcHasta.setMaxSelectableDate(Date.valueOf(LocalDate.now()));
+        dcHasta.setDate(Date.valueOf(LocalDate.now()));
     }
 
     @SuppressWarnings("unchecked")
@@ -49,7 +37,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelPrincipal = new javax.swing.JPanel();
+        principal = new javax.swing.JPanel();
         panelTabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -57,18 +45,30 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         panelDatos = new javax.swing.JPanel();
         panelPasajero = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
-        tfDni = new javax.swing.JTextField();
+        tfId = new javax.swing.JTextField();
         tfPasajero = new javax.swing.JTextField();
         cbBuscar = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        cbRutas = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        cbColectivos = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        dcDesde = new com.toedter.calendar.JDateChooser();
+        cbHorarios = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        dcHasta = new com.toedter.calendar.JDateChooser();
+        jLabel13 = new javax.swing.JLabel();
 
         setBorder(null);
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
-        panelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        panelPrincipal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        panelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        principal.setBackground(new java.awt.Color(255, 255, 255));
+        principal.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        principal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Pasaje"));
         panelTabla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -89,7 +89,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         panelAsiento.setLayout(new java.awt.BorderLayout());
         panelTabla.add(panelAsiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(451, 18, 121, -1));
 
-        panelPrincipal.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 770, 390));
+        principal.add(panelTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 770, 330));
 
         panelDatos.setBackground(new java.awt.Color(255, 255, 255));
         panelDatos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -105,9 +105,9 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
             }
         });
 
-        tfDni.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfDniKeyTyped(evt);
+                tfIdKeyTyped(evt);
             }
         });
 
@@ -115,7 +115,12 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         tfPasajero.setBackground(new java.awt.Color(255, 255, 255));
         tfPasajero.setToolTipText("");
 
-        cbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IDPasaje", "IDPasajero" }));
+        cbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI Pasajero", "ID Pasaje" }));
+        cbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelPasajeroLayout = new javax.swing.GroupLayout(panelPasajero);
         panelPasajero.setLayout(panelPasajeroLayout);
@@ -128,16 +133,16 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
                     .addGroup(panelPasajeroLayout.createSequentialGroup()
                         .addComponent(cbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
-                        .addComponent(tfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscar)))
-                .addContainerGap(303, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         panelPasajeroLayout.setVerticalGroup(
             panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPasajeroLayout.createSequentialGroup()
                 .addGroup(panelPasajeroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +152,24 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
 
         panelDatos.add(panelPasajero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 780, 90));
 
-        panelPrincipal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 130));
+        jButton1.setText("Eliminar");
+        panelDatos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 100, -1, -1));
+
+        jButton2.setText("Guardar");
+        panelDatos.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
+        panelDatos.add(cbRutas, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 140, -1));
+
+        jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel6.setText("Ruta:");
+        panelDatos.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
+
+        jLabel1.setText("Colectivo:");
+        panelDatos.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
+
+        panelDatos.add(cbColectivos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 138, -1));
+
+        principal.add(panelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 790, 130));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -158,64 +180,144 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         jLabel3.setText("Busqueda de Pasajes");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 190, 40));
 
-        panelPrincipal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
+        principal.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 40));
 
-        getContentPane().add(panelPrincipal);
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel12.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel12.setText("Desde:");
+        principal.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, -1, 28));
+        principal.add(dcDesde, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 160, 28));
+        principal.add(cbHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 150, -1));
+
+        jLabel10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel10.setText("Horario:  ");
+        principal.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        principal.add(dcHasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, 160, 28));
+
+        jLabel13.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel13.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel13.setText("Hasta:");
+        principal.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, -1, 28));
+
+        getContentPane().add(principal);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        int tipo = cbBuscar.getSelectedIndex();
-        if (tfDni.getText().isEmpty()) {
-            //JOptionPane.showMessageDialog(null, "Tiene que ingresar algun ID");
-            cargarTabla();
-        }
-        if (tipo == 0) {
-            pasajeUnico = pasajeData.buscarVenta(Integer.parseInt(tfDni.getText()));
-            String texto = "Pasaje Encontrado";
-//            if (pasajero != null) {
-//                texto = pasajero.getApellido() + ", " + pasajero.getNombre();
-//                pasaje.setPasajero(pasajero);
-//            }
-//            tfPasajero.setText(texto);
-            busquedaTabla();
-        } else if (tipo == 1) {      //LISTAR POR ID PASAJE
-            pasajero = new PasajerosData().buscarPasajero(Integer.parseInt(tfDni.getText()));
-            muchosPasajes = pasajeData.listarVentasXPasajero(pasajero.getIdPasajero());
-            String texto = "Usuario no encontrado";
-            if (pasajero != null) {
-                texto = pasajero.getApellido() + ", " + pasajero.getNombre();
-                pasaje.setPasajero(pasajero);
-            }
-            tfPasajero.setText(texto);
-            busquedaTabla();
-        } 
-        
+        String sql = "";
+        String sqlColectivo = "";
+        String sqlRutas = "";
+        String sqlHorario = "";
+        String sqlDni = "";
 
+//SELECCIONO TIPO DE BUSQUEDA
+        int tipo = cbBuscar.getSelectedIndex();
+
+        if (tipo == 0) {        //BUSCAR PASAJERO
+            if(!tfId.getText().isEmpty()){          //CONTROLO LA ENTRADA DEL PASAJERO
+                String dni = tfId.getText();
+                Pasajeros x = new PasajerosData().buscarPasajeroDNI(dni);
+                if(x != null){
+                    tfPasajero.setText(x.getApellido()+", "+x.getNombre());
+                    sqlDni = " AND id_pasajero = "+ x.getIdPasajero();
+                }else{
+                    tfPasajero.setText("Pasajero no encontrado");
+                }
+            }
+            
+//RECUPERO FECHAS
+            Date f=new Date(dcDesde.getDate().getTime());  //Casteo de util.Date a sql.Date
+            LocalDate desde = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate
+            Date f2=new Date(dcHasta.getDate().getTime());  //Casteo de util.Date a sql.Date
+            LocalDate hasta = f2.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate
+
+//REVISO COMBO COLECTIVOS
+            if(cbColectivos.getSelectedIndex()>0){
+                Colectivos colec = (Colectivos)cbColectivos.getSelectedItem();
+                sqlColectivo = " AND id_colectivo = "+colec.getIdColectivo();
+            }
+
+//REVISO COMBO RUTAS
+            if(cbRutas.getSelectedIndex()>0){
+                Rutas ruta = (Rutas)cbRutas.getSelectedItem();
+                sqlRutas = " AND id_ruta = "+ruta.getIdRuta();
+            }
+
+//REVISO COMBO HORARIOS
+            if(cbHorarios.getSelectedIndex()>0){
+                Horarios horario = (Horarios)cbHorarios.getSelectedItem();
+                sqlHorario = " AND hora_viaje = '"+horario.getHoraSalida()+"'";
+            }
+
+//ARMO EL STRING PARA LA CONSULTA
+            sql = " SELECT * FROM pasajes WHERE (fecha_viaje BETWEEN '"+desde+"' AND '"+hasta+"')"+sqlColectivo+sqlRutas+sqlHorario+sqlDni;
+            System.out.println(sql);
+
+
+        } else if (tipo == 1) {         //BUSCA ID DE BOLETO
+            int idBoleto = Integer.parseInt(tfId.getText());
+            sql = " SELECT * FROM pasajes WHERE id_pasajes = "+idBoleto;
+        }
+//PASO LA CONSULTA A PASAJEDATA Y CARGO LA TABLA
+        cargarTabla(new PasajeData().prueba(sql));
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void tfDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDniKeyTyped
-        if (!(tfDni.getText() + evt.getKeyChar()).matches("\\d{1,8}")) {
+    private void tfIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdKeyTyped
+        if (!(tfId.getText() + evt.getKeyChar()).matches("\\d{1,8}")) {
             evt.consume();
         }
         
-    }//GEN-LAST:event_tfDniKeyTyped
+    }//GEN-LAST:event_tfIdKeyTyped
+
+    private void cbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBuscarActionPerformed
+        tfId.setText("");
+        borrarFilas();
+        if(cbBuscar.getSelectedIndex()==0){
+            cbColectivos.setEnabled(true);
+            cbHorarios.setEnabled(true);
+            cbRutas.setEnabled(true);
+            dcDesde.setEnabled(true);
+            dcHasta.setEnabled(true);
+        }else if(cbBuscar.getSelectedIndex()==1){
+            cbColectivos.setEnabled(false);
+            cbHorarios.setEnabled(false);
+            cbRutas.setEnabled(false);
+            dcDesde.setEnabled(false);
+            dcHasta.setEnabled(false);
+        }
+    }//GEN-LAST:event_cbBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbBuscar;
+    private javax.swing.JComboBox<Object> cbColectivos;
+    private javax.swing.JComboBox<Object> cbHorarios;
+    private javax.swing.JComboBox<Object> cbRutas;
+    private com.toedter.calendar.JDateChooser dcDesde;
+    private com.toedter.calendar.JDateChooser dcHasta;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelAsiento;
     private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelPasajero;
-    private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelTabla;
+    private javax.swing.JPanel principal;
     private javax.swing.JTable tabla;
-    private javax.swing.JTextField tfDni;
+    private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfPasajero;
     // End of variables declaration//GEN-END:variables
 
@@ -251,77 +353,34 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         }
     }
 
-    private void busquedaTabla() {
-        borrarFilas();
-        int tipo = cbBuscar.getSelectedIndex();
-
-        if (tipo == 0) {
-            modeloTabla.addRow(new Object[]{pasajeUnico.getIdPasaje(),pasajeUnico.getPasajero(),pasajeUnico.getFechaViaje(),pasajeUnico.getColectivo(),pasajeUnico.getAsiento(),pasajeUnico.getPrecio()});
-        } else if (tipo == 1) {
-            for (Pasaje x : muchosPasajes) {
-                modeloTabla.addRow(new Object[]{x.getIdPasaje(), x.getPasajero(), x.getRuta(), x.getFechaViaje(), x.getHoraViaje(), x.getColectivo(), x.getAsiento(), x.getPrecio()});
-            }
-        }
-
-    }
-
-    private void cargarTabla() {
+    private void cargarTabla(ArrayList<Pasaje> listaPasaje) {
         borrarFilas();
         for (Pasaje x : listaPasaje) {
             modeloTabla.addRow(new Object[]{x.getIdPasaje(), x.getPasajero(), x.getRuta(), x.getFechaViaje(), x.getHoraViaje(), x.getColectivo(), x.getAsiento(), x.getPrecio()});
         }
     }
-//    
-//    private void sumarATabla(Collection<Colectivos> lista) {
-//        for(Colectivos x: lista){
-//            int idP = x.getIdColectivo();
-//            int idR = venta.getRuta().getIdRuta();
-//            LocalDate fV = venta.getFechaViaje();
-//            LocalTime hV = venta.getHoraViaje();
-//            int asientosVendidos = pasajeData.AsientosVendidos(idP, idR, fV, hV).size();
-//            int a = x.getCapacidad() - asientosVendidos;
-//            String dispon = a+"";
-//            modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
-//        }
-//    }
-//
-//    private void llenarCombo(JComboBox<String> combo, Collection lista){
-//        combo.removeAllItems();
-//        combo.addItem("---");
-//        for (Object x : lista){
-//            combo.addItem(x.toString());
-//        }
-//    }
-//    
-//    private String recuperarDato(String cadena, String patron){
-//        Pattern pattern = Pattern.compile(patron, Pattern.CASE_INSENSITIVE);
-//        Matcher matcher = pattern.matcher(cadena);
-//
-//        //vemos si coincide el patrón con el texto
-//        if (matcher.find()) {
-//            //Coincidió => obtener el valor del grupo 1
-//            return matcher.group(1);
-//        }
-//        return "No se encontro";
-//    }
-//
 
-//
-//    private double calcularPrecio(LocalTime tiempo) {
-//        LocalTime s = LocalTime.of(00, 00);
-//        long minutos = s.until(tiempo, ChronoUnit.MINUTES);
-//        double precio = minutos*5.5;
-//        return precio;
-//    }
-//
-//    private void limpiarCampos() {
-//        tfDni.setText("");
-//        tfPasajero.setText("");
-//        cbOrigen.setSelectedIndex(-1);
-//        cbDestino.setSelectedIndex(-1);
-//        cbHorarios.setSelectedIndex(-1);
-//        cbAsientos.setSelectedIndex(-1);
-//        ftfPrecio.setText("");
-//        
-//    }
+    private void llenarComboColectivos(){
+        ArrayList<Colectivos> lista = new ColectivosData().listarColectivos();
+        cbColectivos.addItem("---");
+        for (Colectivos x : lista){
+            cbColectivos.addItem(x);
+        }
+    }
+    
+    public void llenarComboRutas() {
+        ArrayList<Rutas> lista = new RutasData().listarRutas();
+        cbRutas.addItem("---");
+        for (Rutas x : lista) {
+            cbRutas.addItem(x);
+        }        
+    }
+    
+    public void llenarComboHorarios() {
+        ArrayList<Horarios> lista = new HorariosData().listarHorarios();
+        cbHorarios.addItem("---");
+        for (Horarios x : lista) {
+            cbHorarios.addItem(x);
+        }        
+    }
 }

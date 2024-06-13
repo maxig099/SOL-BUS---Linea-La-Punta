@@ -147,7 +147,7 @@ public class CargaDeHorario extends javax.swing.JInternalFrame {
         jLabel9.setText("Hora de llegada:");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, -1, -1));
 
-        tfHoraLlegada.setEnabled(false);
+        tfHoraLlegada.setEditable(false);
         jPanel3.add(tfHoraLlegada, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 80, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 500, 220));
