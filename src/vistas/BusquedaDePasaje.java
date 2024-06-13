@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -166,7 +167,10 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         int tipo = cbBuscar.getSelectedIndex();
-
+        if (tfDni.getText().isEmpty()) {
+            //JOptionPane.showMessageDialog(null, "Tiene que ingresar algun ID");
+            cargarTabla();
+        }
         if (tipo == 0) {
             pasajeUnico = pasajeData.buscarVenta(Integer.parseInt(tfDni.getText()));
             String texto = "Pasaje Encontrado";
@@ -186,7 +190,8 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
             }
             tfPasajero.setText(texto);
             busquedaTabla();
-        }
+        } 
+        
 
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -194,6 +199,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         if (!(tfDni.getText() + evt.getKeyChar()).matches("\\d{1,8}")) {
             evt.consume();
         }
+        
     }//GEN-LAST:event_tfDniKeyTyped
 
 
