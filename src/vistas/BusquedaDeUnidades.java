@@ -342,9 +342,9 @@ public class BusquedaDeUnidades extends javax.swing.JInternalFrame {
   int filaSeleccionada = jtTabla.getSelectedRow();
         if (filaSeleccionada != -1) {
             int idColectivo = (int) jtTabla.getValueAt(filaSeleccionada, 0);
-            String matricula = (String) jtTabla.getValueAt(filaSeleccionada, 1);
-            String marca = (String) jtTabla.getValueAt(filaSeleccionada, 2);
-            String modelo = (String) jtTabla.getValueAt(filaSeleccionada, 3);
+            String marca = (String) jtTabla.getValueAt(filaSeleccionada, 1);
+            String modelo = (String) jtTabla.getValueAt(filaSeleccionada, 2);
+            String matricula = (String) jtTabla.getValueAt(filaSeleccionada, 3);
             int capacidad = (int) jtTabla.getValueAt(filaSeleccionada, 4);
 
             Colectivos colectivo = new Colectivos(idColectivo, matricula, marca, modelo, capacidad);
