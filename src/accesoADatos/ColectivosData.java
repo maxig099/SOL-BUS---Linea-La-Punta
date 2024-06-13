@@ -171,23 +171,19 @@ public class ColectivosData {
     }
     
 //LISTO LOS COLECTIVOS DISPONIBLES - LO UTILIZO PARA ASIGNAR NUEVA UNIDAD
-    public ArrayList<Colectivos> listarColectivosDisponibles(LocalDate fecha, LocalTime horaSalida, LocalTime horaLlegada) {
+    public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaSalida) {
         ArrayList<Colectivos> listaColectivos = new ArrayList<>();
-        String sql = "SELECT DISTINCT c.* " +
-                    "FROM pasajes p " +
-                    "RIGHT JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
-                    "LEFT JOIN ruta r ON p.id_ruta = r.id_ruta " +
-                    "LEFT JOIN horarios h ON (p.hora_viaje = h.hora_salida AND r.id_ruta = h.id_ruta) " +
-                    "WHERE (NOT(((h.hora_salida BETWEEN ? AND ?) "
-                    + "OR (h.hora_llegada BETWEEN ? AND ?)) AND ?) OR p.id_ruta is null)";
+        String sql = "SELECT DISTINCT c.* FROM colectivos c "
+                    + "WHERE estado = 1 ";
+//        String sql = "SELECT DISTINCT c.* FROM pasajes p "
+//                    + "RIGHT JOIN colectivos c ON p.id_colectivo = c.id_colectivo "
+//                    + "WHERE (NOT(p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?) OR id_ruta IS NULL) AND estado = 1 ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setTime(1, Time.valueOf(horaSalida));
-            ps.setTime(2, Time.valueOf(horaLlegada));
-            ps.setTime(3, Time.valueOf(horaSalida));
-            ps.setTime(4, Time.valueOf(horaLlegada));
-            ps.setDate(5, Date.valueOf(fecha));
+//            ps.setInt(1,id_ruta);
+//            ps.setDate(2, Date.valueOf(fechaViaje));
+//            ps.setTime(3, Time.valueOf(horaSalida));
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -209,36 +205,36 @@ public class ColectivosData {
     }    
     
 //LISTO COLECTIVOS DISPONIBLES PARA EL VIAJE DETERMINADO
-    public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
-        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
-        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
-                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
-                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?) OR ";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id_ruta);
-            ps.setDate(2, Date.valueOf(fechaViaje));
-            ps.setTime(3, Time.valueOf(horaViaje));
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                colectivo = new Colectivos();
-                
-                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
-                colectivo.setMatricula(rs.getString("matricula"));
-                colectivo.setMarca(rs.getString("marca"));
-                colectivo.setModelo(rs.getString("modelo"));
-                colectivo.setCapacidad(rs.getInt("capacidad"));
-                colectivo.setEstado(true);
-                
-                listaColeAsig.add(colectivo);                
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
-        }
-        return listaColeAsig;
-    }
+//    public ArrayList<Colectivos> listarColectivosDisponibles(int id_ruta, LocalDate fechaViaje, LocalTime horaViaje){
+//        ArrayList<Colectivos> listaColeAsig = new ArrayList<>();
+//        String sql = "SELECT DISTINCT c.* FROM pasajes p " +
+//                    "JOIN colectivos c ON p.id_colectivo = c.id_colectivo " +
+//                    "WHERE NOT (p.id_ruta = ? AND p.fecha_viaje = ? AND p.hora_viaje = ?) OR ";
+//        try {
+//            PreparedStatement ps = con.prepareStatement(sql);
+//            ps.setInt(1, id_ruta);
+//            ps.setDate(2, Date.valueOf(fechaViaje));
+//            ps.setTime(3, Time.valueOf(horaViaje));
+//            ResultSet rs = ps.executeQuery();
+//
+//            while (rs.next()) {
+//                colectivo = new Colectivos();
+//                
+//                colectivo.setIdColectivo(rs.getInt("id_colectivo"));
+//                colectivo.setMatricula(rs.getString("matricula"));
+//                colectivo.setMarca(rs.getString("marca"));
+//                colectivo.setModelo(rs.getString("modelo"));
+//                colectivo.setCapacidad(rs.getInt("capacidad"));
+//                colectivo.setEstado(true);
+//                
+//                listaColeAsig.add(colectivo);                
+//            }
+//            ps.close();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Pasajes" + ex);
+//        }
+//        return listaColeAsig;
+//    }
     
     public ArrayList<Colectivos> listarColePorMatricula(String matri) {
         ArrayList<Colectivos> lista = new ArrayList<>();

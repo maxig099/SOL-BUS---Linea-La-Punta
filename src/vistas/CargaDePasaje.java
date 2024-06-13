@@ -491,6 +491,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             llenarCombo(cbDestino, rutaData.listarRutasDestino((String) cbOrigen.getSelectedItem()));
             cbDestino.setEnabled(true);
         }
+        btnAsignarUnidad.setEnabled(false);
     }//GEN-LAST:event_cbOrigenActionPerformed
 
     private void cbDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDestinoActionPerformed
@@ -499,7 +500,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         Rutas r=null;
         if(cbDestino.getSelectedIndex()<1){
             cbHorarios.setEnabled(false);
-            cbAsientos.setEnabled(false);            
+            cbAsientos.setEnabled(false);
         }else{
             r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
             llenarCombo(cbHorarios, horaData.listarHorariosXRuta(r.getIdRuta()));
@@ -511,14 +512,15 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             double precio = calcularPrecio(r.getDuracionEst());
             venta.setPrecio(precio);
             ftfPrecio.setText("$ "+precio);
-        }
+        }        
+        btnAsignarUnidad.setEnabled(false);
     }//GEN-LAST:event_cbDestinoActionPerformed
 
     private void cbHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHorariosActionPerformed
-        Rutas r = rutaData.buscarRuta((String)cbOrigen.getSelectedItem(), (String)cbDestino.getSelectedItem());
         
         borrarFilas();
         if(cbHorarios.getSelectedIndex()>0){
+            Rutas r = rutaData.buscarRuta((String)cbOrigen.getSelectedItem(), (String)cbDestino.getSelectedItem());
             Date f=new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
             LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
             String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
@@ -581,14 +583,19 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
 
     private void btnAsignarUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarUnidadActionPerformed
         Rutas r = rutaData.buscarRuta((String) cbOrigen.getSelectedItem(), (String) cbDestino.getSelectedItem());
-        Date f = new Date(dcFecha.getDate().getTime());  //Casteo de util.Date a sql.Date
-        LocalDate fec = f.toLocalDate();     //recibo la fecha en sql.Date y la paso a localdate 
+        Date f = new Date(dcFecha.getDate().getTime());                      //Casteo de util.Date a sql.Date
+        LocalDate fec = f.toLocalDate();                                    //recibo la fecha en sql.Date y la paso a localdate 
         String x = recuperarDato((String) cbHorarios.getSelectedItem(), "Salida: ([0-9:0-9]+)");
         String[] hora=x.split(":");
-        LocalTime salida = LocalTime.of(Integer.parseInt(hora[0]), Integer.parseInt(hora[1]));        
+        LocalTime salida = LocalTime.of(Integer.parseInt(hora[0]), Integer.parseInt(hora[1]));    
+//LISTO LOS COLECTIVOS DIPONIBLES
         ArrayList listaDispon = coleData.listarColectivosDisponibles(r.getIdRuta(), fec, salida);
-        System.out.println("listados");
-        sumarATabla(listaDispon);
+//        System.out.println("listados");
+        if(listaDispon.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay colectivos disponibles");
+        }else{            
+            sumarATabla(listaDispon);
+        }
     }//GEN-LAST:event_btnAsignarUnidadActionPerformed
 
 
@@ -681,9 +688,9 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
             }
             modeloTabla.addRow(new Object[]{x.getIdColectivo(), x.toString(), x.getCapacidad(), dispon});
         }
-        if(lista.isEmpty()){
-            btnAsignarUnidad.setEnabled(true);
-        }
+//        if(lista.isEmpty()){
+//            btnAsignarUnidad.setEnabled(true);
+//        }
     }
     
     private void sumarATabla(Collection<Colectivos> lista) {
@@ -741,6 +748,7 @@ public class CargaDePasaje extends javax.swing.JInternalFrame {
         cbHorarios.setSelectedIndex(-1);
         cbAsientos.setSelectedIndex(-1);
         ftfPrecio.setText("");
+        
         
     }
 }
