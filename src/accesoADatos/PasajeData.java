@@ -83,7 +83,7 @@ public class PasajeData {
     }    
 
     public void eliminarVenta(int id) {
-        String sql = "UPDATE pasajes SET estado = 0 WHERE id_pasajes = ?";
+        String sql = "DELETE FROM pasajes WHERE id_pasajes = ?";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql);

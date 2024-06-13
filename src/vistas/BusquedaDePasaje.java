@@ -3,11 +3,13 @@ package vistas;
 import accesoADatos.*;
 import entidades.*;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +33,8 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
         dcDesde.setDate(Date.valueOf(LocalDate.now()));
         dcHasta.setMaxSelectableDate(Date.valueOf(LocalDate.now()));
         dcHasta.setDate(Date.valueOf(LocalDate.now()));
+        ((JTextField) this.dcDesde.getDateEditor()).setEditable(false);
+        ((JTextField) this.dcHasta.getDateEditor()).setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -383,6 +387,9 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tfIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfIdKeyTyped
+        if(evt.getKeyChar()==KeyEvent.VK_ENTER){
+            btnBuscar.doClick();
+        }
         if (!(tfId.getText() + evt.getKeyChar()).matches("\\d{1,8}")) {
             evt.consume();
         }
@@ -408,7 +415,7 @@ public class BusquedaDePasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbBuscarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        limpiarCampos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
